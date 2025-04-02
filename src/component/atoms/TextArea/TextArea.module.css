@@ -1,0 +1,42 @@
+.textAreaBox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  color: var(--black-v7);
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: capitalize;
+  margin-bottom: 8px;
+}
+
+.textAreaBox textarea {
+  /* padding: 12px 0px; */
+
+  font-size: 16px;
+  resize: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  width: 100%;
+  background-color: var(--white);
+  outline: 0px;
+  border: 1px solid var(--border);
+  border: 0px;
+  border-radius: 10px;
+}
+
+.textAreaBox textarea::placeholder {
+  color: var(--placeholder) !important;
+  padding-left: 10px;
+}
+
+.labelDisabled {
+  color: var(--disabled-label-color);
+}
+
+.errorText {
+  color: red;
+  font-size: 15px;
+}

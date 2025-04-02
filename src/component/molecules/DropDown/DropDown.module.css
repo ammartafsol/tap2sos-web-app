@@ -1,0 +1,107 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--poppins);
+}
+
+.label {
+  margin-bottom: 8px;
+  color: var(--text-black-clr);
+  text-transform: capitalize;
+  font-weight: 400;
+  font-size: 16px;
+}
+.errorText {
+  color: red;
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 5px;
+  margin-bottom: 0;
+  font-family: var(--plusJakartaSans);
+}
+
+.disabled {
+  color: var(--disabled-label-clr);
+}
+
+.reactSelect {
+}
+
+/* On Hover */
+.dropdown:hover {
+  border: 1px solid black !important;
+  background-color: #f6f6f6;
+}
+
+/* on Focus */
+.dropdown:focus {
+  border: 1px solid black;
+}
+
+/* On Active */
+.dropdown:active {
+  border: 1px solid black;
+}
+
+/* On Disabled */
+.dropdown:disabled {
+  background-color: #f6f6f6;
+  color: #b5b5b5;
+  border: 1px solid #e5e5e5;
+}
+
+.noBorder {
+  border: 0px solid #e5e5e5;
+}
+
+.arrow {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+
+/*  React Select */
+.leftIconBox {
+  position: absolute;
+  left: 20px;
+  top: 55%;
+  bottom: 45%;
+  transform: translateY(-50%);
+  height: max-content;
+}
+
+.dropdownContainer {
+  position: relative;
+  /* border: 1px solid var(--border-color); */
+  border-radius: 6px;
+  /* margin-bottom: 10px; */
+}
+
+.optionContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox {
+  margin-right: 8px; /* Space between checkbox and label */
+}
+
+.optionLabel {
+  cursor: pointer;
+}
+
+.imageDiv {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 30px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30px;
+}
+
