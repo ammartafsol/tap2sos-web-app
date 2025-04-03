@@ -24,4 +24,30 @@ export const aboutUsPageData = {
       "Immutable Blockchain Storage (IPFS)",
     ],
   },
+  guideSection: {
+    title: "Step-by-Step Guide",
+    description: "Follow these simple steps to complete the process with ease.",
+    guideCards: [
+      {
+        title: "Register & Login",
+        description: "Secure access with SSO (Gmail)",
+        image: "/Images/svg/loginReg.svg",
+      },
+      {
+        title: "Scan COTIC Card",
+        description: "Retrieve patient data with a simple tap",
+        image: "/Images/svg/scan.svg",
+      },
+      {
+        title: "Blockchain Security",
+        description: "Data stored in IPFS-backed blockchain",
+        image: "/Images/svg/blockchain.svg",
+      },
+      {
+        title: "Offline Mode & Sync",
+        description: "Access data even without internet ",
+        image: "/Images/svg/upload.svg",
+      },
+    ],
+  },
 };
