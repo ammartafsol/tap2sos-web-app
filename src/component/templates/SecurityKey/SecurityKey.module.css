@@ -1,0 +1,80 @@
+.contactUsCard {
+    display: flex;
+    padding: 80px 90px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid #f0f0f0;
+    background: #fff;
+  }
+  
+  .headingDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: left;
+  }
+  
+  .headingDiv h2 {
+    font-size: 44px;
+    font-weight: 700;
+    color: #000;
+    line-height: 50px;
+  }
+  
+  .headingDiv p {
+    color: #484848;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 21px;
+  }
+  
+  .contactUsDetails {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    gap: 32px;
+  }
+  
+  .contactInfoDiv {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  
+  .imageDiv {
+    border-radius: 6px;
+    background: rgba(26, 72, 141, 0.08);
+    display: flex;
+    width: 60px;
+    height: 60px;
+    padding: 14px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .contactInfoDiv p {
+    color: #1a488d;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 21px;
+    opacity: 0.8;
+  }
+  
+  .contactUsFormDiv{
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding-left: 35px;
+  }
+
+  .iconColor{
+    color: orange !important;
+    text-shadow: 
+        0px 0px 2px yellow, 
+        1px 1px 2px orange, 
+        -1px -1px 2px yellow, 
+        2px 2px 4px orange !important;
+  }

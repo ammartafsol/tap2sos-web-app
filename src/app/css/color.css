@@ -16,4 +16,9 @@
   --border-blue: #97b2dd;
   --text-color: #222222;
   --text-color-v1: #484848;
+  --placeholder-color: #b9bcbf;
+  --input-border: #e0e0e0;
+  --input-border-active: #1a488d;
+
+  --gradient-color: linear-gradient(225deg, #e04018 0%, #f8d11d 100%), #0a2147;
 }
