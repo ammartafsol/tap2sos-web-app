@@ -1,10 +1,10 @@
-.landingPage {
+/* .landingPage {
   background-image: url("/Images/app-images/bg.png");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
   padding-top: 200px;
-}
+} */
 
 .heroRightDiv {
   border-radius: 33px;
@@ -14,22 +14,33 @@
       rgba(255, 255, 255, 0.7) 100%
     ),
     #97b2dd;
-
   width: 543px;
   height: 684px;
+  margin-inline: auto 0;
 }
 
 .heroLeft h1 {
   color: var(--deep-ocean-blue);
-  color: #222;
-  font-feature-settings: "liga" off, "clig" off;
-  font-family: "SF UI Display";
   font-size: 62px;
   font-weight: 700;
 }
 
 .heroLeft span {
   color: var(--gradient-color);
+}
+.heroLeft p {
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  opacity: 0.6;
+}
+
+.storeImages img {
+  position: relative !important;
+  object-fit: contain;
+  height: 40px;
+  width: 135px;
 }
 
 .rightImg {

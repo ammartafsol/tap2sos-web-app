@@ -21,6 +21,18 @@ export default function LandingView() {
                     COTIC and blockchain technology. Fast, reliable, and
                     immutable healthcare data access for hospitals and clinics.
                   </p>
+                  <div className={classes.storeImages}>
+                    <Image
+                      src={"/Images/app-images/appStore.png"}
+                      fill
+                      alt="app img"
+                    />
+                    <Image
+                      src={"/Images/app-images/googleStore.png"}
+                      fill
+                      alt="app img"
+                    />
+                  </div>
                 </div>
               </Col>
               <Col md={6}>
