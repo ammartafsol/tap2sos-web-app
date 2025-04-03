@@ -37,7 +37,9 @@
   font-weight: 500;
   line-height: 21px;
 }
-
-.newletterSection {
+.chooseUsSec {
+  background-color: var(--bg-snow-color);
+}
+.newsletterSection {
   margin-bottom: 50px;
 }
