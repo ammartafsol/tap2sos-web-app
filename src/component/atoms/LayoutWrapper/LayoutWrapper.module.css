@@ -1,0 +1,7 @@
+.mainWrapper {
+  background-image: url("/Images/app-images/bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  padding-top: 200px;
+}

@@ -1,8 +1,9 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/global.css";
 import "./css/typography.css";
 import "./css/color.css";
 import { ToastContainer } from "react-toastify";
+import Header from "@/component/organisms/Header";
 
 export const metadata = {
   title: "Tap2Sos Web App",
@@ -12,11 +13,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={""}>
+      <body>
         <ToastContainer />
         {/* <AuthProvider> */}
-          {/* <RootApis /> */}
-          {children}
+        {/* <RootApis /> */}
+
+        <Header />
+        {children}
+
         {/* </AuthProvider> */}
       </body>
     </html>

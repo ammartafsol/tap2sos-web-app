@@ -17,8 +17,12 @@
   opacity: 0.8;
   cursor: not-allowed;
 }
-
-
+.btn[color-variant="gradient"] {
+  color: white;
+  border-radius: 6px;
+  padding: 15px 32px;
+  background: linear-gradient(225deg, #e04018 0%, #f8d11d 100%), #0a2147;
+}
 .btn[color-variant="primary"] {
   background: var(--royal-navy-blue);
   color: var(--white-color);

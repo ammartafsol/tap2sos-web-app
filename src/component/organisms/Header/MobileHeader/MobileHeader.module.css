@@ -1,0 +1,56 @@
+.header {
+  background-color: var(--white-color);
+  width: 100%;
+  padding-block: 15px;
+  border-bottom: 1px solid rgba(249, 234, 255, 0.8);
+}
+.logoDiv {
+  width: 90px;
+  position: relative;
+  height: 34px;
+}
+.drawerDiv {
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+}
+.drawerLogo {
+  width: 140px;
+  position: relative;
+  height: 55px;
+}
+.drawerLogo img {
+  width: 100%;
+  object-fit: cover;
+}
+.navigationDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+
+  padding: 20px;
+}
+.link {
+  text-decoration: none;
+  color: var(--secondary-color-v1-opacity);
+  font-weight: 500;
+}
+.activeLink {
+  color: var(--primary-color-opacity);
+  text-decoration: 2px solid underline var(--primary-color-opacity);
+}
+.buttonDiv {
+  gap: 10px;
+  flex-direction: column;
+  display: flex;
+}
+.dashboardButton {
+  width: 100%;
+}
+.buttonSection {
+  border-top: 1px solid rgba(249, 234, 255, 0.8);
+
+  padding: 20px;
+}

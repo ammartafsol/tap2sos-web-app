@@ -1,0 +1,44 @@
+.landingPage {
+  background-image: url("/Images/app-images/bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  padding-top: 200px;
+}
+
+.heroRightDiv {
+  border-radius: 33px;
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 255, 0.7) 100%
+    ),
+    #97b2dd;
+
+  width: 543px;
+  height: 684px;
+}
+
+.heroLeft h1 {
+  color: var(--deep-ocean-blue);
+  color: #222;
+  font-feature-settings: "liga" off, "clig" off;
+  font-family: "SF UI Display";
+  font-size: 62px;
+  font-weight: 700;
+}
+
+.heroLeft span {
+  color: var(--gradient-color);
+}
+
+.rightImg {
+  width: 450px;
+  height: 710px;
+  margin: auto;
+}
+
+.heroRightDiv img {
+  position: relative !important;
+  object-fit: contain;
+}

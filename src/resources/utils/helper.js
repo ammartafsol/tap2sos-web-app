@@ -2,10 +2,10 @@ import CryptoJS from "crypto-js";
 
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Patch, Post } from "@/interceptor/axiosInterceptor";
 // import { apiHeader } from "../../config/apiUrl";
-import { Patch, Post } from "@/interceptor/axios-functions";
 
-export const API_URL = 'config.apiBaseUrl';
+export const API_URL = "config.apiBaseUrl";
 
 // export const downloadFileUrl =
 //   "https://www.dropbox.com/scl/fi/fvfz25arw0vq99xis2v9g/AthleteRaceINFO.pdf?rlkey=2dzbihw3uupnw15fl0ddsvfjd&e=1&dl=0";
@@ -387,4 +387,3 @@ export const capitalizeFirstLetter = (l) => {
   }
   return l.charAt(0).toUpperCase() + l.slice(1);
 };
-

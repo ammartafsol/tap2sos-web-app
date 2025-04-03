@@ -1,0 +1,18 @@
+:root {
+  --primary-color: #0a2147;
+  --gray-color: #b6b6b6;
+  --light-gray: #e5e7eb;
+  --light-gray-100: #f3f4f6;
+  --royal-navy-blue: #1a498b;
+  --deep-ocean-blue: #1a488d;
+  --fiery-red: #ff4242;
+  --white-color: #fff;
+  --black-color: #000;
+  --shadow-color: #e5e7eb;
+  --field-border-color: #f0f0f0;
+  --bg-snow-color: #f1f6ff;
+  --text-color: #222222;
+  --text-color-v1: #484848;
+
+  --gradient-color: linear-gradient(225deg, #e04018 0%, #f8d11d 100%), #0a2147;
+}

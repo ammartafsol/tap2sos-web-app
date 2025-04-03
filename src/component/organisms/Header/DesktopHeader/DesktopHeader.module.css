@@ -1,0 +1,60 @@
+.header {
+  /* background-color: var(--white-color); */
+  position: absolute;
+  margin-block: 50px 40px;
+  width: 100%;
+  padding-block: 15px;
+
+  /* border-bottom: 1px solid rgba(249, 234, 255, 0.8); */
+}
+
+.mainHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 3px 5px 0px rgba(255, 255, 255, 0.5) inset;
+  backdrop-filter: blur(50px);
+  width: 100%;
+  padding: 15px 26px;
+}
+
+.logoDiv {
+  width: 153px;
+  position: relative;
+  height: 45px;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.navigationDiv {
+  display: flex;
+  gap: 35px;
+}
+.itemCenter {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.link {
+  text-decoration: none;
+  color: var(--secondary-color-v1-opacity);
+  font-weight: 500;
+}
+.activeLink {
+  color: var(--primary-color-opacity);
+  text-decoration: 2px solid underline var(--primary-color-opacity);
+}
+.buttonDiv {
+  gap: 10px;
+  display: flex;
+}
+.dashboardButton {
+  width: 100%;
+}
