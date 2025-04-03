@@ -1,0 +1,40 @@
+.header {
+  background-image: url("/Images/app-images/AboutBack.svg");
+  background-size: cover;
+  background-position: center;
+  height: 472px;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  background-blend-mode: normal, multiply, normal;
+
+}
+.headerChild{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    height: 100%;
+    width: 50%;
+    margin: auto;
+}
+.headerChild h4 {
+  text-align: center;
+  margin-bottom: 0px;
+  color: var(--white-color);
+  font-size: 44px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 64px;
+  letter-spacing: -0.88px;
+}
+.headerChild p {
+  text-align: center;
+  color: var(--white-color);
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  opacity: 0.5;
+  line-height: 21px;
+}
