@@ -12,10 +12,18 @@ const Newsletter = () => {
       </div>
       <div className={classes.fieldOption}>
         <div className={classes.newsField}>
-          <Input placeholder={"Email Address"} />
-          <Button label={"Submit"} variant={gradient} />
+          <Input
+            mainContClassName={classes.inputClass}
+            placeholder={"Email Address"}
+            inputStyle={{
+              height: "48px",
+            }}
+          />
+          <Button label={"Submit"} variant={"gradient"} />
         </div>
-        <p>We care about your data in our Privacy policy</p>
+        <p>
+          We care about your data in our <span>Privacy policy</span>
+        </p>
       </div>
     </div>
   );

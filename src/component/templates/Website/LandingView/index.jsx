@@ -42,8 +42,10 @@ export default function LandingView() {
       </div>
       <Container>
         <Row>
-          <Col md={12}>
-            <Newsletter />
+          <Col md={12} className="p-0">
+            <div className={classes.newletterSection}>
+              <Newsletter />
+            </div>
           </Col>
         </Row>
       </Container>
