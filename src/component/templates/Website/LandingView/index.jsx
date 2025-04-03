@@ -46,10 +46,7 @@ export default function LandingView() {
         <Container className="p-0">
           <Row>
             <Col md={12} className="p-0">
-              <TextImage
-                rowReverse={true}
-                data={aboutUsPageData?.chooseUsData}
-              />
+              <TextImage rowReverse={true} data={data?.chooseUsData} />
             </Col>
           </Row>
         </Container>
@@ -58,7 +55,7 @@ export default function LandingView() {
         <Row>
           <Col md={12} className="p-0">
             <div className={classes.benefitsSection}>
-              <TextImage data={aboutUsPageData?.chooseUsData} />
+              <TextImage data={data?.benefitsData} />
             </div>
           </Col>
           <Col md={12} className="p-0">
