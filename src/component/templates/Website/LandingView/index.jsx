@@ -12,6 +12,12 @@ export default function LandingView() {
             <Row>
               <Col md={6}>
                 <div className={classes.heroLeft}>
+                  {/* <Image
+                    src={"/Images/app-images/tap2sos.png"}
+                    fill
+                    className={classes.tap2Image}
+                    alt="app img"
+                  /> */}
                   <h1>
                     Revolutionizing Healthcare Data with
                     <span>COTIC & Blockchain</span>
@@ -25,11 +31,13 @@ export default function LandingView() {
                     <Image
                       src={"/Images/app-images/appStore.png"}
                       fill
+                      className={classes.appImage}
                       alt="app img"
                     />
                     <Image
                       src={"/Images/app-images/googleStore.png"}
                       fill
+                      className={classes.storeImage}
                       alt="app img"
                     />
                   </div>

@@ -58,5 +58,17 @@
   font-family: "SF UI Display";
   font-weight: 100; /* Ultralight */
   font-style: normal;
-  src: url("/fonts/sf-ui-display-ultralight-58646b19bf205.otf") format("opentype");
+  src: url("/fonts/sf-ui-display-ultralight-58646b19bf205.otf")
+    format("opentype");
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
 }
