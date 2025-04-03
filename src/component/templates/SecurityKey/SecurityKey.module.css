@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 8px;
-    border: 1px solid #f0f0f0;
+    border: 1px solid red solid #f0f0f0;
     background: #fff;
   }
   
@@ -66,15 +66,23 @@
   .contactUsFormDiv{
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      justify-content: flex-start;
       padding-left: 35px;
+      height: 100% !important;
   }
 
-  .iconColor{
-    color: orange !important;
-    text-shadow: 
-        0px 0px 2px yellow, 
-        1px 1px 2px orange, 
-        -1px -1px 2px yellow, 
-        2px 2px 4px orange !important;
+  .inputDivs{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    flex-grow: 1;
   }
+
+.button{
+    margin-top: 20%;
+}
+
+  .iconColor{
+    color: #D48F00 !important;
+  }
+
