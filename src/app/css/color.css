@@ -13,6 +13,9 @@
   --bg-snow-color: #f1f6ff;
   --text-color: #222222;
   --text-color-v1: #484848;
+  --placeholder-color: #B9BCBF;
+  --input-border: #E0E0E0;
+  --input-border-active: #1A488D;
 
   --gradient-color: linear-gradient(225deg, #e04018 0%, #f8d11d 100%), #0a2147;
 }
