@@ -9,7 +9,12 @@
 .heroLeft {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 40px;
+}
+
+.heroLeft img {
+  position: relative !important;
+  object-fit: contain;
 }
 
 .heroLeft h1 {
@@ -19,8 +24,16 @@
 }
 
 .heroLeft span {
-  color: var(--gradient-color);
+  background: linear-gradient(
+    225deg,
+    var(--reddish-orange) 0%,
+    var(--yellow-color) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
+
 .heroLeft p {
   color: var(--text-color);
   font-size: 20px;
@@ -63,4 +76,7 @@
 .heroRightDiv img {
   position: relative !important;
   object-fit: contain;
+}
+.navigate {
+  padding-block: 70px;
 }
