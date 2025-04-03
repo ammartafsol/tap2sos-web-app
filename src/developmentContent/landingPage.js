@@ -36,4 +36,31 @@ export const LANDING_PAGE_DATA = {
       },
     ],
   },
+
+  chooseUsData: {
+    image: "/Images/app-images/about_choose_image.svg",
+    title: "Why Choose Us?",
+    description:
+      "Securely retrieve, store, and manage patient data using COTIC and blockchain technology. Fast, reliable, and immutable healthcare data access for hospitals and clinics.",
+    listText: [
+      "COTIC-Based Patient Data Retrieval",
+      "Immutable Blockchain Storage (IPFS)",
+      "Offline Data Access & Auto-Sync",
+      "COTIC-Based Patient Data Retrieval",
+      "Immutable Blockchain Storage (IPFS)",
+    ],
+  },
+
+  benefitsData: {
+    image: "/Images/app-images/about_choose_image.svg",
+    title: "Real-World Benefits",
+    description: "Trusted by Healthcare Professionals & Organizations",
+    listText: [
+      "COTIC-Based Patient Data Retrieval",
+      "Immutable Blockchain Storage (IPFS)",
+      "Offline Data Access & Auto-Sync",
+      "COTIC-Based Patient Data Retrieval",
+      "Immutable Blockchain Storage (IPFS)",
+    ],
+  },
 };
