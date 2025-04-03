@@ -5,3 +5,9 @@
   height: 100vh;
   padding-top: 200px;
 } */
+.chooseUsSec {
+  background-color: var(--bg-snow-color);
+}
+.newsletterSection {
+  margin-bottom: 50px;
+}
