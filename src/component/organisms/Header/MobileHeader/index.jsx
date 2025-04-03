@@ -8,6 +8,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Button from "@/component/atoms/Button";
 import { NAV_DATA } from "@/developmentContent/appData";
+import { mergeClass } from "@/resources/utils/helper";
 
 export default function MobileHeader({ logout }) {
   // const { accessToken } = useSelector((state) => state?.authReducer);
@@ -76,7 +77,7 @@ export default function MobileHeader({ logout }) {
                 label={"Dashboard"}
                 className={classes.dashboardButton}
               />
-              <Button label={"Log Out"} variant="outlined" onClick={logout} />
+              <Button label={"Log Out"} variant="outlined" />
             </div>
           ) : (
             <div className={classes.buttonDiv}>

@@ -1,0 +1,34 @@
+
+.TopHeader{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+.TopHeader h4{ 
+    color: var(--black-color);
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 64px;
+    letter-spacing: -0.88px; 
+}
+
+.pageMenu{
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.pageMenu li{
+    color: var(--text-color-v1);
+font-family: "SF UI Display";
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 21px; 
+}
+
+.pageMenu li:first-child{
+    list-style: none;
+}
