@@ -7,6 +7,7 @@ import { LANDING_PAGE_DATA } from "@/developmentContent/landingPage";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import classes from "./LandingView.module.css";
+import Newsletter from "@/component/molecules/Newsletter";
 
 export default function LandingView() {
   const [data, setData] = useState(LANDING_PAGE_DATA);
@@ -39,6 +40,13 @@ export default function LandingView() {
           </Row>
         </Container>
       </div>
+      <Container>
+        <Row>
+          <Col md={12}>
+            <Newsletter />
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }
