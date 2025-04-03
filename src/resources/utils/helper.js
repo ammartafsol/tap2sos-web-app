@@ -387,3 +387,13 @@ export const capitalizeFirstLetter = (l) => {
   }
   return l.charAt(0).toUpperCase() + l.slice(1);
 };
+
+
+export const formatPathname = (pathname) => {
+  if (!pathname) return "Home"; 
+  const name = pathname.split("/").filter(Boolean).pop();
+  return name
+    .split("-") 
+    .map(capitalizeFirstLetter)
+    .join(" ");
+};
