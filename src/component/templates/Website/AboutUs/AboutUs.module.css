@@ -78,6 +78,7 @@
 }
 .imagesTop{
   border-top: 1px solid var(--field-border-color);
+  padding-bottom: 50px;
 }
 .ImageBottom{
   margin-bottom: 0px !important;

@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import GuideCard from '../GuideCard';
 import classes from "./GuideSection.module.css"
 
-const GuideSection = ({data}) => {
+const GuideSection = ({data,removeBorder}) => {
     console.log("data",data);
   return (
     <div className={classes.guideSection}>
@@ -19,7 +19,7 @@ const GuideSection = ({data}) => {
                   {data?.guideCards?.map((data, index) => {
                     return (
                       <Col md={3} key={index}>
-                        <GuideCard data={data} />
+                        <GuideCard removeBorder={removeBorder} data={data} />
                       </Col>
                     );
                   })}
