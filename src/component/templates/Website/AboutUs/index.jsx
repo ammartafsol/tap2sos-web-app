@@ -7,6 +7,8 @@ import NavigateButton from "@/component/atoms/NavigateButton";
 import Image from "next/image";
 import TextImage from "@/component/atoms/TextImage";
 import Button from "@/component/atoms/Button";
+import { imagesSection } from "@/developmentContent/appData";
+import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 
 const AboutUs = () => {
   return (
@@ -29,26 +31,28 @@ const AboutUs = () => {
           <Col md="7" className={classes?.image}>
             <div className={classes?.textImage}>
               <Image
-                src={"/Images/app-images/aboutTextImage.svg"}
+                src={aboutUsPageData?.learnMoreData?.image}
                 alt="image"
                 fill
               />
             </div>
           </Col>
           <Col md="5" className={classes?.Text}>
-            <h4>Lorem ipsum dolor sit amet</h4>
+            <h4>{aboutUsPageData?.learnMoreData.title}</h4>
             <p>
-              Lorem ipsum dolor sit amet consectetur. Facilisi magna mattis id
-              aliquet. Magna adipiscing egestas gravida adipiscing volutpat nibh
-              vulputate in. Et senectus venenatis enim purus elit. Non venenatis
-              quam risus nec in. Morbi neque nisl aenean facilisis viverra purus
-              suspendisse sit. Sit felis adipiscing quis dolor euismod
-              sollicitudin leo faucibus laoreet. At facilisi ridiculus donec
-              platea laoreet.
+             {aboutUsPageData?.learnMoreData?.description}
             </p>
             <Button className={classes.btn} label={"Learn More"} />
           </Col>
         </Row>
+          <Row className={classes?.imagesTop}>
+            {aboutUsPageData?.imagesSection?.map((item, index) => (
+              <Col className={classes?.imagesSection} key={index}>
+                <Image src={item} fill alt="logo" />
+              </Col>
+            ))}
+          </Row>
+          <TextImage data={aboutUsPageData?.chooseUsData} />
       </Container>
     </LayoutWrapper>
   );

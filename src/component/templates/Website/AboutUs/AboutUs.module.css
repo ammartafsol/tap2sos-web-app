@@ -70,3 +70,12 @@
     width: fit-content;
     padding: 16px 30px !important;
 }
+.imagesSection{
+  position: relative;
+  width: 232px;
+  height: 110px;
+  margin-top: 60px;
+}
+.imagesTop{
+  border-top: 1px solid var(--field-border-color);
+}
