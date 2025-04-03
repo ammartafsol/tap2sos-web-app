@@ -43,7 +43,7 @@ const Header = () => {
   return (
     <>
       {isMobile ? (
-        <MobileHeader logout={logout} />
+        <MobileHeader  />
       ) : (
         <DesktopHeader isScroll={isScroll} />
       )}
