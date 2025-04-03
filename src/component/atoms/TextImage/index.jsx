@@ -5,9 +5,9 @@ import classes from "./TextImage.module.css";
 import Button from "../Button";
 import { FaCheck } from "react-icons/fa6";
 
-const TextImage = ({rowReverse,data}) => {
+const TextImage = ({rowReverse,data,classTop}) => {
   return (
-    <Row className={`${classes.row} ${rowReverse && classes?.rowReverse} `}>
+    <Row className={`${classes.row} ${classTop} ${rowReverse && classes?.rowReverse} `}>
       <div className={classes.imageCol}>
         <div className={classes.imageWrapper}>
           <Image

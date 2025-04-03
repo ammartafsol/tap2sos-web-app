@@ -79,3 +79,11 @@
 .imagesTop{
   border-top: 1px solid var(--field-border-color);
 }
+.ImageBottom{
+  margin-bottom: 0px !important;
+}
+.guideSection{
+  border-radius: 8px;
+  padding: 30px 20px;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.30) 100%), var(--bg-snow-color);
+}

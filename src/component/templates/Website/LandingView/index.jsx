@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import classes from "./LandingView.module.css";
 import Newsletter from "@/component/molecules/Newsletter";
+import GuideSection from "@/component/atoms/GuideSection";
 import TextImage from "@/component/atoms/TextImage";
 import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 
@@ -19,29 +20,7 @@ export default function LandingView() {
       <LayoutWrapper>
         <HeroSection data={data.heroSection} />
       </LayoutWrapper>
-      <div className={classes.guideSection}>
-        <Container>
-          <Row>
-            <Col md={12} className="p-0">
-              <div className={classes.guideHead}>
-                <h2>{data?.guideSection?.title}</h2>
-                <p>{data?.guideSection?.description}</p>
-              </div>
-              <div className={classes.guideCardWrapper}>
-                <Row>
-                  {data?.guideSection?.guideCards.map((data, index) => {
-                    return (
-                      <Col md={3} key={index}>
-                        <GuideCard data={data} />
-                      </Col>
-                    );
-                  })}
-                </Row>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      <GuideSection data={data?.guideSection} />
       <div className={classes.chooseUsSec}>
         <Container className="p-0">
           <Row>
