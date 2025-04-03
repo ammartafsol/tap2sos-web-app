@@ -2,20 +2,20 @@ import Image from "next/image";
 import React from "react";
 import classes from "./GuideCard.module.css";
 
-const GuideCard = () => {
+const GuideCard = ({ data }) => {
   return (
     <div className={classes.guidCardMain}>
       <div className={classes.cardImg}>
         <Image
-          src={"/Images/svg/loginReg.svg"}
+          src={data?.image}
           fill
           className={classes.tap2Image}
           alt="app img"
         />
       </div>
       <div className={classes.cardContent}>
-        <h2>Register & Login</h2>
-        <p>Secure access with SSO (Gmail)</p>
+        <h2>{data?.title}</h2>
+        <p>{data?.description}</p>
       </div>
     </div>
   );

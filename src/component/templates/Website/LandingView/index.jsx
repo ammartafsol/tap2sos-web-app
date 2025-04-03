@@ -1,67 +1,44 @@
+"use client";
+
+import GuideCard from "@/component/atoms/GuideCard";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
-import NavigateButton from "@/component/atoms/NavigateButton";
-import Image from "next/image";
+import HeroSection from "@/component/molecules/HeroSection";
+import { LANDING_PAGE_DATA } from "@/developmentContent/landingPage";
+import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import classes from "./LandingView.module.css";
 
 export default function LandingView() {
+  const [data, setData] = useState(LANDING_PAGE_DATA);
+
   return (
     <>
       <LayoutWrapper>
+        <HeroSection data={data.heroSection} />
+      </LayoutWrapper>
+      <div className={classes.guideSection}>
         <Container>
           <Row>
-            <Col md={6}>
-              <div className={classes.heroLeft}>
-                {/* <Image
-                    src={"/Images/app-images/tap2sos.png"}
-                    fill
-                    className={classes.tap2Image}
-                    alt="app img"
-                  /> */}
-                <h1>
-                  Revolutionizing Healthcare Data with
-                  <span>COTIC & Blockchain</span>
-                </h1>
-                <p>
-                  Securely retrieve, store, and manage patient data using COTIC
-                  and blockchain technology. Fast, reliable, and immutable
-                  healthcare data access for hospitals and clinics.
-                </p>
-                <div className={classes.storeImages}>
-                  <Image
-                    src={"/Images/app-images/appStore.png"}
-                    fill
-                    className={classes.appImage}
-                    alt="app img"
-                  />
-                  <Image
-                    src={"/Images/app-images/googleStore.png"}
-                    fill
-                    className={classes.storeImage}
-                    alt="app img"
-                  />
-                </div>
+            <Col md={12} className="p-0">
+              <div className={classes.guideHead}>
+                <h2>{data?.guideSection?.title}</h2>
+                <p>{data?.guideSection?.description}</p>
               </div>
-            </Col>
-            <Col md={6}>
-              <div className={classes.heroRightDiv}>
-                <div className={classes.rightImg}>
-                  <Image
-                    src={"/Images/app-images/hero.png"}
-                    fill
-                    alt="hero img"
-                  />
-                </div>
-              </div>
-            </Col>
-            <Col md={12}>
-              <div className={classes.navigate}>
-                <NavigateButton />
+              <div className={classes.guideCardWrapper}>
+                <Row>
+                  {data?.guideSection?.guideCards.map((data, index) => {
+                    return (
+                      <Col md={3} key={index}>
+                        <GuideCard data={data} />
+                      </Col>
+                    );
+                  })}
+                </Row>
               </div>
             </Col>
           </Row>
         </Container>
-      </LayoutWrapper>
+      </div>
     </>
   );
 }

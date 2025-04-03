@@ -26,7 +26,7 @@ export default function DesktopHeader({ isScroll, logout }) {
             <Col md={12} className="p-0">
               <div className={classes.mainHeader}>
                 <div className={classes.logoDiv}>
-                  <Image src={"/images/app-images/logo.svg"} alt="logo" fill />
+                  <Image src={"/Images/app-images/logo.svg"} alt="logo" fill />
                 </div>
 
                 {/* navigation */}
