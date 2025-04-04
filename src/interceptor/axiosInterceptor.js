@@ -59,7 +59,7 @@ let handleRequest = async ({
 }) => {
   try {
     const url = baseURL(route);
-    const token = Cookies.get("_xpdx");
+    // const token = Cookies.get("_xpdx");
 
     const _headers = {
       Accept: "application/json",
@@ -70,9 +70,9 @@ let handleRequest = async ({
         "Content-Type": "multipart/form-data",
       }),
 
-      ...(token && {
-        Authorization: `Bearer ${handleDecrypt(token)}`,
-      }),
+      // ...(token && {
+      //   Authorization: `Bearer ${handleDecrypt(token)}`,
+      // }),
 
       ...headers,
     };
@@ -86,10 +86,12 @@ let handleRequest = async ({
 
     return { response, error: null };
   } catch (error) {
+    console.log("error",error)
     const errorMessage = getErrorMsg(error);
+    console.log("error message", errorMessage);
 
     if (showAlert) {
-      RenderToast(errorMessage || "An unexpected error occurred.", "error");
+      RenderToast({type: "error", message: errorMessage});
     }
 
     if (error?.response?.status === 401) {

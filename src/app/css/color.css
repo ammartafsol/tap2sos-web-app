@@ -3,6 +3,8 @@
   --gray-color: #b6b6b6;
   --light-gray: #e5e7eb;
   --light-gray-100: #f3f4f6;
+  --reddish-orange: #e04018;
+  --yellow-color: #f8d11d;
   --royal-navy-blue: #1a498b;
   --deep-ocean-blue: #1a488d;
   --fiery-red: #ff4242;
@@ -11,11 +13,12 @@
   --shadow-color: #e5e7eb;
   --field-border-color: #f0f0f0;
   --bg-snow-color: #f1f6ff;
+  --border-blue: #97b2dd;
   --text-color: #222222;
   --text-color-v1: #484848;
-  --placeholder-color: #B9BCBF;
-  --input-border: #E0E0E0;
-  --input-border-active: #1A488D;
+  --placeholder-color: #b9bcbf;
+  --input-border: #e0e0e0;
+  --input-border-active: #1a488d;
 
   --gradient-color: linear-gradient(225deg, #e04018 0%, #f8d11d 100%), #0a2147;
 }

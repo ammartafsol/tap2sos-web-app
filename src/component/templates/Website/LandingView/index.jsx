@@ -1,63 +1,49 @@
+"use client";
+
+import GuideCard from "@/component/atoms/GuideCard";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
-import Image from "next/image";
+import HeroSection from "@/component/molecules/HeroSection";
+import { LANDING_PAGE_DATA } from "@/developmentContent/landingPage";
+import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import classes from "./LandingView.module.css";
+import Newsletter from "@/component/molecules/Newsletter";
+import GuideSection from "@/component/atoms/GuideSection";
+import TextImage from "@/component/atoms/TextImage";
+import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 
 export default function LandingView() {
+  const [data, setData] = useState(LANDING_PAGE_DATA);
+
   return (
     <>
       <LayoutWrapper>
-        <div>
-          <Container>
-            <Row>
-              <Col md={6}>
-                <div className={classes.heroLeft}>
-                  {/* <Image
-                    src={"/Images/app-images/tap2sos.png"}
-                    fill
-                    className={classes.tap2Image}
-                    alt="app img"
-                  /> */}
-                  <h1>
-                    Revolutionizing Healthcare Data with
-                    <span>COTIC & Blockchain</span>
-                  </h1>
-                  <p>
-                    Securely retrieve, store, and manage patient data using
-                    COTIC and blockchain technology. Fast, reliable, and
-                    immutable healthcare data access for hospitals and clinics.
-                  </p>
-                  <div className={classes.storeImages}>
-                    <Image
-                      src={"/Images/app-images/appStore.png"}
-                      fill
-                      className={classes.appImage}
-                      alt="app img"
-                    />
-                    <Image
-                      src={"/Images/app-images/googleStore.png"}
-                      fill
-                      className={classes.storeImage}
-                      alt="app img"
-                    />
-                  </div>
-                </div>
-              </Col>
-              <Col md={6}>
-                <div className={classes.heroRightDiv}>
-                  <div className={classes.rightImg}>
-                    <Image
-                      src={"/Images/app-images/hero.png"}
-                      fill
-                      alt="hero img"
-                    />
-                  </div>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </div>
+        <HeroSection data={data.heroSection} />
       </LayoutWrapper>
+      <GuideSection data={data?.guideSection} />
+      <div className={classes.chooseUsSec}>
+        <Container className="p-0">
+          <Row>
+            <Col md={12} className="p-0">
+              <TextImage rowReverse={true} data={data?.chooseUsData} />
+            </Col>
+          </Row>
+        </Container>
+      </div>
+      <Container className="p-0">
+        <Row>
+          <Col md={12} className="p-0">
+            <div className={classes.benefitsSection}>
+              <TextImage data={data?.benefitsData} />
+            </div>
+          </Col>
+          <Col md={12} className="p-0">
+            <div className={classes.newsletterSection}>
+              <Newsletter />
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

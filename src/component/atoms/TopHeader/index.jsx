@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import { formatPathname } from "@/resources/utils/helper";
 
 
-const TopHeader = () => {
+const TopHeader = ({data}) => {
   const pathname = usePathname();
-  const formattedName = formatPathname(pathname);
+  const formattedName = formatPathname(data?data:pathname);
 
   return (
     <div className={classes?.TopHeader}>
