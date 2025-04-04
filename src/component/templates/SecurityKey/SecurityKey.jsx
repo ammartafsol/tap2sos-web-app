@@ -81,7 +81,7 @@ export default function SecurityKey({slug}) {
           </div>
         ) : (
           <>
-            <TopHeader />
+            <TopHeader data={"security-key"} />
             <div className={classes.contactUsCard}>
               <Col md={6}>
                 <div className={classes.headingDiv}>
