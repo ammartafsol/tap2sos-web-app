@@ -62,7 +62,7 @@ export default function SecurityKey({slug}) {
               <Input type={"text"} label={"Blood Type"} disabled={true} value={data?.bloodType} />
               </Col>
               <Col md={6}>
-              <Input type={"text"} disabled={true} label={"Sex"} value={capitalizeFirstLetter(data?.gender)} />
+              <Input type={"text"} disabled={true} label={"Gender"} value={capitalizeFirstLetter(data?.gender)} />
               </Col>
               <Col md={6}>
               <Input type={"text"} disabled={true} label={"Date of birth"} value={moment(data?.dateOfBirth).format('YYYY/MM/DD')} />
