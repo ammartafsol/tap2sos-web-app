@@ -65,13 +65,22 @@ export default function SecurityKey({slug}) {
               <Input type={"text"} disabled={true} label={"Gender"} value={capitalizeFirstLetter(data?.gender)} />
               </Col>
               <Col md={6}>
-              <Input type={"text"} disabled={true} label={"Date of birth"} value={moment(data?.dateOfBirth).format('YYYY/MM/DD')} />
+              <Input type={"text"} disabled={true} label={"Patient Name"} value={`${capitalizeFirstLetter(data?.firstName)} ${capitalizeFirstLetter(data?.lastName)}`} />
               </Col>
               <Col md={6}>
-              <Input type={"text"} label={"Doctor's full name"} disabled={true} value={`${data?.firstName} ${data?.lastName}`} />
+              <Input type={"text"} disabled={true} label={"Medical Condition"} value={capitalizeFirstLetter(data?.medicalCondition)} />
               </Col>
               <Col md={6}>
-              <Input type={"email"} label={"Patients Email address"} disabled={true} value={`${data?.email}`} />
+              <Input type={"text"} disabled={true} label={"Useful Information"} value={capitalizeFirstLetter(data?.usefulInformation)} />
+              </Col>
+              <Col md={6}>
+              <Input type={"text"} disabled={true} label={"Date of Birth"} value={moment(data?.dateOfBirth).format('YYYY/MM/DD')} />
+              </Col>
+              <Col md={6}>
+              <Input type={"text"} label={"Doctor's Fll Name"} disabled={true} value={`${data?.firstName} ${data?.lastName}`} />
+              </Col>
+              <Col md={6}>
+              <Input type={"email"} label={"Patients Email Address"} disabled={true} value={`${data?.email}`} />
               </Col>
               <Col md={6}>
               <Input type={"number"} label={"Emergency Contact"} disabled={true} value={Number(data?.phoneNumber)} />
