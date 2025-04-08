@@ -77,7 +77,7 @@ export default function SecurityKey({slug}) {
               <Input type={"text"} disabled={true} label={"Date of Birth"} value={moment(data?.dateOfBirth).format('YYYY/MM/DD')} />
               </Col>
               <Col md={6}>
-              <Input type={"text"} label={"Doctor's Fll Name"} disabled={true} value={`${data?.firstName} ${data?.lastName}`} />
+              <Input type={"text"} label={"Doctor's Full Name"} disabled={true} value={`${data?.firstName} ${data?.lastName}`} />
               </Col>
               <Col md={6}>
               <Input type={"email"} label={"Patients Email Address"} disabled={true} value={`${data?.email}`} />
