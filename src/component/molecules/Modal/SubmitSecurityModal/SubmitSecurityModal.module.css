@@ -1,0 +1,8 @@
+.btn{
+    width: fit-content;
+}
+.btnParent{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
