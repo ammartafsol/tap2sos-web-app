@@ -22,20 +22,30 @@ export default function MobileHeader({ logout }) {
   };
 
   return (
-    <div className={classes.header}>
+    <>
       <Container>
         <Row>
-          <Col xs={11}>
-            <div className={classes.logoDiv}>
-              <Image src={"/Images/app-images/logo.svg"} alt="logo" fill />
-            </div>
-          </Col>
-          <Col xs={1}>
-            <div onClick={toggleDrawer}>
-              <HiOutlineBars3BottomLeft
-                size={32}
-                color="var(--primary-color)"
-              />
+          <Col md={12}>
+            <div className={classes.header}>
+              <Row>
+                <Col xs={8}>
+                  <div className={classes.logoDiv}>
+                    <Image
+                      src={"/Images/app-images/logo.svg"}
+                      alt="logo"
+                      fill
+                    />
+                  </div>
+                </Col>
+                <Col xs={4}>
+                  <div className={classes.navHamIcon} onClick={toggleDrawer}>
+                    <HiOutlineBars3BottomLeft
+                      size={32}
+                      color="var(--primary-color)"
+                    />
+                  </div>
+                </Col>
+              </Row>
             </div>
           </Col>
         </Row>
@@ -87,6 +97,6 @@ export default function MobileHeader({ logout }) {
           )}
         </div> */}
       </Drawer>
-    </div>
+    </>
   );
 }

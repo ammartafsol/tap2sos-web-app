@@ -160,8 +160,8 @@ export default function SecurityKey({ slug }) {
         ) : (
           <>
             <TopHeader data={"security-key"} />
-            <div className={classes.contactUsCard}>
-              <Col md={6}>
+            <Row className={classes.contactUsCard}>
+              <Col lg={6}>
                 <div className={classes.headingDiv}>
                   <h2>View Documents With Your Security Key</h2>
                   <p>To view your documents, just fill the form!</p>
@@ -184,7 +184,7 @@ export default function SecurityKey({ slug }) {
                   </div>
                 </div>
               </Col>
-              <Col md={6} className={classes.contactUsFormDiv}>
+              <Col lg={6} className={classes.contactUsFormDiv}>
                 <div className={classes.inputDivs}>
                   <Input
                     placeholder={"Patient Name"}
@@ -245,7 +245,7 @@ export default function SecurityKey({ slug }) {
                   />
                 </div>
               </Col>
-            </div>
+            </Row>
           </>
         )}
         <SubmitSecurityModal

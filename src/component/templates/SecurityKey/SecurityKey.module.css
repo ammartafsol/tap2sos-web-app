@@ -1,88 +1,124 @@
 .contactUsCard {
-    display: flex;
-    padding: 80px 90px;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 8px;
-    border: 1px solid red solid #f0f0f0;
-    background: #fff;
-  }
-  
-  .headingDiv {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    justify-content: left;
-  }
-  
-  .headingDiv h2 {
-    font-size: 44px;
-    font-weight: 700;
-    color: #000;
-    line-height: 50px;
-  }
-  
-  .headingDiv p {
-    color: #484848;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 21px;
-  }
-  
-  .contactUsDetails {
-    display: flex;
-    flex-direction: column;
-    margin-top: 40px;
-    gap: 32px;
-  }
-  
-  .contactInfoDiv {
-    display: flex;
-    gap: 24px;
-    align-items: center;
-  }
-  
-  .imageDiv {
-    border-radius: 6px;
-    background: rgba(26, 72, 141, 0.08);
-    display: flex;
-    width: 60px;
-    height: 60px;
-    padding: 14px;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .contactInfoDiv p {
-    color: #1a488d;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 21px;
-    opacity: 0.8;
-  }
-  
-  .contactUsFormDiv{
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding-left: 35px;
-      height: 100% !important;
-  }
-
-  .inputDivs{
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    flex-grow: 1;
-  }
-
-.button{
-    margin-top: 20px;
+  display: flex;
+  padding: 80px 90px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid red solid #f0f0f0;
+  background: #fff;
 }
 
-  .iconColor{
-    color: #D48F00 !important;
-  }
+.headingDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: left;
+}
 
+.headingDiv h2 {
+  font-size: 44px;
+  font-weight: 700;
+  color: #000;
+  line-height: 50px;
+}
+
+.headingDiv p {
+  color: #484848;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+}
+
+.contactUsDetails {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  gap: 32px;
+}
+
+.contactInfoDiv {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.imageDiv {
+  border-radius: 6px;
+  background: rgba(26, 72, 141, 0.08);
+  display: flex;
+  width: 60px;
+  height: 60px;
+  padding: 14px;
+  justify-content: center;
+  align-items: center;
+}
+
+.contactInfoDiv p {
+  color: #1a488d;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  opacity: 0.8;
+}
+
+.contactUsFormDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 35px;
+  height: 100% !important;
+}
+
+.inputDivs {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex-grow: 1;
+}
+
+.button {
+  margin-top: 20px;
+}
+
+.iconColor {
+  color: #d48f00 !important;
+}
+
+@media (max-width: 991px) {
+  .contactUsCard {
+    gap: 50px;
+  }
+  .contactUsFormDiv {
+    padding-left: 0px;
+    padding-inline: 0;
+  }
+  .contactUsCard {
+    padding: 50px 50px;
+    width: 100%;
+    margin: auto;
+  }
+  .headingDiv h2 {
+    font-size: 35px;
+    line-height: 45px;
+  }
+  .contactUsCard {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 575px) {
+  .headingDiv h2 {
+    font-size: 25px;
+    line-height: 30px;
+  }
+  .imageDiv {
+    width: 50px;
+    height: 50px;
+    padding: 12px;
+  }
+  .contactUsCard {
+    padding: 25px 15px;
+  }
+}
