@@ -12,13 +12,17 @@ import { MdOutlineSecurity } from "react-icons/md";
 import { TbLockAccess } from "react-icons/tb";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Post } from "@/interceptor/axiosInterceptor";
+import { Get, Post } from "@/interceptor/axiosInterceptor";
 import { capitalizeFirstLetter } from "@/resources/utils/helper";
 import moment from "moment-timezone";
+import RenderToast from "@/component/atoms/RenderToast";
+import ShowDocuments from "@/component/atoms/ShowDocuments";
+import SubmitSecurityModal from "@/component/molecules/Modal/SubmitSecurityModal/SubmitSecurityModal";
 
-export default function SecurityKey({slug}) {
+export default function SecurityKey({ slug }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState("");
+  const [show, setShow] = useState(false);
   const PatientDataFormik = useFormik({
     initialValues: {
       patientId: "",
@@ -35,9 +39,9 @@ export default function SecurityKey({slug}) {
   const handleSubmit = async (values) => {
     setLoading("loading");
     const obj = {
-      patientId:slug,
-      password:values?.password
-    }
+      patientId: slug,
+      password: values?.password,
+    };
     const response = await Post({ route: "users/patient/login", data: obj });
     console.log("response", response?.response?.data?.data?.user);
     setLoading("");
@@ -46,6 +50,17 @@ export default function SecurityKey({slug}) {
     }
   };
 
+  const downloadDocumens = async (key) => {
+    const response = await Get({ route: `media/fetch/${key}` });
+    setLoading("load");
+    if (response) {
+      // RenderToast({
+      //   type: "success",
+      //   message: "Downloaded Successfully",
+      // });
+    }
+    setLoading("");
+  };
 
   return (
     <LayoutWrapper>
@@ -55,37 +70,91 @@ export default function SecurityKey({slug}) {
             <TopHeader data="Patient Details" />
             <Row>
               <Col md={6}>
-
-              <Input type={"text"} label={"Donor"} disabled={true} value={"Yes"} />
+                <Input
+                  type={"text"}
+                  label={"Donor"}
+                  disabled={true}
+                  value={"Yes"}
+                />
               </Col>
               <Col md={6}>
-              <Input type={"text"} label={"Blood Type"} disabled={true} value={data?.bloodType} />
+                <Input
+                  type={"text"}
+                  label={"Blood Type"}
+                  disabled={true}
+                  value={data?.bloodType}
+                />
               </Col>
               <Col md={6}>
-              <Input type={"text"} disabled={true} label={"Gender"} value={capitalizeFirstLetter(data?.gender)} />
+                <Input
+                  type={"text"}
+                  disabled={true}
+                  label={"Gender"}
+                  value={capitalizeFirstLetter(data?.gender)}
+                />
               </Col>
               <Col md={6}>
-              <Input type={"text"} disabled={true} label={"Patient Name"} value={`${capitalizeFirstLetter(data?.firstName)} ${capitalizeFirstLetter(data?.lastName)}`} />
+                <Input
+                  type={"text"}
+                  disabled={true}
+                  label={"Patient Name"}
+                  value={`${capitalizeFirstLetter(
+                    data?.firstName
+                  )} ${capitalizeFirstLetter(data?.lastName)}`}
+                />
               </Col>
               <Col md={6}>
-              <Input type={"text"} disabled={true} label={"Medical Condition"} value={capitalizeFirstLetter(data?.medicalCondition)} />
+                <Input
+                  type={"text"}
+                  disabled={true}
+                  label={"Medical Condition"}
+                  value={capitalizeFirstLetter(data?.medicalCondition)}
+                />
               </Col>
               <Col md={6}>
-              <Input type={"text"} disabled={true} label={"Useful Information"} value={capitalizeFirstLetter(data?.usefulInformation)} />
+                <Input
+                  type={"text"}
+                  disabled={true}
+                  label={"Useful Information"}
+                  value={capitalizeFirstLetter(data?.usefulInformation)}
+                />
               </Col>
               <Col md={6}>
-              <Input type={"text"} disabled={true} label={"Date of Birth"} value={moment(data?.dateOfBirth).format('YYYY/MM/DD')} />
+                <Input
+                  type={"text"}
+                  disabled={true}
+                  label={"Date of Birth"}
+                  value={moment(data?.dateOfBirth).format("YYYY/MM/DD")}
+                />
               </Col>
               <Col md={6}>
-              <Input type={"text"} label={"Doctor's Full Name"} disabled={true} value={`${data?.firstName} ${data?.lastName}`} />
+                <Input
+                  type={"text"}
+                  label={"Doctor's Fll Name"}
+                  disabled={true}
+                  value={`${data?.firstName} ${data?.lastName}`}
+                />
               </Col>
               <Col md={6}>
-              <Input type={"email"} label={"Patients Email Address"} disabled={true} value={`${data?.email}`} />
+                <Input
+                  type={"email"}
+                  label={"Patients Email Address"}
+                  disabled={true}
+                  value={`${data?.email}`}
+                />
               </Col>
               <Col md={6}>
-              <Input type={"number"} label={"Emergency Contact"} disabled={true} value={Number(data?.phoneNumber)} />
+                <Input
+                  type={"number"}
+                  label={"Emergency Contact"}
+                  disabled={true}
+                  value={Number(data?.phoneNumber)}
+                />
               </Col>
-           
+              <ShowDocuments
+                downloadDocumens={downloadDocumens}
+                loading={loading}
+              />
             </Row>
           </div>
         ) : (
@@ -118,37 +187,91 @@ export default function SecurityKey({slug}) {
               <Col md={6} className={classes.contactUsFormDiv}>
                 <div className={classes.inputDivs}>
                   <Input
-                    placeholder={"Password"}
-                    type={"password"}
+                    placeholder={"Patient Name"}
+                    type={"text"}
                     mainContClassName={"mb-0"}
                     setter={(e) => {
                       PatientDataFormik.setFieldValue("password", e);
                     }}
-                    value={PatientDataFormik.values.password}
-                    onBlur={PatientDataFormik.handleBlur}
-                    errorText={
-                      PatientDataFormik.touched.password &&
-                      PatientDataFormik.errors.password
-                    }
+                  />
+                  <Input
+                    placeholder={"Patient Name"}
+                    type={"text"}
+                    mainContClassName={"mb-0"}
+                    setter={(e) => {
+                      PatientDataFormik.setFieldValue("password", e);
+                    }}
+                  />
+                  <Input
+                    placeholder={"Patient Name"}
+                    type={"text"}
+                    mainContClassName={"mb-0"}
+                    setter={(e) => {
+                      PatientDataFormik.setFieldValue("password", e);
+                    }}
+                  />
+                  <Input
+                    placeholder={"Patient Name"}
+                    type={"text"}
+                    mainContClassName={"mb-0"}
+                    setter={(e) => {
+                      PatientDataFormik.setFieldValue("password", e);
+                    }}
+                  />
+                  <Input
+                    placeholder={"Patient Name"}
+                    type={"text"}
+                    mainContClassName={"mb-0"}
+                    setter={(e) => {
+                      PatientDataFormik.setFieldValue("password", e);
+                    }}
+                  />
+                  <Input
+                    placeholder={"Patient Name"}
+                    type={"text"}
+                    mainContClassName={"mb-0"}
+                    setter={(e) => {
+                      PatientDataFormik.setFieldValue("password", e);
+                    }}
                   />
                 </div>
                 <div className={classes.button}>
                   <Button
                     onClick={() => {
-                      PatientDataFormik.handleSubmit();
+                      setShow(true);
                     }}
-                    disabled={loading === "loading"}
-                    label={loading === "loading" ? "loading...." : "Submit"}
                     variant={"gradient"}
+                    label={"View More Details"}
                   />
                 </div>
               </Col>
             </div>
           </>
         )}
+        <SubmitSecurityModal
+          setData={setData}
+          slug={slug}
+          show={show}
+          setShow={setShow}
+        />
       </Container>
     </LayoutWrapper>
   );
 }
 
-
+// <div className={classes.inputDivs}>
+//                   <Input
+//                     placeholder={"Password"}
+//                     type={"password"}
+//                     mainContClassName={"mb-0"}
+//                     setter={(e) => {
+//                       PatientDataFormik.setFieldValue("password", e);
+//                     }}
+//                     value={PatientDataFormik.values.password}
+//                     onBlur={PatientDataFormik.handleBlur}
+//                     errorText={
+//                       PatientDataFormik.touched.password &&
+//                       PatientDataFormik.errors.password
+//                     }
+//                   />
+//                 </div>

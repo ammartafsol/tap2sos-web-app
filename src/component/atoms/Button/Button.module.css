@@ -51,8 +51,8 @@
 }
 
 .btn[color-variant="outlined"] {
-  border: 1px solid var(--border-v1) !important;
-  color: var(--border-v1);
+  border: 1px solid var(--royal-navy-blue) !important;
+  color: var(--royal-navy-blue);
   box-shadow: none !important;
   background-color: transparent;
 }
