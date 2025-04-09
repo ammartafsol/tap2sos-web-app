@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-modern-drawer/dist/index.css";
 import "./css/global.css";
 import "./css/typography.css";
 import "./css/color.css";
@@ -27,4 +28,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-

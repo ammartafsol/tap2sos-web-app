@@ -17,13 +17,13 @@
   background-color: var(--primary-color);
 }
 .drawerLogo {
-  width: 140px;
+  width: 150px;
   position: relative;
-  height: 55px;
+  height: 50px;
 }
 .drawerLogo img {
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 .navigationDiv {
   display: flex;

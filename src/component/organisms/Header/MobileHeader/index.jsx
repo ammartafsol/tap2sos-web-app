@@ -1,21 +1,22 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import Drawer from "react-modern-drawer";
 import classes from "./MobileHeader.module.css";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import Button from "@/component/atoms/Button";
 import { NAV_DATA } from "@/developmentContent/appData";
 import { mergeClass } from "@/resources/utils/helper";
+import { usePathname, useRouter } from "next/navigation";
+import Button from "@/component/atoms/Button";
 
 export default function MobileHeader({ logout }) {
   // const { accessToken } = useSelector((state) => state?.authReducer);
   const accessToken = false;
   const pathName = usePathname();
   const router = useRouter();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
   };
@@ -26,11 +27,7 @@ export default function MobileHeader({ logout }) {
         <Row>
           <Col xs={11}>
             <div className={classes.logoDiv}>
-              <Image
-                src={"/images/app-images/primary-logo.png"}
-                alt="logo"
-                fill
-              />
+              <Image src={"/Images/app-images/logo.svg"} alt="logo" fill />
             </div>
           </Col>
           <Col xs={1}>
@@ -43,15 +40,10 @@ export default function MobileHeader({ logout }) {
           </Col>
         </Row>
       </Container>
-      <Drawer
-        open={isOpen}
-        onClose={toggleDrawer}
-        direction="right"
-        className="bla bla bla"
-      >
+      <Drawer open={isOpen} onClose={toggleDrawer} direction="right">
         <div className={classes.drawerDiv}>
           <div className={classes.drawerLogo}>
-            <Image src={"/images/app-images/white-logo.png"} alt="logo" fill />
+            <Image src={"/Images/app-images/logo.svg"} alt="logo" fill />
           </div>
         </div>
         <div className={classes.navigationDiv}>
@@ -69,7 +61,7 @@ export default function MobileHeader({ logout }) {
             </Link>
           ))}
         </div>
-        <div className={classes.buttonSection}>
+        {/* <div className={classes.buttonSection}>
           {accessToken ? (
             <div className={classes.buttonDiv}>
               <Button
@@ -93,7 +85,7 @@ export default function MobileHeader({ logout }) {
               />
             </div>
           )}
-        </div>
+        </div> */}
       </Drawer>
     </div>
   );
