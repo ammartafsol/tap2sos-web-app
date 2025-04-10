@@ -41,13 +41,7 @@ const Header = () => {
   }, []);
 
   return (
-    <>
-      {isMobile ? (
-        <MobileHeader  />
-      ) : (
-        <DesktopHeader isScroll={isScroll} />
-      )}
-    </>
+    <>{isMobile ? <MobileHeader /> : <DesktopHeader isScroll={isScroll} />}</>
   );
 };
 

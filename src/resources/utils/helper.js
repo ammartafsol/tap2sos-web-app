@@ -398,3 +398,32 @@ export const formatPathname = (pathname) => {
     .map(capitalizeFirstLetter)
     .join(" ");
 };
+
+
+
+export const flattenObject = (obj) => {
+  let result = {};
+  for (const [key, value] of Object.entries(obj)) {
+    // If the value is an object, flatten it by combining the key and its properties
+    if (typeof value === 'object' && value !== null) {
+      const flattenedNestedObject = flattenObject(value);
+      for (const [nestedKey, nestedValue] of Object.entries(flattenedNestedObject)) {
+        // Combine the parent key with the nested key (just flattening)
+        result[nestedKey] = nestedValue;
+      }
+    } else {
+      // Otherwise, directly assign the key-value pair to the result
+      result[key] = value;
+    }
+  }
+
+  return result;
+};
+
+
+export const formatLabel = (label) => {
+  return label
+    .replace(/([a-z])([A-Z])/g, "$1 $2") // Add space between camelCase or PascalCase words
+    .replace(/_/g, " ") 
+    .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize the first letter of each word
+};
