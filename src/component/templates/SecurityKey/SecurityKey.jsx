@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
 import { Col, Container, Row } from "react-bootstrap";
 import TopHeader from "@/component/atoms/TopHeader";
@@ -18,11 +18,15 @@ import moment from "moment-timezone";
 import RenderToast from "@/component/atoms/RenderToast";
 import ShowDocuments from "@/component/atoms/ShowDocuments";
 import SubmitSecurityModal from "@/component/molecules/Modal/SubmitSecurityModal/SubmitSecurityModal";
+import LoadingComponent from "@/component/molecules/LoadingComponent";
+import { excludedFields } from "@/const";
 
 export default function SecurityKey({ slug }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState("");
   const [show, setShow] = useState(false);
+  const [initialData, setInitialData] = useState({});
+
   const PatientDataFormik = useFormik({
     initialValues: {
       patientId: "",
@@ -36,19 +40,21 @@ export default function SecurityKey({ slug }) {
     },
   });
 
-  const handleSubmit = async (values) => {
+  const getData = async () => {
     setLoading("loading");
-    const obj = {
-      patientId: slug,
-      password: values?.password,
-    };
-    const response = await Post({ route: "users/patient/login", data: obj });
-    console.log("response", response?.response?.data?.data?.user);
-    setLoading("");
+    const response = await Get({ route: `users/patient/detail/${slug}` });
+    const obj = response?.response?.data?.data;
+    console.log("obj", obj);
     if (response) {
-      setData(response?.response?.data?.data?.user);
+      const filteredData = Object.fromEntries(
+        Object.entries(obj).filter(([key]) => !excludedFields.includes(key))
+      );
+      setInitialData(filteredData);
     }
+    setLoading("");
   };
+
+  console.log("initialData", initialData);
 
   const downloadDocumens = async (key) => {
     const response = await Get({ route: `media/fetch/${key}` });
@@ -61,6 +67,18 @@ export default function SecurityKey({ slug }) {
     }
     setLoading("");
   };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  if (loading === "loading") {
+    return (
+      <div className="loading">
+        <LoadingComponent />
+      </div>
+    );
+  }
 
   return (
     <LayoutWrapper>
