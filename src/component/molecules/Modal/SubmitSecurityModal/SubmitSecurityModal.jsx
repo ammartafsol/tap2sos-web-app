@@ -9,7 +9,13 @@ import * as Yup from "yup";
 import { flattenObject } from "@/resources/utils/helper";
 import { excludedFields } from "@/const";
 
-const SubmitSecurityModal = ({ show, setShow, slug, setData,setAttachments }) => {
+const SubmitSecurityModal = ({
+  show,
+  setShow,
+  slug,
+  setData,
+  setAttachments,
+}) => {
   const [loading, setLoading] = useState("");
   const PasswordFormik = useFormik({
     initialValues: {
@@ -26,19 +32,24 @@ const SubmitSecurityModal = ({ show, setShow, slug, setData,setAttachments }) =>
   const handleSubmit = async (values) => {
     setLoading("loading");
     const obj = {
-      patientNumber: slug,
+      patientNo: slug,
       password: values?.password,
     };
     const response = await Post({ route: "users/patient/login", data: obj });
     if (response) {
       const responseData = response?.response?.data?.data;
       const flattenedData = flattenObject(responseData);
-      const filteredData = Object.fromEntries(
+      let filteredData = Object.fromEntries(
         Object.entries(flattenedData).filter(
           ([key]) => !excludedFields.includes(key)
         )
       );
-      setAttachments(responseData?.user?.attachments)
+      filteredData.phoneNumber = `+${filteredData?.callingCode} ${filteredData.phoneNumber}`;
+      filteredData.emergencyContact = `+${filteredData?.emergencyCallingCode} ${filteredData.emergencyContact}`;
+      delete filteredData?.callingCode
+      delete filteredData?.emergencyCallingCode
+
+      setAttachments(responseData?.user?.attachments);
       setShow(false);
       setData(filteredData);
       PasswordFormik.resetForm();
@@ -49,7 +60,6 @@ const SubmitSecurityModal = ({ show, setShow, slug, setData,setAttachments }) =>
   const handleClose = () => {
     setShow(false);
   };
-
 
   return (
     <ModalSkeleton header={"Security Key"} setShow={setShow} show={show}>
