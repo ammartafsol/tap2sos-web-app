@@ -32,7 +32,7 @@ export default function SecurityKey({ slug }) {
   const [show, setShow] = useState(false);
   const [initialData, setInitialData] = useState({});
   const [attachments, setAttachments] = useState([]);
-  const [selectedKey,setSelectedKey] = useState('');
+  const [selectedKey, setSelectedKey] = useState("");
 
   const PatientDataFormik = useFormik({
     initialValues: {
@@ -50,10 +50,12 @@ export default function SecurityKey({ slug }) {
   const getData = async () => {
     setLoading("loading");
     const response = await Get({ route: `users/patient/detail/${slug}` });
+    setLoading("");
+
     const obj = response?.response?.data?.data;
     setAttachments(obj?.attachments);
     if (response) {
-      const flattenedData = flattenObject(obj);
+      const flattenedData = flattenObject(obj || {});
       const filteredData = Object.fromEntries(
         Object.entries(flattenedData).filter(
           ([key]) => !excludedFields.includes(key)
@@ -61,8 +63,8 @@ export default function SecurityKey({ slug }) {
       );
       setInitialData(filteredData);
     }
-    setLoading("");
   };
+
 
   const downloadDocumens = async (key) => {
     setLoading("load");
@@ -70,7 +72,7 @@ export default function SecurityKey({ slug }) {
     const url = baseURL(`users/media/fetch/${key}`);
     window.open(url);
     setLoading("");
-    setSelectedKey('');
+    setSelectedKey("");
   };
 
   useEffect(() => {
@@ -108,7 +110,8 @@ export default function SecurityKey({ slug }) {
                               ? value
                                 ? "Yes"
                                 : "No"
-                              : capitalizeFirstLetter(String(value)) || "No Data"
+                              : capitalizeFirstLetter(String(value)) ||
+                                "No Data"
                           }
                         />
                       </Col>
@@ -134,24 +137,22 @@ export default function SecurityKey({ slug }) {
                 );
               })}
 
-{attachments?.length > 0 && (
-  <>
-    <h5 className={classes?.attachmentsHeading}>Attachments</h5>
-  <div className={classes?.attachments}>
-    {attachments.map((item) => (
-      <ShowDocuments
-        key={item?.key}
-        item={item}
-        downloadDocumens={downloadDocumens}
-        loading={loading}
-        selectedKey={selectedKey}
-      />
-    ))}
-  </div>
-  </>
-)}
-
-              
+              {attachments?.length > 0 && (
+                <>
+                  <h5 className={classes?.attachmentsHeading}>Attachments</h5>
+                  <div className={classes?.attachments}>
+                    {attachments.map((item) => (
+                      <ShowDocuments
+                        key={item?.key}
+                        item={item}
+                        downloadDocumens={downloadDocumens}
+                        loading={loading}
+                        selectedKey={selectedKey}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </Row>
           </div>
         ) : (
@@ -191,8 +192,9 @@ export default function SecurityKey({ slug }) {
                   </Col>
                 );
               })}
-
-              <div className={classes.button}>
+              {
+                Object.keys(initialData).length !== 0 && 
+                <div className={classes.button}>
                 <Button
                   onClick={() => {
                     setShow(true);
@@ -201,6 +203,8 @@ export default function SecurityKey({ slug }) {
                   label={"View More Details"}
                 />
               </div>
+             }
+             
             </Row>
           </>
         )}

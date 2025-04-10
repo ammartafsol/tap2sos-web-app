@@ -26,7 +26,7 @@ const SubmitSecurityModal = ({ show, setShow, slug, setData,setAttachments }) =>
   const handleSubmit = async (values) => {
     setLoading("loading");
     const obj = {
-      patientId: slug,
+      patientNumber: slug,
       password: values?.password,
     };
     const response = await Post({ route: "users/patient/login", data: obj });
@@ -38,7 +38,6 @@ const SubmitSecurityModal = ({ show, setShow, slug, setData,setAttachments }) =>
           ([key]) => !excludedFields.includes(key)
         )
       );
-      console.log("responseData?.attachments",responseData);
       setAttachments(responseData?.user?.attachments)
       setShow(false);
       setData(filteredData);
