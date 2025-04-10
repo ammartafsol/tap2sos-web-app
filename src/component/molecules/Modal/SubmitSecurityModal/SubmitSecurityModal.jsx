@@ -56,9 +56,9 @@ const SubmitSecurityModal = ({ show, setShow, slug, setData }) => {
       <div className={classes?.btnParent}>
         <Button
           onClick={handleClose}
-          className={classes?.btn}
+          className={classes?.cancelBtn}
           label={"Cancel"}
-          variant={"outlined"}
+          variant={"secondary"}
         />
         <Button
           onClick={() => {
@@ -66,7 +66,7 @@ const SubmitSecurityModal = ({ show, setShow, slug, setData }) => {
           }}
           className={classes?.btn}
           label={loading === "loading" ? "loading..." : "Submit"}
-          variant={"primary"}
+          variant={"gradient"}
           disabled={loading === "loading"}
         />
       </div>

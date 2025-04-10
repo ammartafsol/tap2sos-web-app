@@ -13,7 +13,7 @@ import { TbLockAccess } from "react-icons/tb";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Get, Post } from "@/interceptor/axiosInterceptor";
-import { capitalizeFirstLetter } from "@/resources/utils/helper";
+import { capitalizeFirstLetter, flattenObject } from "@/resources/utils/helper";
 import moment from "moment-timezone";
 import RenderToast from "@/component/atoms/RenderToast";
 import ShowDocuments from "@/component/atoms/ShowDocuments";
@@ -44,10 +44,10 @@ export default function SecurityKey({ slug }) {
     setLoading("loading");
     const response = await Get({ route: `users/patient/detail/${slug}` });
     const obj = response?.response?.data?.data;
-    console.log("obj", obj);
     if (response) {
+      const flattenedData = flattenObject(obj);
       const filteredData = Object.fromEntries(
-        Object.entries(obj).filter(([key]) => !excludedFields.includes(key))
+        Object.entries(flattenedData).filter(([key]) => !excludedFields.includes(key))
       );
       setInitialData(filteredData);
     }
@@ -178,91 +178,51 @@ export default function SecurityKey({ slug }) {
         ) : (
           <>
             <TopHeader data={"security-key"} />
-            <Row className={classes.contactUsCard}>
-              <Col lg={6}>
-                <div className={classes.headingDiv}>
-                  <h2>View Documents With Your Security Key</h2>
-                  <p>To view your documents, just fill the form!</p>
-                </div>
-                <div className={classes.contactUsDetails}>
-                  <div className={classes.contactInfoDiv}>
-                    <div className={classes.imageDiv}>
-                      <MdOutlineSecurity
-                        size={32}
-                        className={classes.iconColor}
-                      />
-                    </div>
-                    <p>Secured data</p>
-                  </div>
-                  <div className={classes.contactInfoDiv}>
-                    <div className={classes.imageDiv}>
-                      <TbLockAccess size={32} className={classes.iconColor} />
-                    </div>
-                    <p>Access with you security key</p>
-                  </div>
-                </div>
-              </Col>
-              <Col lg={6} className={classes.contactUsFormDiv}>
-                <div className={classes.inputDivs}>
-                  <Input
-                    placeholder={"Patient Name"}
-                    type={"text"}
-                    mainContClassName={"mb-0"}
-                    setter={(e) => {
-                      PatientDataFormik.setFieldValue("password", e);
-                    }}
-                  />
-                  <Input
-                    placeholder={"Patient Name"}
-                    type={"text"}
-                    mainContClassName={"mb-0"}
-                    setter={(e) => {
-                      PatientDataFormik.setFieldValue("password", e);
-                    }}
-                  />
-                  <Input
-                    placeholder={"Patient Name"}
-                    type={"text"}
-                    mainContClassName={"mb-0"}
-                    setter={(e) => {
-                      PatientDataFormik.setFieldValue("password", e);
-                    }}
-                  />
-                  <Input
-                    placeholder={"Patient Name"}
-                    type={"text"}
-                    mainContClassName={"mb-0"}
-                    setter={(e) => {
-                      PatientDataFormik.setFieldValue("password", e);
-                    }}
-                  />
-                  <Input
-                    placeholder={"Patient Name"}
-                    type={"text"}
-                    mainContClassName={"mb-0"}
-                    setter={(e) => {
-                      PatientDataFormik.setFieldValue("password", e);
-                    }}
-                  />
-                  <Input
-                    placeholder={"Patient Name"}
-                    type={"text"}
-                    mainContClassName={"mb-0"}
-                    setter={(e) => {
-                      PatientDataFormik.setFieldValue("password", e);
-                    }}
-                  />
-                </div>
-                <div className={classes.button}>
-                  <Button
-                    onClick={() => {
-                      setShow(true);
-                    }}
-                    variant={"gradient"}
-                    label={"View More Details"}
-                  />
-                </div>
-              </Col>
+            <Row>
+              {Object.entries(initialData || {}).map(([key, value], index) => {
+                // Skip excluded fields
+                if (excludedFields.includes(key)) return null;
+
+                if (typeof value === "object" && value !== null) {
+                  return Object.entries(value).map(
+                    ([nestedKey, nestedValue], nestedIndex) => (
+                      <Col md={6} key={`${index}-${nestedIndex}`}>
+                        <Input
+                          type="text"
+                          disabled={true}
+                          label={capitalizeFirstLetter(nestedKey)}
+                          value={
+                            capitalizeFirstLetter(String(nestedValue)) ||
+                            "No Data"
+                          }
+                        />
+                      </Col>
+                    )
+                  );
+                }
+
+                // For non-object fields, render normally
+                return (
+                  <Col md={6} key={index}>
+                    <Input
+                      type="text"
+                      disabled={true}
+                      label={capitalizeFirstLetter(key)}
+                      value={capitalizeFirstLetter(String(value))}
+                    />
+                  </Col>
+                );
+              })}
+
+              <div className={classes.button}>
+                <Button
+                  onClick={() => {
+                    setShow(true);
+                  }}
+                  variant={"gradient"}
+                  label={"View More Details"}
+                />
+              </div>
             </Row>
           </>
         )}

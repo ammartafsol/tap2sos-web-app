@@ -6,3 +6,8 @@
     align-items: center;
     gap: 10px;
 }
+
+.cancelBtn{
+    width: fit-content !important;
+    border: none !important;
+}

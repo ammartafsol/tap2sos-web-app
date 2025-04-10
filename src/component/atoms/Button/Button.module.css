@@ -28,8 +28,8 @@
   color: var(--white-color);
 }
 .btn[color-variant="secondary"] {
-  background: var(--secondary);
-  color: var(--white);
+  background: transparent;
+  color:  var(--black-color);
 }
 .btn[color-variant="dark"] {
   background: var(--black);
@@ -51,8 +51,8 @@
 }
 
 .btn[color-variant="outlined"] {
-  border: 1px solid var(--royal-navy-blue) !important;
-  color: var(--royal-navy-blue);
+  /* border: 1px solid var(--royal-navy-blue) !important; */
+  color:  linear-gradient(225deg, #e04018 0%, #f8d11d 100%), #0a2147;
   box-shadow: none !important;
   background-color: transparent;
 }
