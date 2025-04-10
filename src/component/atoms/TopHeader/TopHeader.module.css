@@ -33,12 +33,26 @@
   list-style: none;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 766px) {
   .pageMenu {
     padding-left: 0px !important;
   }
   .TopHeader h4 {
     font-size: 34px;
+    line-height: 54px;
+  }
+  .pageMenu li{
+    font-size: 14px;
+  }
+}
+
+
+@media (max-width: 575px) {
+  .pageMenu {
+    padding-left: 0px !important;
+  }
+  .TopHeader h4 {
+    font-size: 28px;
     line-height: 54px;
   }
 }

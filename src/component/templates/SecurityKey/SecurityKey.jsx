@@ -104,8 +104,11 @@ export default function SecurityKey({ slug }) {
                           disabled={true}
                           label={formatLabel(key)}
                           value={
-                            capitalizeFirstLetter(String(nestedValue)) ||
-                            "No Data"
+                            key === "organDonor"
+                              ? value
+                                ? "Yes"
+                                : "No"
+                              : capitalizeFirstLetter(String(value)) || "No Data"
                           }
                         />
                       </Col>
@@ -119,7 +122,13 @@ export default function SecurityKey({ slug }) {
                       type="text"
                       disabled={true}
                       label={formatLabel(key)}
-                      value={capitalizeFirstLetter(String(value))}
+                      value={
+                        key === "organDonor"
+                          ? value
+                            ? "Yes"
+                            : "No"
+                          : capitalizeFirstLetter(String(value)) || "No Data"
+                      }
                     />
                   </Col>
                 );
