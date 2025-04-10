@@ -6,8 +6,10 @@ import classes from "./SubmitSecurityModal.module.css";
 import { useFormik } from "formik";
 import { Post } from "@/interceptor/axiosInterceptor";
 import * as Yup from "yup";
+import { flattenObject } from "@/resources/utils/helper";
+import { excludedFields } from "@/const";
 
-const SubmitSecurityModal = ({ show, setShow, slug, setData }) => {
+const SubmitSecurityModal = ({ show, setShow, slug, setData,setAttachments }) => {
   const [loading, setLoading] = useState("");
   const PasswordFormik = useFormik({
     initialValues: {
@@ -29,8 +31,17 @@ const SubmitSecurityModal = ({ show, setShow, slug, setData }) => {
     };
     const response = await Post({ route: "users/patient/login", data: obj });
     if (response) {
+      const responseData = response?.response?.data?.data;
+      const flattenedData = flattenObject(responseData);
+      const filteredData = Object.fromEntries(
+        Object.entries(flattenedData).filter(
+          ([key]) => !excludedFields.includes(key)
+        )
+      );
+      console.log("responseData?.attachments",responseData);
+      setAttachments(responseData?.user?.attachments)
       setShow(false);
-      setData(response?.response?.data?.data?.user);
+      setData(filteredData);
       PasswordFormik.resetForm();
     }
     setLoading("");
@@ -40,7 +51,6 @@ const SubmitSecurityModal = ({ show, setShow, slug, setData }) => {
     setShow(false);
   };
 
-  console.log("formik", PasswordFormik.values);
 
   return (
     <ModalSkeleton header={"Security Key"} setShow={setShow} show={show}>

@@ -419,3 +419,11 @@ export const flattenObject = (obj) => {
 
   return result;
 };
+
+
+export const formatLabel = (label) => {
+  return label
+    .replace(/([a-z])([A-Z])/g, "$1 $2") // Add space between camelCase or PascalCase words
+    .replace(/_/g, " ") 
+    .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize the first letter of each word
+};

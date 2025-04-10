@@ -85,6 +85,17 @@
 .iconColor {
   color: #d48f00 !important;
 }
+.attachments{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.attachmentsHeading{
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px !important;
+}
 
 @media (max-width: 991px) {
   .contactUsCard {
@@ -120,5 +131,11 @@
   }
   .contactUsCard {
     padding: 25px 15px;
+  }
+  .attachmentsHeading{
+    text-align: center;
+  }
+  .attachments{
+    flex-direction: column;
   }
 }
