@@ -2,30 +2,53 @@ import CryptoJS from "crypto-js";
 
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Patch, Post } from "@/interceptor/axiosInterceptor";
+import useAxios from "@/interceptor/axiosInterceptor";
 import { config } from "@/config";
 // import { apiHeader } from "../../config/apiUrl";
 
-export const API_URL = config.apiBaseUrl;
+export const API_URL = config.apiBaseURL;
 
-// export const downloadFileUrl =
-//   "https://www.dropbox.com/scl/fi/fvfz25arw0vq99xis2v9g/AthleteRaceINFO.pdf?rlkey=2dzbihw3uupnw15fl0ddsvfjd&e=1&dl=0";
-// live 2w3222
-export const S3_URL = "";
+export const S3_URL = config.s3BucketURL;
 // 00
-export const baseURL = (link) => `${API_URL}/api/v1/${link}`;
-export const mediaUrl = (url) => `${S3_URL}/${url}`;
-export const imageUrl = (url) => {
+export const apiHeader = (token, isFormData) => {
+  if (token && !isFormData) {
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+  }
+  if (token && isFormData) {
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    };
+  }
+  if (!token && !isFormData) {
+    return {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+  }
+
+  if (!token && isFormData) {
+    return {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+  }
+};
+export const BaseURL = (link) => `${API_URL}/api/v1/${link}`;
+export const MediaUrl = (url) => {
   if (!url) return "";
-
-  if (url.startsWith("/")) return url;
-
   const result = url.indexOf("http");
-
-  const imageRenderUrl =
-    result === -1 ? `${API_URL}/api/v1/images/${url}` : url;
-
-  return imageRenderUrl;
+  if (result === -1) return `${S3_URL}/${url}`;
+  return url;
 };
 
 export const mergeClass = (...classes) => {
@@ -100,13 +123,14 @@ const ACCESS_TOKEN_SECRET = "t2qckOEgV88Gp";
 
 export const uploadImages = async (images, token) => {
   if (!images.length) return null;
+  const { Post } = useAxios();
   const formData = new FormData();
   images.forEach((image) => {
     formData.append("photos", image);
   });
 
   const res = await Post(
-    baseURL("media/upload"),
+    BaseURL("media/upload"),
     formData,
     apiHeader(token, true)
   );
@@ -146,7 +170,8 @@ export const deleteMedia = async ({
   setImages,
   entity,
 }) => {
-  const url = baseURL("media/delete");
+  const { Patch } = useAxios();
+  const url = BaseURL("media/delete");
   const params = { slug: slug, key, type: "image", entity };
   setIsLoading(true);
   const res = await Patch(url, params, apiHeader(token));
@@ -309,39 +334,6 @@ export const getNestedObject = (obj = {}, nestedKey = "") => {
   const value = keys.reduce((acc, currKey) => acc && acc[currKey], obj);
   return value;
 };
-export const apiHeader = (token, isFormData) => {
-  if (token && !isFormData) {
-    return {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    };
-  }
-  if (token && isFormData) {
-    return {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
-      },
-    };
-  }
-  if (!token && !isFormData) {
-    return {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-  }
-
-  if (!token && isFormData) {
-    return {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
-  }
-};
 
 export const validateEmail = (email) => {
   const re =
@@ -389,25 +381,21 @@ export const capitalizeFirstLetter = (l) => {
   return l.charAt(0).toUpperCase() + l.slice(1);
 };
 
-
 export const formatPathname = (pathname) => {
-  if (!pathname) return "Home"; 
+  if (!pathname) return "Home";
   const name = pathname.split("/").filter(Boolean).pop();
-  return name
-    .split("-") 
-    .map(capitalizeFirstLetter)
-    .join(" ");
+  return name.split("-").map(capitalizeFirstLetter).join(" ");
 };
-
-
 
 export const flattenObject = (obj) => {
   let result = {};
   for (const [key, value] of Object.entries(obj)) {
     // If the value is an object, flatten it by combining the key and its properties
-    if (typeof value === 'object' && value !== null) {
+    if (typeof value === "object" && value !== null) {
       const flattenedNestedObject = flattenObject(value);
-      for (const [nestedKey, nestedValue] of Object.entries(flattenedNestedObject)) {
+      for (const [nestedKey, nestedValue] of Object.entries(
+        flattenedNestedObject
+      )) {
         // Combine the parent key with the nested key (just flattening)
         result[nestedKey] = nestedValue;
       }
@@ -420,10 +408,35 @@ export const flattenObject = (obj) => {
   return result;
 };
 
-
 export const formatLabel = (label) => {
   return label
     .replace(/([a-z])([A-Z])/g, "$1 $2") // Add space between camelCase or PascalCase words
-    .replace(/_/g, " ") 
+    .replace(/_/g, " ")
     .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize the first letter of each word
+};
+export const getUniqueBrowserId = () => {
+  const uniqueBrowserId = localStorage?.getItem("uniqueBrowserId");
+  if (uniqueBrowserId) {
+    return uniqueBrowserId;
+  }
+
+  if (window.navigator) {
+    var navigator_info = window.navigator;
+    var screen_info = window.screen;
+    var uid = navigator_info.mimeTypes.length;
+    uid += navigator_info.userAgent.replace(/\D+/g, "");
+    uid += navigator_info.plugins.length;
+    uid += screen_info.height || "";
+    uid += screen_info.width || "";
+    uid += screen_info.pixelDepth || "";
+
+    localStorage.setItem("uniqueBrowserId", uid);
+    return uid;
+  } else {
+    const theId =
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
+    localStorage.setItem("uniqueBrowserId", theId);
+    return theId;
+  }
 };

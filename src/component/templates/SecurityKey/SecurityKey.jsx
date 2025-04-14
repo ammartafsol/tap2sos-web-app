@@ -14,7 +14,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Get, Post } from "@/interceptor/axiosInterceptor";
 import {
-  baseURL,
+  BaseURL,
   capitalizeFirstLetter,
   flattenObject,
   formatLabel,
@@ -65,11 +65,10 @@ export default function SecurityKey({ slug }) {
     }
   };
 
-
   const downloadDocumens = async (key) => {
     setLoading("load");
     setSelectedKey(key);
-    const url = baseURL(`users/media/fetch/${key}`);
+    const url = BaseURL(`users/media/fetch/${key}`);
     window.open(url);
     setLoading("");
     setSelectedKey("");
@@ -192,19 +191,17 @@ export default function SecurityKey({ slug }) {
                   </Col>
                 );
               })}
-              {
-                Object.keys(initialData).length !== 0 && 
+              {Object.keys(initialData).length !== 0 && (
                 <div className={classes.button}>
-                <Button
-                  onClick={() => {
-                    setShow(true);
-                  }}
-                  variant={"gradient"}
-                  label={"View More Details"}
-                />
-              </div>
-             }
-             
+                  <Button
+                    onClick={() => {
+                      setShow(true);
+                    }}
+                    variant={"gradient"}
+                    label={"View More Details"}
+                  />
+                </div>
+              )}
             </Row>
           </>
         )}

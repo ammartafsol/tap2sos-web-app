@@ -1,202 +1,158 @@
 "use client";
 import axios from "axios";
-import Cookies from "js-cookie";
-// import { signOutRequest } from "@/store/auth/authSlice";
 import momentTimezone from "moment-timezone";
-// import {
-//   BaseURL,
-//   handleDecrypt,
-//   handleEncrypt,
-//   mediaUrl,
-// } from "@/resources/utils/helper";
+import { useDispatch, useSelector } from "react-redux";
+
 import RenderToast from "@/component/atoms/RenderToast";
-import {
-  baseURL,
-  handleDecrypt,
-  handleEncrypt,
-  mediaUrl,
-} from "@/resources/utils/helper";
+import { BaseURL, handleEncrypt } from "@/resources/utils/helper";
+import { signOutRequest, updateJWTTokens } from "@/store/auth/authSlice";
+import Cookies from "js-cookie";
 
-// Function to refresh the access token
-const refreshAccessToken = async () => {
-  const refreshToken = handleDecrypt(Cookies.get("_xpdx_rf")); // Assuming the refresh token is stored in cookies
-  if (!refreshToken) throw new Error("No refresh token available");
+const useAxios = () => {
+  const dispatch = useDispatch();
+  const { accessToken, refreshToken } = useSelector(
+    (state) => state.authReducer
+  );
 
-  const response = await axios.post(mediaUrl("auth/refresh-token"), {
-    token: refreshToken,
-  });
+  // Function to refresh the access token
+  const refreshAccessToken = async () => {
+    if (!refreshToken) {
+      RenderToast("No refresh token found.", "error");
+      return null;
+    }
 
-  const data = response?.data;
-  Cookies.set("_xpdx", handleEncrypt(data?.jwtToken));
-  Cookies.set("_xpdx_rf", handleEncrypt(data?.refreshToken));
+    try {
+      const response = await axios.post(BaseURL("auth/refresh-token"), {
+        token: refreshToken,
+      });
 
-  return data?.jwtToken;
-};
+      const data = response?.data;
+      Cookies.set("_xpdx", handleEncrypt(data?.accessToken));
+      Cookies.set("_xpdx_rf", handleEncrypt(data?.refreshToken));
+      dispatch(
+        updateJWTTokens({
+          accessToken: data.accessToken,
+          refreshToken: data.refreshToken,
+        })
+      );
 
-const getErrorMsg = (error = null) => {
-  const message = error?.response?.data?.message;
-  let errorMessage = "";
+      return data.accessToken;
+    } catch (error) {
+      Cookies.remove("_xpdx");
+      Cookies.remove("_xpdx_rf");
+      dispatch(signOutRequest());
+      return null;
+    }
+  };
 
-  if (Array.isArray(message)) {
-    errorMessage = message[0];
-  } else if (Array.isArray(message?.error) && message?.error[0]) {
-    errorMessage = message?.error[0];
-  } else {
-    errorMessage = message;
-  }
+  const getErrorMsg = (error = null) => {
+    if (error?.message === "Network Error") {
+      return `Network Error : Please Check Your Network Connection`;
+    }
+    const message = error?.response?.data?.message?.error;
+    let errorMessage = "";
 
-  return errorMessage;
-};
+    Array.isArray(message)
+      ? message?.map(
+          (item, i) => (errorMessage = `${errorMessage} • ${item} \n`)
+        )
+      : (errorMessage = message);
+    return errorMessage;
+  };
 
-let handleRequest = async ({
-  method = "",
-  route = "",
-  data = {},
-  headers = {},
-  dispatch = null,
-  showAlert = true,
-  isFormData = false,
-}) => {
-  try {
-    const url = baseURL(route);
-    // const token = Cookies.get("_xpdx");
-
+  // Function to handle API requests
+  const handleRequest = async ({
+    method = "",
+    route = "",
+    data = {},
+    headers = {},
+    showAlert = true,
+    isFormData = false,
+  }) => {
+    const url = BaseURL(route);
     const _headers = {
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type": isFormData ? "multipart/form-data" : "application/json",
       timezone: momentTimezone.tz.guess(),
-
-      ...(isFormData && {
-        "Content-Type": "multipart/form-data",
-      }),
-
-      // ...(token && {
-      //   Authorization: `Bearer ${handleDecrypt(token)}`,
-      // }),
-
+      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
       ...headers,
     };
 
-    const response = await axios({
-      method,
-      url,
-      data,
-      headers: _headers,
-    });
-
-    return { response, error: null };
-  } catch (error) {
-    console.log("error",error)
-    const errorMessage = getErrorMsg(error);
-    console.log("error message", errorMessage);
-
-    if (showAlert) {
-      RenderToast({type: "error", message: errorMessage});
-    }
-
-    if (error?.response?.status === 401) {
-      try {
-        const newAccessToken = await refreshAccessToken(); // Attempt to refresh token
-        headers.Authorization = `Bearer ${newAccessToken}`; // Update headers with new token
-        return await axios({ method, url, data, headers }); // Retry the request
-      } catch (refreshError) {
-        // dispatch(signOutRequest()); for now comment but change after going forward
-        Cookies.remove("_xpdx");
-        Cookies.remove("_xpdx_rf");
-        typeof window !== "undefined" && window.location === "/login";
+    try {
+      const response = await axios({ method, url, data, headers: _headers });
+      return { response: response?.data, error: null };
+    } catch (error) {
+      const errorMessage = getErrorMsg(error);
+      if (showAlert) {
+        RenderToast(errorMessage || "An unexpected error occurred.", "error");
       }
+
+      if (error?.response?.status === 401) {
+        const newAccessToken = await refreshAccessToken();
+        if (newAccessToken) {
+          headers.Authorization = `Bearer ${newAccessToken}`;
+          return await axios({ method, url, data, headers });
+        }
+      }
+      return { error, response: null };
     }
+  };
 
-    return { error, response: null };
-  }
+  return {
+    Get: ({ route = "", headers = {}, showAlert = true }) =>
+      handleRequest({ method: "get", route, headers, showAlert }),
+
+    Post: ({
+      route = "",
+      data = {},
+      headers = {},
+      showAlert = true,
+      isFormData = false,
+    }) =>
+      handleRequest({
+        method: "post",
+        route,
+        data,
+        headers,
+        showAlert,
+        isFormData,
+      }),
+
+    Put: ({
+      route = "",
+      data = {},
+      headers = {},
+      showAlert = true,
+      isFormData = false,
+    }) =>
+      handleRequest({
+        method: "put",
+        route,
+        data,
+        headers,
+        showAlert,
+        isFormData,
+      }),
+
+    Patch: ({
+      route = "",
+      data = {},
+      headers = {},
+      showAlert = true,
+      isFormData = false,
+    }) =>
+      handleRequest({
+        method: "patch",
+        route,
+        data,
+        headers,
+        showAlert,
+        isFormData,
+      }),
+
+    Delete: ({ route = "", headers = {}, showAlert = true }) =>
+      handleRequest({ method: "delete", route, headers, showAlert }),
+  };
 };
 
-const Get = ({
-  route = "",
-  headers = {},
-  dispatch = null,
-  showAlert = true,
-}) => {
-  return handleRequest({
-    method: "get",
-    route,
-    headers,
-    dispatch,
-    showAlert,
-  });
-};
-
-const Post = ({
-  route = "",
-  data = {},
-  headers = {},
-  showAlert = true,
-  dispatch = null,
-  isFormData = false,
-}) => {
-  return handleRequest({
-    method: "post",
-    route,
-    data,
-    headers,
-    dispatch,
-    showAlert,
-    isFormData,
-  });
-};
-
-const Patch = ({
-  route = "",
-  data = {},
-  headers = {},
-  showAlert = true,
-  dispatch = null,
-  isFormData = false,
-}) => {
-  return handleRequest({
-    method: "patch",
-    route,
-    data,
-    headers,
-    dispatch,
-    isFormData,
-    showAlert,
-  });
-};
-
-const Put = ({
-  route = "",
-  data = {},
-  headers = {},
-  showAlert = true,
-  dispatch = null,
-  isFormData = false,
-}) => {
-  return handleRequest({
-    method: "put",
-    route,
-    data,
-    headers,
-    dispatch,
-    showAlert,
-    isFormData,
-  });
-};
-
-const Delete = ({
-  route = "",
-  headers = {},
-  dispatch = null,
-  showAlert = true,
-}) => {
-  return handleRequest({
-    method: "delete",
-    route,
-    // data,
-    headers,
-    dispatch,
-    showAlert,
-  });
-};
-
-export { Delete, Get, Patch, Post, Put };
+export default useAxios;

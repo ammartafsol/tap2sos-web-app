@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reach/combobox": "^0.18.0",
+    "@react-google-maps/api": "^2.20.6",
     "@reduxjs/toolkit": "^2.6.1",
     "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
@@ -26,6 +28,8 @@
     "react-redux": "^9.2.0",
     "react-toastify": "^11.0.5",
     "redux-persist": "^6.0.0",
+    "socket.io-client": "^4.8.1",
+    "use-places-autocomplete": "^4.0.1",
     "yup": "^1.6.1"
   },
   "devDependencies": {

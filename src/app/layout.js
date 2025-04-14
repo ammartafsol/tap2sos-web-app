@@ -6,6 +6,8 @@ import "./css/color.css";
 import { ToastContainer } from "react-toastify";
 import Header from "@/component/organisms/Header";
 import Footer from "@/component/organisms/Footer";
+import { CustomProvider } from "@/store/customProvider";
+import { SocketProvider } from "@/context/SocketContext";
 
 export const metadata = {
   title: "Tap2Sos Web App",
@@ -17,13 +19,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <ToastContainer />
-        {/* <AuthProvider> */}
-        {/* <RootApis /> */}
-
-        <Header />
-        {children}
-        <Footer />
-        {/* </AuthProvider> */}
+        <CustomProvider>
+          <SocketProvider>
+            <Header />
+            {children}
+            <Footer />
+          </SocketProvider>
+        </CustomProvider>
       </body>
     </html>
   );

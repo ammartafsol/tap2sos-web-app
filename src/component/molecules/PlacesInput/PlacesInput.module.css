@@ -1,0 +1,81 @@
+.labelText {
+  opacity: 0.65;
+  text-wrap: nowrap;
+  margin-bottom: 16px !important;
+  color: var(--black-color);
+  text-transform: capitalize;
+}
+
+.inputDiv {
+  position: relative;
+  display: flex;
+  border-radius: 10px;
+}
+
+.comboboxInput {
+  border-radius: 8px;
+  border: 1px solid var(--border-color-v2);
+  background: var(--white-color);
+  box-shadow: 0 1px 8px #00000014;
+  min-height: 42px;
+  padding: 9px;
+  color: var(--black-color);
+  width: 100%;
+}
+
+.inputDiv input {
+  background: var(--white-color);
+}
+
+.leftIcon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  bottom: 45%;
+  transform: translateY(-50%);
+  height: max-content;
+}
+
+.inputDiv input::placeholder {
+  text-transform: capitalize;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: var(--inter);
+  color: var(--placeholder-color);
+}
+.comboBoxList {
+  position: absolute;
+  top: 100%;
+  z-index: 8;
+  width: 100%;
+  color: var(--white-color);
+  border-radius: 20px;
+  background: #e4ecf1;
+  box-shadow: 0px 0px 20px 0px var(--box-shadow);
+  overflow: hidden;
+}
+.comboBoxList li {
+  color: var(--black-color);
+  opacity: 0.65;
+  padding: 3px 15px;
+}
+.comboBoxList li:hover,
+.comboBoxList li[data-reach-combobox-option][aria-selected="true"] {
+  background: rgba(255, 251, 244, 0.6);
+}
+.rightIconBox {
+  right: 15px;
+  top: 8px;
+  position: absolute;
+}
+
+@media screen and (max-width: 1200px) {
+  .labelText {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .labelText {
+    margin-bottom: 5px !important;
+  }
+}
