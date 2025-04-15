@@ -15,6 +15,8 @@ import { FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import classes from "./LoginTemplate.module.css";
+import Cookies from "js-cookie";
+import { handleEncrypt } from "@/resources/utils/helper";
 
 export default function LoginTemplate() {
   const router = useRouter();
@@ -33,15 +35,27 @@ export default function LoginTemplate() {
   const handleSubmit = async (values) => {
     setLoading("submitLogin");
 
-    const { response } = await Post({ route: "user/login", data: values });
+    const { response } = await Post({
+      route: "users/clinic/login",
+      data: values,
+    });
     if (response) {
-      Cookies.set("_xpdx", handleEncrypt(response?.token), { expires: 90 });
-      dispatch(saveLoginUserData(response));
+      Cookies.set("_xpdx", handleEncrypt(response?.data?.token), {
+        expires: 90,
+      });
+      Cookies.set("_xpdx_rf", handleEncrypt(response?.data?.refreshToken), {
+        expires: 90,
+      });
+      Cookies.set("_xpdx_ur", handleEncrypt(response?.data?.user?.role), {
+        expires: 90,
+      });
+      dispatch(saveLoginUserData(response?.data));
       RenderToast({
         type: "success",
         message: "Login Successfully",
       });
-      router.push("/dashboard");
+      router.push("/clinic/patient");
+      // router.push("/clinic/dashboard");
     }
     setLoading("");
   };

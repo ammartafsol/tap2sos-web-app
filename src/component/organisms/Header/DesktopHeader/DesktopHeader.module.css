@@ -46,6 +46,7 @@
   text-decoration: none;
   color: var(--secondary-color-v1-opacity);
   font-weight: 500;
+  width: max-content;
 }
 .activeLink {
   color: var(--primary-color-opacity);
@@ -57,4 +58,11 @@
 }
 .dashboardButton {
   width: 100%;
+}
+.navBtns {
+  display: flex;
+  gap: 10px;
+}
+.navBtns button {
+  width: max-content;
 }

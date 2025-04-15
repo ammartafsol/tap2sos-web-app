@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-phone-input-2/lib/style.css";
 import "react-modern-drawer/dist/index.css";
 import "./css/global.css";
 import "./css/typography.css";

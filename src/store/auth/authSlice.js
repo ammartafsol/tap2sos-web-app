@@ -17,7 +17,7 @@ const authSlice = createSlice({
       state.fcmToken = action.payload.fcmToken;
     },
     saveLoginUserData(state, action) {
-      state.user = action.payload.data?.user;
+      state.user = action.payload?.user;
       state.isLogin = true;
       state.accessToken = action.payload?.token;
       state.refreshToken = action?.payload?.refreshToken;

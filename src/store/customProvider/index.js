@@ -24,9 +24,9 @@ export default function ApisProvider({ children }) {
   const { Get } = useAxios();
 
   useEffect(() => {
-    if (accessToken) {
-      getUserData();
-    }
+    // if (accessToken) {
+    //   getUserData();
+    // }
     // getCMSData();
   }, []);
 

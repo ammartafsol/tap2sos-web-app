@@ -4,7 +4,7 @@ import { Input } from "@/component/atoms/Input";
 import Button from "@/component/atoms/Button";
 import classes from "./SubmitSecurityModal.module.css";
 import { useFormik } from "formik";
-import { Post } from "@/interceptor/axiosInterceptor";
+import useAxios from "@/interceptor/axiosInterceptor";
 import * as Yup from "yup";
 import { flattenObject } from "@/resources/utils/helper";
 import { excludedFields } from "@/const";
@@ -16,6 +16,7 @@ const SubmitSecurityModal = ({
   setData,
   setAttachments,
 }) => {
+  const { Post } = useAxios();
   const [loading, setLoading] = useState("");
   const PasswordFormik = useFormik({
     initialValues: {
@@ -35,9 +36,12 @@ const SubmitSecurityModal = ({
       patientNo: slug,
       password: values?.password,
     };
-    const response = await Post({ route: "users/patient/login", data: obj });
+    const { response } = await Post({
+      route: "users/patient/login",
+      data: obj,
+    });
     if (response) {
-      const responseData = response?.response?.data?.data;
+      const responseData = response?.data;
       const flattenedData = flattenObject(responseData);
       let filteredData = Object.fromEntries(
         Object.entries(flattenedData).filter(
@@ -46,8 +50,8 @@ const SubmitSecurityModal = ({
       );
       filteredData.phoneNumber = `+${filteredData?.callingCode} ${filteredData.phoneNumber}`;
       filteredData.emergencyContact = `+${filteredData?.emergencyCallingCode} ${filteredData.emergencyContact}`;
-      delete filteredData?.callingCode
-      delete filteredData?.emergencyCallingCode
+      delete filteredData?.callingCode;
+      delete filteredData?.emergencyCallingCode;
 
       setAttachments(responseData?.user?.attachments);
       setShow(false);

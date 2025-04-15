@@ -1,32 +1,27 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import LayoutWrapper from "@/component/atoms/LayoutWrapper";
-import { Col, Container, Row } from "react-bootstrap";
-import TopHeader from "@/component/atoms/TopHeader";
-import Image from "next/image";
-import { Input } from "@/component/atoms/Input";
-import { TextArea } from "@/component/atoms/TextArea/TextArea";
 import Button from "@/component/atoms/Button";
-import classes from "./SecurityKey.module.css";
-import { MdOutlineSecurity } from "react-icons/md";
-import { TbLockAccess } from "react-icons/tb";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { Get, Post } from "@/interceptor/axiosInterceptor";
+import { Input } from "@/component/atoms/Input";
+import LayoutWrapper from "@/component/atoms/LayoutWrapper";
+import ShowDocuments from "@/component/atoms/ShowDocuments";
+import TopHeader from "@/component/atoms/TopHeader";
+import LoadingComponent from "@/component/molecules/LoadingComponent";
+import SubmitSecurityModal from "@/component/molecules/Modal/SubmitSecurityModal/SubmitSecurityModal";
+import { excludedFields } from "@/const";
+import useAxios from "@/interceptor/axiosInterceptor";
 import {
   BaseURL,
   capitalizeFirstLetter,
   flattenObject,
   formatLabel,
 } from "@/resources/utils/helper";
-import moment from "moment-timezone";
-import RenderToast from "@/component/atoms/RenderToast";
-import ShowDocuments from "@/component/atoms/ShowDocuments";
-import SubmitSecurityModal from "@/component/molecules/Modal/SubmitSecurityModal/SubmitSecurityModal";
-import LoadingComponent from "@/component/molecules/LoadingComponent";
-import { excludedFields } from "@/const";
+import { useFormik } from "formik";
+import { useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import * as Yup from "yup";
+import classes from "./SecurityKey.module.css";
 
 export default function SecurityKey({ slug }) {
+  const { Get } = useAxios();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState("load");
   const [show, setShow] = useState(false);
@@ -49,10 +44,8 @@ export default function SecurityKey({ slug }) {
 
   const getData = async () => {
     setLoading("loading");
-    const response = await Get({ route: `users/patient/detail/${slug}` });
-    setLoading("");
-
-    const obj = response?.response?.data?.data;
+    const { response } = await Get({ route: `users/patient/detail/${slug}` });
+    const obj = response?.data;
     setAttachments(obj?.attachments);
     if (response) {
       const flattenedData = flattenObject(obj || {});
@@ -63,6 +56,7 @@ export default function SecurityKey({ slug }) {
       );
       setInitialData(filteredData);
     }
+    setLoading("");
   };
 
   const downloadDocumens = async (key) => {

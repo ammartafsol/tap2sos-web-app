@@ -3,28 +3,23 @@ import Button from "@/component/atoms/Button";
 import { Input } from "@/component/atoms/Input";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
 import RenderToast from "@/component/atoms/RenderToast";
-import {
-  LOGIN_FORM_VALUES,
-  SIGNUP_FORM_VALUES,
-} from "@/formik/formikInitialValues/form-initial-values";
-import {
-  LoginSchema,
-  signUpSchema,
-} from "@/formik/formikSchema/formik-schemas";
+import CustomPhoneInput from "@/component/molecules/CustomPhoneInput";
+import MapAndPlaces from "@/component/organisms/MapAndPlaces";
+import { SIGNUP_FORM_VALUES } from "@/formik/formikInitialValues/form-initial-values";
+import { signUpSchema } from "@/formik/formikSchema/formik-schemas";
 import useAxios from "@/interceptor/axiosInterceptor";
+import { mergeClass } from "@/resources/utils/helper";
 import { saveLoginUserData } from "@/store/auth/authSlice";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { FaLock, FaUser } from "react-icons/fa";
+import { BsFillHospitalFill } from "react-icons/bs";
+import { FaLock } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import classes from "./SignupTemplate.module.css";
-import { BsFillHospitalFill } from "react-icons/bs";
-import MapAndPlaces from "@/component/organisms/MapAndPlaces";
-import { mergeClass } from "@/resources/utils/helper";
-import { FaLocationDot } from "react-icons/fa6";
 
 export default function SignupTemplate() {
   const router = useRouter();
@@ -56,6 +51,7 @@ export default function SignupTemplate() {
     }
     setLoading("");
   };
+
   return (
     <LayoutWrapper>
       <Container>
@@ -144,6 +140,22 @@ export default function SignupTemplate() {
                   : null
               }
             />
+            <CustomPhoneInput
+              value={
+                SignupFormik.values.phoneNumber == ""
+                  ? ""
+                  : `${SignupFormik.values.callingCode}${SignupFormik.values.phoneNumber}`
+              }
+              setValue={(data) => {
+                SignupFormik.setFieldValue("callingCode", data.callingCode);
+                SignupFormik.setFieldValue("phoneNumber", data.phoneNumber);
+              }}
+              errorText={
+                SignupFormik.touched.phoneNumber &&
+                SignupFormik.errors.phoneNumber
+              }
+              // mainContClassName={"mb-0"}
+            />
             <p
               onClick={() => {
                 router.push("/forget-password");
@@ -158,14 +170,10 @@ export default function SignupTemplate() {
               onClick={SignupFormik.handleSubmit}
               disabled={loading == "submitSignup"}
             />
-          </Col>
-          <Col md={12} className={"secondLinkClass"}>
-            <h5>
+            <div className={classes.alreadyContainer}>
               Already have an account?
-              <span className={"secondLink"} onClick={() => router.push("/")}>
-                Log in
-              </span>
-            </h5>
+              <span onClick={() => router.push("/")}>Log in</span>
+            </div>
           </Col>
         </Row>
       </Container>

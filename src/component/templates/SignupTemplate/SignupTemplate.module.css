@@ -50,3 +50,19 @@
   width: max-content;
   align-self: flex-end;
 }
+.alreadyContainer {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  color: var(--gray-color);
+  font-size: 16px;
+  font-weight: 300;
+}
+.alreadyContainer span {
+  color: var(--reddish-orange);
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+}
