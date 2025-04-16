@@ -10,11 +10,12 @@ const CustomPhoneInput = ({
   value,
   setValue,
   label,
-  errorTxt,
+  errorText,
   labelStyle = {},
+  disabled = false,
 }) => {
   const [error, setError] = useState("");
-  const showError = errorTxt || error;
+  const showError = errorText || error;
   const handlePhoneChange = (phone) => {
     const phoneNumberObj = parsePhoneNumberFromString(`+${phone}`);
     if (phoneNumberObj !== undefined && phoneNumberObj?.country) {

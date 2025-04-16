@@ -13,8 +13,12 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { IoAdd, IoSearchOutline } from "react-icons/io5";
 import classes from "./PatientManagementTemplate.module.css";
+import { IconButton } from "@/component/organisms/AppTable/CommonCells";
+import { FaEye, FaUserEdit } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 const PatientManagementTemplate = () => {
+  const router = useRouter();
   const { Get } = useAxios();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState("");
@@ -93,13 +97,22 @@ const PatientManagementTemplate = () => {
                 if (renderValue) {
                   return renderValue(item, rowItem);
                 }
-                if (key == "name") {
+                if (key == "action") {
                   return (
-                    <p>
-                      {rowItem?.firstName
-                        ? `${rowItem?.firstName}  ${rowItem?.lastName}`
-                        : "-"}
-                    </p>
+                    <div className="flex row gap-2">
+                      <IconButton
+                        onClick={() =>
+                          router.push(`/clinic/patient/${rowItem?.slug}`)
+                        }
+                        icon={<FaEye size={20} />}
+                      />
+                      <IconButton
+                        onClick={() =>
+                          router.push(`/clinic/patient/${rowItem?.slug}/edit`)
+                        }
+                        icon={<FaUserEdit size={20} />}
+                      />
+                    </div>
                   );
                 }
                 return item || "";

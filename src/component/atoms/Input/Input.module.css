@@ -11,16 +11,16 @@
 }
 
 .labelText {
-  color: var(--secondary-text-black);
-font-family: var(--plusJakartaSans);
-font-size: 14px;
-font-style: normal;
-font-weight: 500;
-line-height: 20px; 
-letter-spacing: -0.14px;
-margin-bottom: 8px;
+  color: var(--text-color);
+  font-family: var(--inter);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+  margin-bottom: 8px;
+  text-transform: capitalize;
 }
-
 .onTopLabel {
   position: absolute;
   z-index: 1;
@@ -48,7 +48,7 @@ margin-bottom: 8px;
   /* border: 1px solid var(--border-color); */
 }
 
-.paddingLeft{
+.paddingLeft {
   padding-left: 50px;
 }
 .inputBox::placeholder {
@@ -74,8 +74,6 @@ margin-bottom: 8px;
 .noBorder {
   border: none;
 }
-
-
 
 .inputPassContainer {
   display: flex;
@@ -115,7 +113,7 @@ margin-bottom: 8px;
   cursor: pointer;
 }
 
-.passwordIcon{
+.passwordIcon {
   bottom: 0 !important;
 }
 
@@ -170,6 +168,3 @@ margin-bottom: 8px;
     font-size: var(--fs-base);
   }
 }
-
-
-

@@ -10,4 +10,5 @@
   border-radius: 6px;
   background: linear-gradient(225deg, #e04018 0%, #f8d11d 100%), #0a2147;
   color: var(--white-color);
+  cursor: pointer;
 }

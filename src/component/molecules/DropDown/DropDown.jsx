@@ -1,79 +1,21 @@
-"use client";
-import React from "react";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import ReactSelect, { components } from "react-select";
 import classes from "./DropDown.module.css";
-import PropTypes from "prop-types";
-import {
-  MdOutlineArrowDropDown,
-  MdOutlineArrowDropUp,
-  MdOutlineKeyboardArrowUp,
-} from "react-icons/md";
-import { IoIosArrowDown } from "react-icons/io";
-import { RiArrowDropUpLine, RiArrowUpSLine } from "react-icons/ri";
-import { mergeClass } from "../../../resources/utils/helper";
 
-const CustomOption = (props) => {
-  const { data, isSelected, imageClass, optionClass, isCheckbox } = props;
-
-  return (
-    <components.Option {...props}>
-      <div className={mergeClass(classes.optionContainer, optionClass)}>
-        {/* {isCheckbox ? (
-          <input
-            type="checkbox"
-            checked={isSelected}
-            readOnly
-            className={classes.checkbox}
-          />
-        ) : data?.image ? (
-          <div className={mergeClass(classes.imageDiv, imageClass)}>
-            <Image
-              src={data.image}
-              alt={data.label}
-              fill
-              className={classes.image}
-            />
-          </div>
-        ) : null} */}
-        {data?.image ? (
-          <div className={mergeClass(classes.imageDiv, imageClass)}>
-            <img
-              src={data.image}
-              alt={data.label}
-              fill
-              className={classes.image}
-            />
-          </div>
-        ) : (
-          // <input
-          //   type="checkbox"
-          //   checked={isSelected}
-          //   readOnly
-          //   className={classes.checkbox}
-          // />
-          <></>
-        )}
-        <label className={classes.optionLabel}>{data.label}</label>
-      </div>
-    </components.Option>
-  );
-};
 const DropDown = ({
-  menuPlacement = "auto",
   options,
   label,
   customStyle,
   disabled,
   value,
   setValue,
-  isCheckbox = true,
   placeholder,
   isMulti,
   style,
   leftIcon,
   Components,
   labelClassName,
-  indicatorColor = "var(--secondary-clr)",
+  indicatorColor = "#3F78A3",
   optionLabel,
   optionValue,
   selectRef,
@@ -86,100 +28,149 @@ const DropDown = ({
   inputClass,
   iconClass,
   errorText,
-  imageClass,
-  optionClass,
-  isShadow = false,
   ...props
 }) => {
   const DropdownIndicator = (props) => {
     return (
       <components.DropdownIndicator {...props}>
         {props.isFocused ? (
-          isShadow ? (
-            <MdOutlineKeyboardArrowUp
-              style={{
-                border: "1px solid #E5E9EB",
-
-                borderRadius: "5px",
-                boxShadow: "0px 0px 8px 0px rgba(140, 189, 140, 0.48)",
-              }}
-              size={30}
-              color={"black"}
-            />
-          ) : (
-            <MdOutlineArrowDropUp size={30} color={indicatorColor} />
-          )
-        ) : isShadow ? (
-          <IoIosArrowDown
-            style={{
-              border: "1px solid #E5E9EB",
-              borderRadius: "5px",
-              boxShadow: "0px 0px 8px 0px rgba(140, 189, 140, 0.48)",
-            }}
-            size={25}
-            color={"black"}
-          />
+          <MdKeyboardArrowUp size={16} color={indicatorColor} />
         ) : (
-          <MdOutlineArrowDropDown size={30} color={indicatorColor} />
+          <MdKeyboardArrowDown size={16} color={indicatorColor} />
         )}
       </components.DropdownIndicator>
     );
   };
 
   const dropDownStyle = {
-    control: (base, { isDisabled }) => ({
-      ...base,
+    control: (styles, { isDisabled }) => ({
+      ...styles,
       backgroundColor: isDisabled
-        ? "var(--disabled-input-clr)"
-        : variant === "dashboard"
-        ? "var(--dashboard-input-bg-clr)"
-        : "var(--white-clr)",
-      borderRadius,
-      color: "var(--input-border-color)",
+        ? "var(--disabled-input-color)"
+        : "var(--white-color)",
+      borderRadius: borderRadius,
+      color: "#3F78A3",
       boxShadow: "none",
-      fontFamily: "var(--poppins)",
-      fontSize: 16,
+      fontFamily: "var(--inter)",
+      width: "100%",
+      fontSize: "16px",
       cursor: "pointer",
-      border: `1px solid ${errorText ? "red" : "#D1D5DB"}`,
+      border: `1px solid var(--input-border)`,
+      padding: "1px 15px",
+      height: "40px",
       ...customStyle,
+
       ":hover": {
-        ...base[":hover"],
-        borderColor: errorText ? "red" : "var(--border-color)",
+        ...styles[":hover"],
+        borderColor: "var(--input-border-active)",
+      },
+      ":placeholder": {
+        ...styles[":placeholder"],
+        color: "var(--placeholder-color)",
+      },
+      ":active": {
+        ...styles[":active"],
+        borderColor: "var(--input-border-active)",
       },
     }),
 
-    placeholder: (defaultStyles) => ({
-      ...defaultStyles,
-      color: "var(--heading-sub-gray)",
-      fontFamily: "var(--plusJakartaSans)",
-      fontSize: "14px",
-      fontStyle: "normal",
-      fontWeight: "400",
-      lineHeight: "24px",
-      opacity: 0.5,
-    }),
+    placeholder: (defaultStyles) => {
+      return {
+        ...defaultStyles,
+        color: "var(--placeholder-color)",
+        textTransform: "capitalize",
+        fontFamily: "var(--inter)",
+        fontSize: "14px",
+      };
+    },
 
-    option: (base, { isSelected }) => ({
-      ...base,
-      padding: "8px 12px",
-      backgroundColor: isSelected ? "var(--white-color)" : null,
-      color: isSelected ? "var(--black-color)" : "var(--black-color)",
+    option: (styles, { isSelected }) => {
+      return {
+        ...styles,
+        backgroundColor: isSelected && "var(--input-border-active)",
+        color: isSelected ? "var(--white-color)" : "var(--text-color)",
+        padding: "8px 12px",
+        fontFamily: "var(--inter)",
+        fontWeight: 400,
+        fontSize: "14px",
+
+        ":active": {
+          ...styles[":active"],
+          color: "var(--text-color)",
+        },
+        ":hover": {
+          ...styles[":hover"],
+          color: "var(--text-color)",
+          backgroundColor: "var(--border-blue)",
+          cursor: "pointer",
+        },
+      };
+    },
+
+    multiValue: (styles) => {
+      return {
+        ...styles,
+        backgroundColor: "var(--primary-color)",
+        borderRadius: "5px",
+        // padding: "4px 8px",
+        fontSize: "16px",
+        fontFamily: "var(--inter)",
+        fontWeight: 400,
+      };
+    },
+    singleValue: (styles) => {
+      return {
+        ...styles,
+        fontSize: "14px",
+        fontFamily: "var(--inter)",
+        fontWeight: 300,
+        color: "var(--black-color)",
+      };
+    },
+    multiValueLabel: (styles) => ({
+      ...styles,
+      color: "#fff",
+      fontWeight: 400,
+    }),
+    multiValueRemove: (styles) => ({
+      ...styles,
+      fontSize: "14px",
+      color: "#fff",
       ":hover": {
-        ...base[":hover"],
-        backgroundColor: "var(--light-gray-v5)",
-        cursor: "pointer",
+        color: "var(--white-color)",
       },
     }),
   };
-
   return (
-    <div className={`${classes.Container}`} data-variant={variant}>
+    <div className={`${[classes.Container].join(" ")}`} data-variant={variant}>
+      <style>{`
+        .DropdownOptionContainer__menu {
+          margin: 0px;
+          border: 0px;
+        }
+        .DropdownOptionContainer__single-value {
+          color: var(--text-black-clr)
+        }
+        .DropdownOptionContainer__menu {
+          box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+        }
+        .css-hlgwow{
+           padding: 0px 8px 0px 0px;
+        }
+        .css-1wy0on6{
+        height: fit-content;
+        margin: auto;
+        }
+      .css-1xc3v61-indicatorContainer, .css-15lsz6c-indicatorContainer,.css-1dyz3mf {
+                padding: 0px;
+}
+      `}</style>
       {label && (
         <label
           htmlFor={`dropdown${label}`}
           className={`${[
             classes.label,
-            labelClassName,
+            labelClassName && labelClassName,
             disabled && classes.disabled,
           ].join(" ")}`}
         >
@@ -188,16 +179,16 @@ const DropDown = ({
       )}
 
       <div
-        className={`${classes.dropdownContainer} ${customContainerClass}`}
+        className={[classes.dropdownContainer, customContainerClass].join(" ")}
         style={{ ...customContainerStyle }}
       >
         <ReactSelect
-          // menuIsOpen={true}
-          menuPlacement={menuPlacement}
           inputId={`dropdown${label}`}
           value={value}
-          onChange={(e) => setValue(e)}
-          className={`${classes.reactSelect} ${inputClass}`}
+          onChange={(e) => {
+            setValue(e);
+          }}
+          className={[classes.reactSelect, inputClass].join(" ")}
           isMulti={isMulti}
           isDisabled={disabled}
           placeholder={placeholder}
@@ -205,22 +196,17 @@ const DropDown = ({
           styles={{ ...dropDownStyle, ...style }}
           isClearable={false}
           isSearchable={isSearchable}
-          classNamePrefix={`DropdownOptionContainer ${classNamePrefix}`}
+          classNamePrefix={`DropdownOptionContainer ${
+            classNamePrefix && classNamePrefix
+          }`}
           components={{
             IndicatorSeparator: () => null,
-            DropdownIndicator,
-            Option: (props) => (
-              <CustomOption
-                {...props}
-                imageClass={imageClass}
-                isCheckbox={isCheckbox}
-              />
-            ),
+            DropdownIndicator: (e) => DropdownIndicator(e),
             ...Components,
           }}
-          getOptionLabel={(option) =>
-            optionLabel ? option[optionLabel] : option.label
-          }
+          getOptionLabel={(option) => {
+            return optionLabel ? option[optionLabel] : option.label;
+          }}
           getOptionValue={(option) =>
             optionValue ? option[optionValue] : option.value
           }
@@ -229,34 +215,11 @@ const DropDown = ({
         />
         {leftIcon && <div className={classes.leftIconBox}>{leftIcon}</div>}
       </div>
-      {errorText && <p className={`mt-2 ${classes.errorText}`}>*{errorText}</p>}
+      {errorText && (
+        <p className={`mt-2 ${[classes.errorText].join(" ")}`}>{errorText}</p>
+      )}
     </div>
   );
-};
-
-DropDown.propTypes = {
-  options: PropTypes.array.isRequired,
-  label: PropTypes.string,
-  placeholder: PropTypes.string,
-  value: PropTypes.object.isRequired,
-  setValue: PropTypes.func,
-  disabled: PropTypes.bool,
-  isMulti: PropTypes.bool,
-  customStyle: PropTypes.object,
-  style: PropTypes.object,
-  Components: PropTypes.object,
-  labelClassName: PropTypes.string,
-  imageClass: PropTypes.string,
-};
-
-DropDown.defaultProps = {
-  placeholder: "Please Select",
-  value: "",
-  disabled: false,
-  isMulti: false,
-  options: [],
-  Components: {},
-  imageClass: "", // Default value for imageClass
 };
 
 export default DropDown;

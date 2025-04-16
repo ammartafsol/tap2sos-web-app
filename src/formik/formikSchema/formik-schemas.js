@@ -56,3 +56,71 @@ export const updatePasswordSchema = Yup.object({
     .required("Re-enter new password is required")
     .oneOf([Yup.ref("newPassword"), null], "Passwords must match"),
 });
+export const getAddPatientValidationSchema = (slug) => {
+  const baseSchema = {
+    patientNo: Yup.string().required("Patient No is required."),
+    firstName: Yup.string().required("First Name is required."),
+    lastName: Yup.string().required("Last Name is required."),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required."),
+    medicalCondition: Yup.string().optional(),
+    usefulInformation: Yup.string().optional(),
+    organDonor: Yup.object().required(
+      "Please select if you are an organ donor."
+    ),
+    bloodType: Yup.object().required("Please select your blood type."),
+    gender: Yup.object().required("Gender is required."),
+    dateOfBirth: Yup.date().required("Date of Birth is required."),
+    doctorName: Yup.string().required("Doctor full name is required."),
+    phoneNumber: Yup.string().required("Phone number is required."),
+    callingCode: Yup.string().optional(),
+    emergencyContact: Yup.string().required(
+      "Emergency contact number is required."
+    ),
+    emergencyCallingCode: Yup.string().optional(),
+    pesel: Yup.string().optional(),
+    education: Yup.string().optional(),
+    job: Yup.string().optional(),
+    civilStatus: Yup.object().optional(),
+    familyHistoryOfDementia: Yup.object().optional(),
+    economicStatus: Yup.object().optional(),
+    height: Yup.string().optional(),
+    weight: Yup.string().optional(),
+    bmi: Yup.string().optional(),
+    waistCircumference: Yup.string().optional(),
+    bloodPressure: Yup.string().optional(),
+    heartRate: Yup.string().optional(),
+    hyperTension: Yup.object().optional(),
+    diabetes: Yup.object().optional(),
+    heartDisease: Yup.object().optional(),
+    liverDisease: Yup.object().optional(),
+    renalDisease: Yup.object().optional(),
+    obesity: Yup.object().optional(),
+    mentalIllness: Yup.object().optional(),
+    others: Yup.string().optional(),
+    medicationTaken: Yup.string().optional(),
+    smoking: Yup.string().optional(),
+    alcoholConsumption: Yup.string().optional(),
+    physicalExercise: Yup.string().optional(),
+    sleepDuration: Yup.string().optional(),
+    dietAdequacy: Yup.string().optional(),
+    cognitiveStimulation: Yup.object().optional(),
+    relaxationTechniques: Yup.string().optional(),
+    timeSpentAlone: Yup.string().optional(),
+    useOfElectronicDevice: Yup.object().optional(),
+    waterConsumption: Yup.string().optional(),
+  };
+
+  if (!slug) {
+    baseSchema.password = Yup.string()
+      .min(8, "Password must be at least 8 characters long.")
+      .required("Password is required.");
+
+    baseSchema.confirmPassword = Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Confirm Password is required.");
+  }
+
+  return Yup.object().shape(baseSchema);
+};

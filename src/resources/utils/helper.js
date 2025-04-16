@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import useAxios from "@/interceptor/axiosInterceptor";
 import { config } from "@/config";
+import moment from "moment-timezone";
 // import { apiHeader } from "../../config/apiUrl";
 
 export const API_URL = config.apiBaseURL;
@@ -389,6 +390,7 @@ export const formatPathname = (pathname) => {
 
 export const flattenObject = (obj) => {
   let result = {};
+
   for (const [key, value] of Object.entries(obj)) {
     // If the value is an object, flatten it by combining the key and its properties
     if (typeof value === "object" && value !== null) {
@@ -405,8 +407,136 @@ export const flattenObject = (obj) => {
     }
   }
 
-  return result;
+  // Fields to delete from the result
+  [
+    "__v",
+    "_id",
+    "createdAt",
+    "updatedAt",
+    "cid",
+    "clinic",
+    "isBlockedByAdmin",
+    "lastLogin",
+    "location",
+    "nfcTapCount",
+    "password",
+    "passwordChangedAt",
+    "role",
+    "slug",
+    "slugId",
+  ].forEach((key) => {
+    delete result[key];
+  });
+
+  // Define the sequence for the fields based on the given structure
+  const fieldOrder = [
+    "patientNo",
+    "firstName",
+    "lastName",
+    "email",
+    "password",
+    "confirmPassword",
+    "medicalCondition",
+    "usefulInformation",
+    "organDonor",
+    "bloodType",
+    "gender",
+    "dateOfBirth",
+    "doctorName",
+    "phoneNumber",
+    "callingCode",
+    "emergencyContact",
+    "emergencyCallingCode",
+    "pesel",
+    "education",
+    "job",
+    "civilStatus",
+    "familyHistoryOfDementia",
+    "economicStatus",
+    "height",
+    "weight",
+    "bmi",
+    "waistCircumference",
+    "bloodPressure",
+    "heartRate",
+    "hyperTension",
+    "diabetes",
+    "heartDisease",
+    "liverDisease",
+    "renalDisease",
+    "obesity",
+    "mentalIllness",
+    "others",
+    "medicationTaken",
+    "smoking",
+    "alcoholConsumption",
+    "physicalExercise",
+    "dietAdequacy",
+    "sleepDuration",
+    "cognitiveStimulation",
+    "relaxationTechniques",
+    "waterConsumption",
+    "timeSpentAlone",
+    "useOfElectronicDevice",
+  ];
+
+  // Create a new object in the required sequence
+  const orderedResult = {};
+
+  fieldOrder.forEach((field) => {
+    if (result.hasOwnProperty(field)) {
+      orderedResult[field] = result[field];
+    } else {
+      orderedResult[field] = ""; // Add empty string for missing fields
+    }
+  });
+  orderedResult["dateOfBirth"] = moment(
+    orderedResult["dateOfBirth"] || new Date()
+  ).format("YYYY-MM-DD");
+
+  return orderedResult;
 };
+
+// export const flattenObject = (obj) => {
+//   let result = {};
+//   for (const [key, value] of Object.entries(obj)) {
+//     // If the value is an object, flatten it by combining the key and its properties
+//     if (typeof value === "object" && value !== null) {
+//       const flattenedNestedObject = flattenObject(value);
+//       for (const [nestedKey, nestedValue] of Object.entries(
+//         flattenedNestedObject
+//       )) {
+//         // Combine the parent key with the nested key (just flattening)
+//         result[nestedKey] = nestedValue;
+//       }
+//     } else {
+//       // Otherwise, directly assign the key-value pair to the result
+//       result[key] = value;
+//     }
+//   }
+//   // need to delete field from results here is list
+//   [
+//     "__v",
+//     "_id",
+//     "createdAt",
+//     "updatedAt",
+//     "cid",
+//     "clinic",
+//     "isBlockedByAdmin",
+//     "lastLogin",
+//     "location",
+//     "nfcTapCount",
+//     "password",
+//     "passwordChangedAt",
+//     "role",
+//     "slug",
+//     "slugId",
+//   ].forEach((key) => {
+//     delete result[key];
+//   });
+
+//   return result;
+// };
 
 export const formatLabel = (label) => {
   return label
