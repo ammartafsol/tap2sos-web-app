@@ -1,9 +1,11 @@
-import FogetPasswordTemplate from '@/component/templates/FogetPasswordTemplate/FogetPasswordTemplate';
+import FogetPasswordTemplate from "@/component/templates/FogetPasswordTemplate";
 
 const ForgetPassword = () => {
   return (
-    <div><FogetPasswordTemplate /></div>
-  )
-}
+    <div>
+      <FogetPasswordTemplate />
+    </div>
+  );
+};
 
 export default ForgetPassword;

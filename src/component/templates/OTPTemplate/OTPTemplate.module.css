@@ -1,0 +1,97 @@
+
+  
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1rem;
+  }
+  
+  .description {
+    font-size: 0.9rem;
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+  
+  .otpContainer {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+    margin-bottom: 1.5rem;
+  }
+  
+  .otpInput {
+    width: 4rem;
+    height: 4rem;
+    font-size: 1.25rem;
+    text-align: center;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  
+  .otpInput:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 4px #7c3aed;
+  }
+  
+  .sendButton {
+    background-color: #7c3aed;
+    color: #ffffff;
+    padding: 0.75rem 2rem;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .sendButton:hover {
+    background-color: #5b21b6;
+  }
+
+  
+  .errorMessage {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  .timerMain{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .timer {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #5b21b6;
+    background: rgba(0, 123, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-top: 10px;
+
+  }
+  
+  .resendText {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  .resendLink {
+    color: #5b21b6;
+    font-weight: bold;
+    cursor: pointer;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .resendLink:hover {
+    color: #5b21b6;
+  }
+  

@@ -1,12 +1,12 @@
-import ResetPassword from '@/component/templates/ResetPassword/ResetPassword'
-import React from 'react'
+import ResetPassword from "@/component/templates/ResetPassword";
+import React from "react";
 
 const Page = () => {
   return (
     <>
-        <ResetPassword />
+      <ResetPassword />
     </>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;

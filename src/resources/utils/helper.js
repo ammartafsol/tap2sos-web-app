@@ -122,65 +122,65 @@ export const handleDecrypt = (encryptedMessage) => {
 
 const ACCESS_TOKEN_SECRET = "t2qckOEgV88Gp";
 
-export const uploadImages = async (images, token) => {
-  if (!images.length) return null;
-  const { Post } = useAxios();
-  const formData = new FormData();
-  images.forEach((image) => {
-    formData.append("photos", image);
-  });
+// export const uploadImages = async (images, token) => {
+//   if (!images.length) return null;
+//   const { Post } = useAxios();
+//   const formData = new FormData();
+//   images.forEach((image) => {
+//     formData.append("photos", image);
+//   });
 
-  const res = await Post(
-    BaseURL("media/upload"),
-    formData,
-    apiHeader(token, true)
-  );
+//   const res = await Post(
+//     BaseURL("media/upload"),
+//     formData,
+//     apiHeader(token, true)
+//   );
 
-  if (res) {
-    return res.data?.data?.photos?.map((item) => item?.key);
-  }
+//   if (res) {
+//     return res.data?.data?.photos?.map((item) => item?.key);
+//   }
 
-  return null;
-};
+//   return null;
+// };
 
-export const uploadImagesHelper = async ({
-  images,
-  setIsLoading,
-  setImages,
-  token,
-}) => {
-  if (images.length === 0) return;
-  setIsLoading(true);
-  uploadImages(images, token)
-    .then((res) => {
-      if (res) {
-        setImages((prev) => [...prev, ...res]);
-      }
-      setIsLoading(false);
-    })
-    .finally(() => {
-      setIsLoading(false);
-    });
-};
+// export const uploadImagesHelper = async ({
+//   images,
+//   setIsLoading,
+//   setImages,
+//   token,
+// }) => {
+//   if (images.length === 0) return;
+//   setIsLoading(true);
+//   uploadImages(images, token)
+//     .then((res) => {
+//       if (res) {
+//         setImages((prev) => [...prev, ...res]);
+//       }
+//       setIsLoading(false);
+//     })
+//     .finally(() => {
+//       setIsLoading(false);
+//     });
+// };
 
-export const deleteMedia = async ({
-  slug,
-  key,
-  setIsLoading,
-  token,
-  setImages,
-  entity,
-}) => {
-  const { Patch } = useAxios();
-  const url = BaseURL("media/delete");
-  const params = { slug: slug, key, type: "image", entity };
-  setIsLoading(true);
-  const res = await Patch(url, params, apiHeader(token));
-  if (res) {
-    setImages((prev) => prev.filter((item) => item !== key));
-  }
-  setIsLoading(false);
-};
+// export const deleteMedia = async ({
+//   slug,
+//   key,
+//   setIsLoading,
+//   token,
+//   setImages,
+//   entity,
+// }) => {
+//   const { Patch } = useAxios();
+//   const url = BaseURL("media/delete");
+//   const params = { slug: slug, key, type: "image", entity };
+//   setIsLoading(true);
+//   const res = await Patch(url, params, apiHeader(token));
+//   if (res) {
+//     setImages((prev) => prev.filter((item) => item !== key));
+//   }
+//   setIsLoading(false);
+// };
 
 export const formRegEx = /([a-z])([A-Z])/g;
 export const formRegExReplacer = "$1 $2";
