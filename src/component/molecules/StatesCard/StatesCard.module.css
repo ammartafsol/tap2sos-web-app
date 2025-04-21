@@ -1,0 +1,42 @@
+.statesCard {
+  border: 1px solid var(--light-gray);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 15px -3px var(--shadow-color),
+    0px 4px 6px -4px var(--shadow-color);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icons {
+  padding: 10px;
+  width: fit-content;
+  border-radius: 10px;
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.94) 0%,
+      rgba(255, 255, 255, 0.94) 100%
+    ),
+    #1a488d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.statesDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.statesDetails h5 {
+  margin-bottom: 0px;
+  color: var(--black-color);
+  font-style: normal;
+  font-weight: 400;
+}
+.statesDetails p {
+  margin-bottom: 0px;
+  color: var(--deep-ocean-blue);
+  font-size: 24px;
+  font-weight: 700;
+}

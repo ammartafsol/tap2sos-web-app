@@ -4,6 +4,12 @@ export const NAV_DATA = [
   { title: "Contact Us", route: "/contact-us" },
 ];
 
+export const AFTER_LOGIN_NAV_DATA = [
+  { title: "Dashboard", route: "/clinic/dashboard" },
+  { title: "Patient Management", route: "/clinic/patient" },
+  // { title: "Profile", route: "/profile" },
+];
+
 export const FOOTER_LINKS = [
   { title: "Home", route: "/" },
   { title: "How it works", route: "/how-it-works" },

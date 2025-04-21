@@ -41,8 +41,6 @@ const PatientManagementTemplate = () => {
     });
     setLoading("");
     if (response) {
-      // setData(new Array(100).fill(response?.data[0]));
-      // setTotalRecords(50);
       setData(response?.data);
       setTotalRecords(response?.totalRecords);
     }
@@ -73,7 +71,7 @@ const PatientManagementTemplate = () => {
                 className={classes?.btn}
                 label={"Add Patient"}
                 onClick={() => {
-                  // router.push("/clinics/add-patient");
+                  router.push("/clinic/patient/create");
                 }}
               />
             </div>

@@ -1,128 +1,126 @@
 "use client";
-import BorderWrapper from "@/component/atoms/BorderWrapper";
-import LoadingComponent from "@/component/atoms/LoadingComponent";
-import LineChart from "@/component/molecules/Chart";
-import DropDown from "@/component/molecules/DropDown/DropDown";
-import StatesCard from "@/component/molecules/StatesCard/StatesCard";
+
 import AppTable from "@/component/organisms/AppTable/AppTable";
-import { ClinicTableHeader } from "@/developmentContent/tableHeader";
-import { Get } from "@/interceptor/axios-functions";
-import { generateYearOptions } from "@/resources/utils/helper";
-import moment from "moment";
+import { PatientTableHeader } from "@/developmentContent/tableHeader";
+
+import LayoutWrapper from "@/component/atoms/LayoutWrapper";
+import { IconButton } from "@/component/organisms/AppTable/CommonCells";
+import useAxios from "@/interceptor/axiosInterceptor";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import { LuHospital, LuUsersRound } from "react-icons/lu";
+import { Col, Container, Row } from "react-bootstrap";
+import { FaEye, FaUserEdit } from "react-icons/fa";
+import { LuUsersRound } from "react-icons/lu";
 import { TbNfc } from "react-icons/tb";
 import classes from "./DashboardTemplate.module.css";
+import StatesCard from "@/component/molecules/StatesCard/StatesCard";
+import { Loader } from "@/component/atoms/Loader";
 
 const DashboardTemplate = () => {
+  const router = useRouter();
+  const { Get } = useAxios();
+  const [data, setData] = useState([]);
+  const [statsData, setStatsData] = useState([
+    {
+      title: "Total Patients",
+      count: 10,
+      icon: LuUsersRound,
+    },
+    {
+      title: "COTIC Patient Retrieval",
+      count: 10,
+      icon: TbNfc,
+    },
+  ]);
   const [loading, setLoading] = useState("");
-  const [graphData, setGraphData] = useState({});
-  const [data, setData] = useState({});
-  const [statesData, setStatesData] = useState([]);
-  const [selectYear, setSelectYear] = useState({
-    label: new Date().getFullYear(),
-    value: new Date().getFullYear(),
-  });
 
   const getData = async () => {
     setLoading("loading");
-    const query = {
-      year: selectYear?.value,
-    };
-    const queryString = new URLSearchParams(query).toString();
-    const response = await Get({ route: `admin/dashboard?${queryString}` });
-    const responseData = response?.data?.data?.data;
+    const { response } = await Get({
+      route: `users/clinic/dashboard`,
+    });
     if (response) {
-      const graphMonths = responseData?.graph?.map((item) => item.monthName);
-      const graphCount = responseData?.graph?.map((item) => item.count);
-      const statesData = [
+      const statsCard = [
         {
           title: "Total Patients",
-          count: responseData?.patientsCount,
+          count: response?.data?.patientsCount,
           icon: LuUsersRound,
         },
         {
           title: "COTIC Patient Retrieval",
-          count: responseData?.nfcTapCount,
+          count: response?.data?.nfcTapCount,
           icon: TbNfc,
         },
       ];
-      setData(responseData);
-      setGraphData({
-        monthName: graphMonths,
-        monthCount: graphCount,
-      });
-      setStatesData(statesData);
+      setData(response?.data?.patients || []);
+      setStatsData(statsCard);
     }
     setLoading("");
   };
 
   useEffect(() => {
-    if (selectYear) {
-      getData();
-    }
-  }, [selectYear]);
+    getData();
+  }, []);
 
-  if (loading === "loading") {
-    return (
-      <div className="center">
-        <LoadingComponent />
-      </div>
-    );
-  }
-  return null;
+  return (
+    <LayoutWrapper>
+      <Container className="g-0">
+        {loading === "loading" ? (
+          <div className={classes?.loaderContainer}>
+            <Loader />
+          </div>
+        ) : (
+          <>
+            <Row className="g-0" style={{ gap: "20px" }}>
+              {statsData?.map((item, index) => {
+                return (
+                  <Col key={index} md="6" lg="4" className="p-0">
+                    <StatesCard item={item} />
+                  </Col>
+                );
+              })}
+            </Row>
 
-  // return (
-  //   <div className={"main"}>
-  //     <div className="h1">Dashboard</div>
-
-  //     <Row className={classes?.statesMain}>
-  //       {statesData?.map((item, index) => {
-  //         return (
-  //           <Col key={index} md="6" lg="4">
-  //             <StatesCard item={item} />
-  //           </Col>
-  //         );
-  //       })}
-  //     </Row>
-  //     <BorderWrapper containerClass={classes?.BorderWrapper}>
-  //       <div className={classes?.header}>
-  //         <div className="h2">Patient Data Retrieval Activity</div>
-  //         <DropDown
-  //           options={generateYearOptions()}
-  //           setValue={setSelectYear}
-  //           value={selectYear}
-  //         />
-  //       </div>
-  //       <div className={classes?.lineChart}>
-  //         <LineChart graphData={graphData} />
-  //       </div>
-  //     </BorderWrapper>
-  //     <BorderWrapper containerClass={classes?.BorderWrapper}>
-  //       <div className={classes?.users}>
-  //         <div className="h2">Clinics</div>
-  //       </div>
-  //       <AppTable
-  //         tableHeader={ClinicTableHeader}
-  //         data={data?.recentClinics}
-  //         hasPagination={false}
-  //         renderItem={({ item, key, rowIndex }) => {
-  //           const dataItem = data?.recentClinics[rowIndex];
-  //           if (key === "date") {
-  //             return (
-  //               <div>{moment(dataItem?.createdAt).format("YYYY/MM/DD")}</div>
-  //             );
-  //           }
-  //           // if (key === "select") {
-  //           //   return <BsThreeDotsVertical fontSize={18} cursor={"pointer"} />;
-  //           // }
-  //           return item || "";
-  //         }}
-  //       />
-  //     </BorderWrapper>
-  //   </div>
-  // );
+            <div className={classes?.tableContainer}>
+              <AppTable
+                loading={loading === "loading"}
+                containerClass={classes?.containerClass}
+                tableHeader={PatientTableHeader}
+                data={data}
+                noDataText="No Patient Found"
+                hasPagination={false}
+                renderItem={({ item, key, rowIndex, renderValue }) => {
+                  const rowItem = data[rowIndex];
+                  if (renderValue) {
+                    return renderValue(item, rowItem);
+                  }
+                  if (key == "action") {
+                    return (
+                      <div className="flex row gap-2">
+                        <IconButton
+                          onClick={() =>
+                            router.push(`/clinic/patient/${rowItem?.slug}`)
+                          }
+                          icon={<FaEye size={20} />}
+                        />
+                        <IconButton
+                          onClick={() =>
+                            router.push(`/clinic/patient/${rowItem?.slug}/edit`)
+                          }
+                          icon={<FaUserEdit size={20} />}
+                        />
+                      </div>
+                    );
+                  }
+                  return item || "";
+                }}
+              />
+            </div>
+          </>
+        )}
+      </Container>
+    </LayoutWrapper>
+  );
 };
 
 export default DashboardTemplate;

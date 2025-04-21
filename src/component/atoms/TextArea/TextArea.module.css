@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .label {
@@ -25,8 +26,8 @@
   border: 1px solid var(--input-border);
   border-radius: 6px;
   padding: 12px 16px 10px 16px;
-height: 142px;
-font-weight: 300;
+  height: 142px;
+  font-weight: 300;
 }
 
 .textAreaBox textarea::placeholder {
@@ -41,7 +42,7 @@ font-weight: 300;
   color: var(--disabled-label-color);
 }
 
-.textAreaBox textarea:focus{
+.textAreaBox textarea:focus {
   border-color: var(--input-border-active);
   outline: none;
 }

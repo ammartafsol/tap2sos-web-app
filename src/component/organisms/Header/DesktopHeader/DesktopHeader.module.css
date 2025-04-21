@@ -66,3 +66,41 @@
 .navBtns button {
   width: max-content;
 }
+
+.overlayContainer {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  gap: 10px;
+  border-radius: 20px;
+  border: 1px solid #ffffff80;
+  background: #fff3;
+  box-shadow: inset 0 3px 5px #ffffff80;
+  backdrop-filter: blur(50px);
+  padding: 30px;
+  overflow: hidden;
+  margin-top: 25px;
+}
+.userName {
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: capitalize;
+}
+.overLayLinks {
+  color: var(--royal-navy-blue);
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: capitalize;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.profileImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-color-opacity);
+  position: relative;
+}
