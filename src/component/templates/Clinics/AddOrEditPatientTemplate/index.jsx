@@ -11,6 +11,7 @@ import {
   civilData,
   cognitiveStimulationData,
   genderData,
+  mediaTypeData,
   yesNoData,
 } from "@/developmentContent/appData";
 import { ADD_EDIT_PATIENT_FORM_VALUES } from "@/formik/formikInitialValues/form-initial-values";
@@ -23,6 +24,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import classes from "./AddOrEditPatientTemplate.module.css";
 import { useRouter } from "next/navigation";
 import RenderToast from "@/component/atoms/RenderToast";
+import MultiFileUpload from "@/component/molecules/MultiFileUpload";
 
 export default function AddOrEditPatientTemplate({ slug }) {
   const { Get, Post, Patch } = useAxios();
@@ -31,6 +33,8 @@ export default function AddOrEditPatientTemplate({ slug }) {
   const [loading, setLoading] = useState(""); // getPatientDetails, addOrEditPatientRequest
   const [attachments, setAttachments] = useState([]);
   const [selectedKey, setSelectedKey] = useState("");
+  const [docs, setDocs] = useState({});
+  const [uploaders, setUploaders] = useState({});
 
   const formikAddPatient = useFormik({
     initialValues: ADD_EDIT_PATIENT_FORM_VALUES,
@@ -149,6 +153,36 @@ export default function AddOrEditPatientTemplate({ slug }) {
     window.open(url);
     setLoading("");
     setSelectedKey("");
+  };
+
+  const handleMediaSelect = (selectedOptions) => {
+    const updatedAttachments = {};
+    selectedOptions.forEach(({ label }) => {
+      updatedAttachments[label] = []; // Empty array to later hold files
+    });
+    setDocs(updatedAttachments);
+  };
+
+  const handleUploadClick = (type) => {
+    // Trigger file input for specific type
+    const input = document.createElement("input");
+    input.type = "file";
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const fileData = {
+        key: `some_generated_key_${file.name}`, // Replace with actual key after upload
+        fileName: file.name,
+        type,
+      };
+
+      setDocs((prev) => ({
+        ...prev,
+        [type]: [...(prev[type] || []), fileData],
+      }));
+    };
+    input.click();
   };
 
   if (loading === "getPatientDetails") {
@@ -876,6 +910,113 @@ export default function AddOrEditPatientTemplate({ slug }) {
                 }
               />
             </Col>
+            <Col md={6}>
+              <DropDown
+                label="Add Media"
+                placeholder="Select"
+                isMulti={true}
+                options={mediaTypeData}
+                setValue={handleMediaSelect}
+                value={Object.keys(docs).map((label) => {
+                  const option = mediaTypeData.find(
+                    (item) => item.label === label
+                  );
+                  return option
+                    ? option
+                    : {
+                        label,
+                        value: label.toLowerCase().replace(/\s+/g, "_"),
+                      };
+                })}
+              />
+            </Col>
+
+            {Object.keys(docs).map((type) => {
+  const uploadedFiles = docs[type] || [];
+  const currentUploaders = uploaders[type] || [];
+
+  const remainingUploads = 2 - uploadedFiles.length;
+
+  return (
+    <div key={type} className={classes.tagGroup}>
+      {/* Tag & remove */}
+      <div className={classes.tagWrapper}>
+        <div className={classes.tag}>
+          <span>{type}</span>
+          <button
+            onClick={() => {
+              const updatedDocs = { ...docs };
+              delete updatedDocs[type];
+              setDocs(updatedDocs);
+
+              const updatedUploaders = { ...uploaders };
+              delete updatedUploaders[type];
+              setUploaders(updatedUploaders);
+            }}
+            className={classes.closeBtn}
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Only show + if fewer than 2 uploads */}
+        {uploadedFiles.length + currentUploaders.length < 2 && (
+          <button
+            onClick={() => {
+              setUploaders((prev) => ({
+                ...prev,
+                [type]: [...(prev[type] || []), {}],
+              }));
+            }}
+            className={classes.uploadBtn}
+          >
+            ➕
+          </button>
+        )}
+      </div>
+
+      {/* Show uploaded files */}
+      {uploadedFiles.map((file, idx) => (
+        <div key={idx} className={classes.uploadedFile}>
+          📎 {file.fileName}
+        </div>
+      ))}
+
+      {/* Show separate <MultiFileUpload /> for each "pending" upload */}
+      {currentUploaders.map((_, idx) => (
+        <div key={idx} className={classes.uploadLine}>
+          <MultiFileUpload
+            onUpload={(uploadedFile) => {
+              const fileData = {
+                key: uploadedFile.key,
+                fileName: uploadedFile.fileName,
+                type,
+              };
+
+              // Save uploaded file
+              setDocs((prev) => ({
+                ...prev,
+                [type]: [...(prev[type] || []), fileData],
+              }));
+
+              // Remove this uploader instance
+              setUploaders((prev) => {
+                const updated = [...(prev[type] || [])];
+                updated.splice(idx, 1);
+                return {
+                  ...prev,
+                  [type]: updated,
+                };
+              });
+            }}
+          />
+        </div>
+      ))}
+    </div>
+  );
+})}
+
+
             <Col md={12} className={classes?.buttonContainer}>
               <Button
                 label={

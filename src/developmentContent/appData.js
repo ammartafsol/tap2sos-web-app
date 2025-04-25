@@ -50,3 +50,23 @@ export const cognitiveStimulationData = [
   { label: "Moderate", value: "moderate" },
   { label: "High", value: "high" },
 ];
+
+
+export const mediaTypeData = [
+  { id: 1, label: 'MRI', value: 'mri' },
+  { id: 2, label: 'CT Scan', value: 'ct_scan' },
+  { id: 3, label: 'X-Ray', value: 'x_ray' },
+  { id: 4, label: 'Ultrasound', value: 'ultrasound' },
+  { id: 5, label: 'Blood Test', value: 'blood_test' },
+  { id: 6, label: 'ECG', value: 'ecg' },
+  { id: 7, label: 'Medical Reports', value: 'medical_reports' },
+  { id: 8, label: 'Prescription', value: 'prescription' },
+  { id: 9, label: 'Surgical History', value: 'surgical_history' },
+  { id: 10, label: 'Lab Results', value: 'lab_results' },
+  { id: 11, label: 'Immunization Records', value: 'immunization_records' },
+  { id: 12, label: 'Medical Certificates', value: 'medical_certificates' },
+  { id: 13, label: 'Discharge Summary', value: 'discharge_summary' },
+  { id: 14, label: 'Pathology Report', value: 'pathology_report' },
+  { id: 15, label: 'Radiology Reports', value: 'radiology_reports' },
+  { id: 16, label: 'Physical Examination', value: 'physical_examination' },
+];
