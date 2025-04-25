@@ -86,12 +86,12 @@ const MultiFileUpload = ({
         </div>
       );
     }
-    else if (fileType === "video") {
-      console.log("else if ")
-      return (
-        <ReactPlayer url={URL.createObjectURL(file)} playing={false} controls />
-      );
-    }
+    // else if (fileType === "video") {
+    //   console.log("else if ")
+    //   return (
+    //     <ReactPlayer url={URL.createObjectURL(file)} playing={false} controls />
+    //   );
+    // }
     else {
       return (
         <div className={classes.filePreview}>
