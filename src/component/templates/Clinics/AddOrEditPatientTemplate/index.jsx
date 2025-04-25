@@ -25,9 +25,14 @@ import classes from "./AddOrEditPatientTemplate.module.css";
 import { useRouter } from "next/navigation";
 import RenderToast from "@/component/atoms/RenderToast";
 import MultiFileUpload from "@/component/molecules/MultiFileUpload";
+import {
+  getSupportedImageTypes,
+  uploadImagesHelper,
+} from "@/resources/utils/mediaUpload";
+import LottieLoader from "@/component/atoms/LottieLoader/LottieLoader";
 
 export default function AddOrEditPatientTemplate({ slug }) {
-  const { Get, Post, Patch } = useAxios();
+  const { Get, Post, Patch, Delete } = useAxios();
   const router = useRouter();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(""); // getPatientDetails, addOrEditPatientRequest
@@ -35,6 +40,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
   const [selectedKey, setSelectedKey] = useState("");
   const [docs, setDocs] = useState({});
   const [uploaders, setUploaders] = useState({});
+  const [isLoadingWithType, setIsLoadingWithTypes] = useState("");
 
   const formikAddPatient = useFormik({
     initialValues: ADD_EDIT_PATIENT_FORM_VALUES,
@@ -44,6 +50,8 @@ export default function AddOrEditPatientTemplate({ slug }) {
       handleAddPatient(values);
     },
   });
+
+  console.log("formikAddPatient", formikAddPatient.values);
 
   const handleAddPatient = async (value) => {
     const yesNoToBool = (val) => val?.value === "yes";
@@ -65,6 +73,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
       familyHistoryOfDementia: yesNoToBool(value.familyHistoryOfDementia),
       useOfElectronicDevice: yesNoToBool(value.useOfElectronicDevice),
       dateOfBirth: new Date(value.dateOfBirth),
+      attachments: docs,
       // ...(docs?.length > 0 && { attachments: docs }),
     };
 
@@ -156,33 +165,79 @@ export default function AddOrEditPatientTemplate({ slug }) {
   };
 
   const handleMediaSelect = (selectedOptions) => {
-    const updatedAttachments = {};
+    const updatedAttachments = {
+    };
     selectedOptions.forEach(({ label }) => {
-      updatedAttachments[label] = []; // Empty array to later hold files
+      if(docs[label]) {
+        updatedAttachments[label] = docs[label]; // Skip if already exists
+      }else {
+        updatedAttachments[label] = []; // Empty array to later hold files
+      }
     });
     setDocs(updatedAttachments);
   };
 
-  const handleUploadClick = (type) => {
-    // Trigger file input for specific type
-    const input = document.createElement("input");
-    input.type = "file";
-    input.onchange = (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
+  const handleAddUploader = (type) => {
+    const current = uploaders[type] || [];
+    const totalUploaded = docs[type]?.length || 0;
 
-      const fileData = {
-        key: `some_generated_key_${file.name}`, // Replace with actual key after upload
-        fileName: file.name,
-        type,
-      };
-
-      setDocs((prev) => ({
+    if (current.length + totalUploaded < 2) {
+      setUploaders((prev) => ({
         ...prev,
-        [type]: [...(prev[type] || []), fileData],
+        [type]: [...current, {}],
       }));
-    };
-    input.click();
+    }
+  };
+
+  // handleUploadMedia
+  const handleUploadMedia = (
+    files,
+    type, // this corresponds to each media type like "MRI", "CT Scan", etc.
+    maxCount = 2,
+    setDocs,
+    docs
+  ) => {
+    const existingFiles = docs[type] || [];
+    console.log("existingFiles", existingFiles);
+    console.log("files", files);
+    console.log("files.length + existingFiles.length", files.length + existingFiles.length);
+    let uploadedFiles = files.filter((file) => file instanceof File);
+
+    if (uploadedFiles.length + existingFiles.length > maxCount) {
+      return RenderToast({
+        message: `You can upload a maximum of ${maxCount} files for ${type}`,
+        type: "error",
+      });
+    }
+
+    uploadImagesHelper({
+      images: uploadedFiles,
+      setIsLoading: setIsLoadingWithTypes,
+      loadingType: "uploadingImages",
+      Post,
+      setMedia: (media) => {
+        const uploaded = [
+          ...(media?.docs || []),
+          ...(media?.images || []),
+          ...(media?.photo || []),
+        ];
+        console.log("media", media);
+        const updatedDocs = {
+          ...docs,
+          [type]: [
+            ...existingFiles,
+            ...uploaded.map((e) => ({
+              key: e.key,
+              fileName: e.fileName,
+              type: type,
+            })),
+          ],
+        };
+
+        setDocs(updatedDocs);
+      },
+      token: null,
+    });
   };
 
   if (loading === "getPatientDetails") {
@@ -192,6 +247,8 @@ export default function AddOrEditPatientTemplate({ slug }) {
       </div>
     );
   }
+
+  console.log("docs", docs);
 
   return (
     <LayoutWrapper>
@@ -930,92 +987,96 @@ export default function AddOrEditPatientTemplate({ slug }) {
                 })}
               />
             </Col>
-
             {Object.keys(docs).map((type) => {
-  const uploadedFiles = docs[type] || [];
-  const currentUploaders = uploaders[type] || [];
+              const uploadedFiles = docs[type] || [];
+              const uploaderSlots = uploaders[type] || [];
 
-  const remainingUploads = 2 - uploadedFiles.length;
+              // ✅ Always allow adding a new uploader, as long as there are fewer than 2 uploaders
+              const canAddMore = uploaderSlots.length < 2;
 
-  return (
-    <div key={type} className={classes.tagGroup}>
-      {/* Tag & remove */}
-      <div className={classes.tagWrapper}>
-        <div className={classes.tag}>
-          <span>{type}</span>
-          <button
-            onClick={() => {
-              const updatedDocs = { ...docs };
-              delete updatedDocs[type];
-              setDocs(updatedDocs);
+              return (
+                <div key={type} className={classes.tagGroup}>
+                  <div className={classes.tagWrapper}>
+                    <div className={classes.tag}>
+                      <span>{type}</span>
+                     
+                    </div>
+                  </div>
+                  <MultiFileUpload
+                        // key={idx}
+                        files={docs[type]} // Use uploaderFiles specific to each uploader
+                        acceptedFiles={getSupportedImageTypes("pdf")}
+                        maxFileCount={2}
+                        // disable={isDisabled} // Disable if files already exist in the uploader
+                        Delete={Delete}
+                        setFiles={(f) => {
+                          // const updatedFiles = [...uploaderFiles, ...f];
+                          // const updatedUploaders = { ...uploaders };
+                          // updatedUploaders[type][idx] = { files: updatedFiles };
+                          // setUploaders(updatedUploaders);
 
-              const updatedUploaders = { ...uploaders };
-              delete updatedUploaders[type];
-              setUploaders(updatedUploaders);
-            }}
-            className={classes.closeBtn}
-          >
-            ✕
-          </button>
-        </div>
+                          // Ensure docs are updated with the new files for this specific type
+                          handleUploadMedia(f, type, 2, setDocs, docs);
+                        }}
+                        removeFileCb={(key) => {
+                          let updatedDocs = { ...docs };
+                          updatedDocs[type] = (docs[type] || []).filter(
+                            (file) => file.key !== key
+                          );
+                          setDocs(updatedDocs);
+                        }}
+                      />
 
-        {/* Only show + if fewer than 2 uploads */}
-        {uploadedFiles.length + currentUploaders.length < 2 && (
-          <button
-            onClick={() => {
-              setUploaders((prev) => ({
-                ...prev,
-                [type]: [...(prev[type] || []), {}],
-              }));
-            }}
-            className={classes.uploadBtn}
-          >
-            ➕
-          </button>
-        )}
-      </div>
+                  {/* Uploaders */}
+                  {/* {uploaderSlots.map((uploader, idx) => {
+                    const uploaderFiles = uploader.files || [];
+                    const isDisabled = uploaderFiles.length > 0; // Disable if files are uploaded
 
-      {/* Show uploaded files */}
-      {uploadedFiles.map((file, idx) => (
-        <div key={idx} className={classes.uploadedFile}>
-          📎 {file.fileName}
-        </div>
-      ))}
+                    console.log("docs[type]",docs[type])
 
-      {/* Show separate <MultiFileUpload /> for each "pending" upload */}
-      {currentUploaders.map((_, idx) => (
-        <div key={idx} className={classes.uploadLine}>
-          <MultiFileUpload
-            onUpload={(uploadedFile) => {
-              const fileData = {
-                key: uploadedFile.key,
-                fileName: uploadedFile.fileName,
-                type,
-              };
+                    return (
+                      <MultiFileUpload
+                        key={idx}
+                        files={docs[type]} // Use uploaderFiles specific to each uploader
+                        acceptedFiles={getSupportedImageTypes("pdf")}
+                        maxFileCount={2}
+                        disable={isDisabled} // Disable if files already exist in the uploader
+                        Delete={Delete}
+                        setFiles={(f) => {
+                          const updatedFiles = [...uploaderFiles, ...f];
+                          const updatedUploaders = { ...uploaders };
+                          updatedUploaders[type][idx] = { files: updatedFiles };
+                          setUploaders(updatedUploaders);
 
-              // Save uploaded file
-              setDocs((prev) => ({
-                ...prev,
-                [type]: [...(prev[type] || []), fileData],
-              }));
+                          // Ensure docs are updated with the new files for this specific type
+                          handleUploadMedia(f, type, 2, setDocs, docs);
+                        }}
+                        removeFileCb={(key) => {
+                          // Filter out the file from the uploader's files
+                          const updatedUploaderFiles = uploaderFiles.filter(
+                            (f) => f.key !== key
+                          );
+                          const updatedUploaders = { ...uploaders };
+                          updatedUploaders[type][idx] = {
+                            files: updatedUploaderFiles,
+                          };
+                          setUploaders(updatedUploaders);
 
-              // Remove this uploader instance
-              setUploaders((prev) => {
-                const updated = [...(prev[type] || [])];
-                updated.splice(idx, 1);
-                return {
-                  ...prev,
-                  [type]: updated,
-                };
-              });
-            }}
-          />
-        </div>
-      ))}
-    </div>
-  );
-})}
-
+                          // Remove the file from the docs[type] as well
+                          const updatedDocs = {
+                            ...docs,
+                            [type]: (docs[type] || []).filter(
+                              (file) => file.key !== key
+                            ),
+                          };
+                          setDocs(updatedDocs);
+                        }}
+                      />
+                    );
+                  })} */}
+                </div>
+              );
+            })}
 
             <Col md={12} className={classes?.buttonContainer}>
               <Button
@@ -1051,6 +1112,94 @@ export default function AddOrEditPatientTemplate({ slug }) {
           </Row>
         </div>
       </Container>
+      {["uploadingImages", "uploadingDocuments"].includes(
+        isLoadingWithType
+      ) && <LottieLoader />}
     </LayoutWrapper>
   );
 }
+
+// {Object.keys(docs).map((type) => {
+//   const uploadedFiles = docs[type] || [];
+//   const uploaderSlots = uploaders[type] || [];
+
+//   // Count all uploaded + pending files
+//   const totalFiles =
+//     uploadedFiles.length +
+//     uploaderSlots.reduce(
+//       (acc, uploader) => acc + (uploader.files?.length || 0),
+//       0
+//     );
+
+//   // ✅ Show "➕" only if less than 2 files total AND max 2 slots aren't already there
+//   const canAddMore = uploaderSlots.length < 2;
+
+//   return (
+//     <div key={type} className={classes.tagGroup}>
+//       <div className={classes.tagWrapper}>
+//         <div className={classes.tag}>
+//           <span>{type}</span>
+//           <button
+//             onClick={() => {
+//               const updatedDocs = { ...docs };
+//               delete updatedDocs[type];
+//               setDocs(updatedDocs);
+
+//               const updatedUploaders = { ...uploaders };
+//               delete updatedUploaders[type];
+//               setUploaders(updatedUploaders);
+//             }}
+//             className={classes.closeBtn}
+//           >
+//             ✕
+//           </button>
+//         </div>
+
+//         {canAddMore && (
+//           <button
+//             onClick={() => handleAddUploader(type)}
+//             className={classes.uploadBtn}
+//           >
+//             ➕
+//           </button>
+//         )}
+//       </div>
+
+//       {/* Uploaders */}
+//       {uploaderSlots.map((uploader, idx) => {
+//         const uploaderFiles = uploader.files || [];
+
+//         return (
+//           <MultiFileUpload
+//             key={idx}
+//             files={uploaderFiles}
+//             acceptedFiles={getSupportedImageTypes("pdf")}
+//             maxFileCount={2}
+//             Patch={Patch}
+//             setFiles={(f) => {
+//               const updatedFiles = [...uploaderFiles, ...f];
+//               const updatedUploaders = { ...uploaders };
+//               updatedUploaders[type][idx] = { files: updatedFiles };
+//               setUploaders(updatedUploaders);
+//               handleUploadMedia(f, type, 2, setDocs, docs);
+//             }}
+//             removeFileCb={(key) => {
+//               const updatedFiles = uploaderFiles.filter(
+//                 (f) => f.key !== key
+//               );
+//               const updatedUploaders = { ...uploaders };
+//               updatedUploaders[type][idx] = { files: updatedFiles };
+//               setUploaders(updatedUploaders);
+
+//               const updatedDocs = {
+//                 ...docs,
+//                 [type]: updatedFiles,
+//               };
+//               setDocs(updatedDocs);
+//             }}
+//           />
+//         );
+//       })}
+//     </div>
+//   );
+// })}

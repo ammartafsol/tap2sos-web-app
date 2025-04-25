@@ -1,3 +1,4 @@
+"use client"
 import { Player } from "@lottiefiles/react-lottie-player";
 
 import classes from "./lottieLoader.module.css";
@@ -8,7 +9,7 @@ const LottieLoader = ({ className }) => {
       <Player
         autoplay
         loop
-        src={"/lottie/loadingSecondary.json"}
+        src={"public\lottie\loadingSecondary.json"}
         style={{ height: "300px", width: "300px" }}
       ></Player>
     </div>

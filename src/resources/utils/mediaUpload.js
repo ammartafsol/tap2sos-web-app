@@ -80,21 +80,20 @@ export const getMediaType = (file) => {
   return "photo";
 };
 
-export const uploadImages = async (images,token,post) => {
+export const uploadImages = async (images,token,Post) => {
   if (!images.length) return null;
   const formData = new FormData();
   images.forEach((image) => {
     formData.append(getMediaType(image), image);
   });
 
-  const res = await post({
-    route: `media/upload`,
+  const res = await Post({
+    route: `users/media/upload`,
     data: formData,
     isFormData: true,
   });
-
   if (res) {
-    return res.data;
+    return res.response?.data;
   }
 
   return null;
@@ -106,12 +105,12 @@ export const uploadImagesHelper = async ({
   loadingType,
   setMedia,
   token,
-  post
+  Post
 }) => {
   if (images.length === 0) return [];
 
   setIsLoading(loadingType);
-  uploadImages(images, token,post)
+  uploadImages(images, token,Post)
     .then((res) => {
       if (res) {
         setMedia(res);
