@@ -15,10 +15,13 @@ export function middleware(request) {
   if (
     accessToken &&
     role === "clinic" &&
-    ![...WITHOUT_LOGIN_ROUTES, ...CLINIC_AFTER_LOGIN_ROUTES].includes(pathname)
+    WITHOUT_LOGIN_ROUTES.includes(pathname)
   ) {
     return NextResponse.redirect(new URL("/clinic/dashboard", request.url));
   }
+  
+      // ![...WITHOUT_LOGIN_ROUTES, ...CLINIC_AFTER_LOGIN_ROUTES].includes(pathname)
+
 
   // Redirect to '/' if no accessToken
   if (!accessToken) {
