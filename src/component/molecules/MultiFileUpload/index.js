@@ -26,7 +26,7 @@ const MultiFileUpload = ({
   uploadIcon,
   setFiles,
   errorText,
-  disable=false,
+  disable = false,
   extraStyles = {},
   acceptedFiles = getSupportedImageTypes("all"),
   removeFileCb,
@@ -63,20 +63,20 @@ const MultiFileUpload = ({
     });
     if (response) {
       removeFileCb(key);
-      RenderToast({type: "success", message: "File deleted successfully"});
+      RenderToast({ type: "success", message: "File deleted successfully" });
     }
     setIsDeleteApiCalling(false);
   };
 
   const renderFileComponent = (file) => {
-    console.log("file",file)
+    console.log("file", file);
     const isFileObject = typeof file === "object";
     const fileType = getMediaType(
       isFileObject ? file?.type : file?.split(".").pop()
     );
-    console.log("fileType",fileType);
+    console.log("fileType", fileType);
     if (["images", "photos"].includes(fileType)) {
-      console.log("not enter")
+      console.log("not enter");
       return (
         <div className={classes?.imageContainer}>
           <img
@@ -111,12 +111,12 @@ const MultiFileUpload = ({
           </span>
         </div>
       );
-    // } else {
-    //   return (
-    //     <div className={classes.filePreview}>
-    //       <p className={classes?.previewIcon}>{file.name}</p>
-    //     </div>
-    //   );
+      // } else {
+      //   return (
+      //     <div className={classes.filePreview}>
+      //       <p className={classes?.previewIcon}>{file.name}</p>
+      //     </div>
+      //   );
     }
   };
 
@@ -140,46 +140,48 @@ const MultiFileUpload = ({
   return (
     <>
       {label && <p className={`fs-13 mt-3 ${classes.labelStyle}`}>{label}</p>}
-      <div
-        className={`${classes.fileInputDiv} ${disable && classes?.disabledFile}`}
-        style={{
-          ...(containerStyleObject && { ...containerStyleObject }),
-        }}
-      >
-        <div {...getRootProps({ className: "dropzone" })}>
-          <input disabled={disable} {...getInputProps()} />
-          <div className={classes.fileDesc}>
-            {uploadIcon ? uploadIcon : <MdOutlineCloudDone size={25} />}
-            <p className={`${customTextClass} ${classes.text}`}>{uploadText}</p>
-            <BsFillPlusSquareFill color="var(--primary-bg)" size={20} />
-            {fileSize ||
-              (supportedFiles && (
-                <div>
-                  <p className={classes.desc}>{fileSize}</p>
-                  <p className={classes.desc}>{supportedFiles}</p>
-                </div>
-              ))}
-          </div>
-        </div>
-      </div>
 
       {files && (
         <div className={classes.filePreviewList}>
           {files?.map((file, index) => {
-            return(
-              (
-                <div key={index} className={classes.fileItem}>
-                  <span
-                    className={classes.removeFile}
-                    onClick={() => removeFile(file?.key || "")}
-                  >
-                    <IoCloseOutline color="var(--white)" size={22} />
-                  </span>
-                  {renderFileComponent(file)}
-                </div>
-              )
-            )
+            return (
+              <div key={index} className={classes.fileItem}>
+                <span
+                  className={classes.removeFile}
+                  onClick={() => removeFile(file?.key || "")}
+                >
+                  <IoCloseOutline color="var(--white)" size={22} />
+                </span>
+                {renderFileComponent(file)}
+              </div>
+            );
           })}
+          <div
+            className={`${classes.fileInputDiv} ${
+              disable && classes?.disabledFile
+            } ${files.length === 2 && classes?.hidden} `}
+            style={{
+              ...(containerStyleObject && { ...containerStyleObject }),
+            }}
+          >
+            <div {...getRootProps({ className: "dropzone" })}>
+              <input disabled={disable} {...getInputProps()} />
+              <div className={classes.fileDesc}>
+                {uploadIcon ? uploadIcon : <MdOutlineCloudDone size={25} />}
+                <p className={`${customTextClass} ${classes.text}`}>
+                  {uploadText}
+                </p>
+                <BsFillPlusSquareFill color="var(--primary-bg)" size={20} />
+                {fileSize ||
+                  (supportedFiles && (
+                    <div>
+                      <p className={classes.desc}>{fileSize}</p>
+                      {/* <p className={classes.desc}>{supportedFiles}</p> */}
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
         </div>
       )}
       {errorText && <p className={`${classes.error}`}>{errorText}</p>}

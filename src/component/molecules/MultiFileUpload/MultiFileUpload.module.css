@@ -8,6 +8,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 250px;
+  height: 160px;
 }
 
 .disabledFile{
@@ -33,19 +35,21 @@
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  z-index: 1;
 }
 
 .fileItem {
   display: flex;
   align-items: center;
   /* margin: 10px 0; */
-  border: 1px solid var(--primary-text);
+  border: 1px solid var(--primary-color) !important;
   color: var(--heading-gray);
   border-radius: 6px;
   width: 250px;
   height: 160px;
   overflow: hidden;
   position: relative;
+margin-top: 5px;
 }
 
 .removeFile {
@@ -62,13 +66,13 @@
   cursor: pointer;
   z-index: 10;
   background: var(--primary-text);
+  z-index: 1;
 }
 
 .filePreview {
   position: relative;
   width: 100%;
   height: 100%;
-  border: 2px solid var(--primary-color);
 }
 
 .previewIcon {
@@ -152,6 +156,9 @@
   margin-top: 4px;
 }
 
+.hidden{
+  display: none;
+}
 
 @media (max-width: 768px) {
   .fileDesc {
