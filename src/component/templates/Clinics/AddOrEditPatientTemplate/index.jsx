@@ -165,12 +165,11 @@ export default function AddOrEditPatientTemplate({ slug }) {
   };
 
   const handleMediaSelect = (selectedOptions) => {
-    const updatedAttachments = {
-    };
+    const updatedAttachments = {};
     selectedOptions.forEach(({ label }) => {
-      if(docs[label]) {
+      if (docs[label]) {
         updatedAttachments[label] = docs[label]; // Skip if already exists
-      }else {
+      } else {
         updatedAttachments[label] = []; // Empty array to later hold files
       }
     });
@@ -200,7 +199,10 @@ export default function AddOrEditPatientTemplate({ slug }) {
     const existingFiles = docs[type] || [];
     console.log("existingFiles", existingFiles);
     console.log("files", files);
-    console.log("files.length + existingFiles.length", files.length + existingFiles.length);
+    console.log(
+      "files.length + existingFiles.length",
+      files.length + existingFiles.length
+    );
     let uploadedFiles = files.filter((file) => file instanceof File);
 
     if (uploadedFiles.length + existingFiles.length > maxCount) {
@@ -474,11 +476,11 @@ export default function AddOrEditPatientTemplate({ slug }) {
                 setValue={(data) => {
                   formikAddPatient.setFieldValue(
                     "emergencyCallingCode",
-                    data.emergencyCallingCode
+                    data.callingCode
                   );
                   formikAddPatient.setFieldValue(
                     "emergencyContact",
-                    data.emergencyContact
+                    data.phoneNumber
                   );
                 }}
                 errorText={
@@ -487,6 +489,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
                 }
               />
             </Col>
+
             <Col md={6}>
               <Input
                 type="text"
@@ -999,33 +1002,33 @@ export default function AddOrEditPatientTemplate({ slug }) {
                   <div className={classes.tagWrapper}>
                     <div className={classes.tag}>
                       <span>{type}</span>
-                     
                     </div>
                   </div>
                   <MultiFileUpload
-                        // key={idx}
-                        files={docs[type]} // Use uploaderFiles specific to each uploader
-                        acceptedFiles={getSupportedImageTypes("pdf")}
-                        maxFileCount={2}
-                        // disable={isDisabled} // Disable if files already exist in the uploader
-                        Delete={Delete}
-                        setFiles={(f) => {
-                          // const updatedFiles = [...uploaderFiles, ...f];
-                          // const updatedUploaders = { ...uploaders };
-                          // updatedUploaders[type][idx] = { files: updatedFiles };
-                          // setUploaders(updatedUploaders);
+                    // key={idx}
+                    files={docs[type]} // Use uploaderFiles specific to each uploader
+                    acceptedFiles={getSupportedImageTypes("all")}
+                    maxFileCount={2}
+                    supportedFiles="File formats pdf and Word Doc,JPEG,PNG,TIFF,DICOM,Excel,TEXT FILE,POWER POINT,ZIP "
+                    // disable={isDisabled} // Disable if files already exist in the uploader
+                    Delete={Delete}
+                    setFiles={(f) => {
+                      // const updatedFiles = [...uploaderFiles, ...f];
+                      // const updatedUploaders = { ...uploaders };
+                      // updatedUploaders[type][idx] = { files: updatedFiles };
+                      // setUploaders(updatedUploaders);
 
-                          // Ensure docs are updated with the new files for this specific type
-                          handleUploadMedia(f, type, 2, setDocs, docs);
-                        }}
-                        removeFileCb={(key) => {
-                          let updatedDocs = { ...docs };
-                          updatedDocs[type] = (docs[type] || []).filter(
-                            (file) => file.key !== key
-                          );
-                          setDocs(updatedDocs);
-                        }}
-                      />
+                      // Ensure docs are updated with the new files for this specific type
+                      handleUploadMedia(f, type, 2, setDocs, docs);
+                    }}
+                    removeFileCb={(key) => {
+                      let updatedDocs = { ...docs };
+                      updatedDocs[type] = (docs[type] || []).filter(
+                        (file) => file.key !== key
+                      );
+                      setDocs(updatedDocs);
+                    }}
+                  />
 
                   {/* Uploaders */}
                   {/* {uploaderSlots.map((uploader, idx) => {
