@@ -51,7 +51,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
     },
   });
 
-  console.log("formikAddPatient", formikAddPatient.values);
 
   const handleAddPatient = async (value) => {
     const yesNoToBool = (val) => val?.value === "yes";
@@ -144,7 +143,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
         ),
         useOfElectronicDevice: boolToYesNo(data.useOfElectronicDevice),
       });
-      setAttachments(response?.data?.attachments);
+      setDocs(response?.data?.attachments);
     }
     setLoading("");
   };
