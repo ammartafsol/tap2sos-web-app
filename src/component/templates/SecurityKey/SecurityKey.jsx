@@ -14,10 +14,8 @@ import {
   flattenObject,
   formatLabel,
 } from "@/resources/utils/helper";
-import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import * as Yup from "yup";
 import classes from "./SecurityKey.module.css";
 
 export default function SecurityKey({ slug }) {
@@ -29,19 +27,6 @@ export default function SecurityKey({ slug }) {
   const [attachments, setAttachments] = useState([]);
   const [selectedKey, setSelectedKey] = useState("");
 
-  const PatientDataFormik = useFormik({
-    initialValues: {
-      patientId: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      password: Yup.string().required("Password is required"),
-    }),
-    onSubmit: (values) => {
-      handleSubmit(values);
-    },
-  });
-
   const getData = async () => {
     setLoading("loading");
     const { response } = await Get({ route: `users/patient/detail/${slug}` });
@@ -49,12 +34,7 @@ export default function SecurityKey({ slug }) {
     setAttachments(obj?.attachments);
     if (response) {
       const flattenedData = flattenObject(obj || {});
-      const filteredData = Object.fromEntries(
-        Object.entries(flattenedData).filter(
-          ([key]) => !excludedFields.includes(key)
-        )
-      );
-      setInitialData(filteredData);
+      setInitialData(flattenedData);
     }
     setLoading("");
   };
@@ -88,30 +68,6 @@ export default function SecurityKey({ slug }) {
             <TopHeader data="Patient Details" />
             <Row>
               {Object.entries(data || {}).map(([key, value], index) => {
-                if (excludedFields.includes(key)) return null;
-
-                if (typeof value === "object" && value !== null) {
-                  return Object.entries(value).map(
-                    ([nestedKey, nestedValue], nestedIndex) => (
-                      <Col md={6} key={`${index}-${nestedIndex}`}>
-                        <Input
-                          type="text"
-                          disabled={true}
-                          label={formatLabel(key)}
-                          value={
-                            key === "organDonor"
-                              ? value
-                                ? "Yes"
-                                : "No"
-                              : capitalizeFirstLetter(String(value)) ||
-                                "No Data"
-                          }
-                        />
-                      </Col>
-                    )
-                  );
-                }
-
                 return (
                   <Col md={6} key={index}>
                     <Input
@@ -153,9 +109,6 @@ export default function SecurityKey({ slug }) {
             <TopHeader data={"security-key"} />
             <Row>
               {Object.entries(initialData || {}).map(([key, value], index) => {
-                // Skip excluded fields
-                if (excludedFields.includes(key)) return null;
-
                 if (typeof value === "object" && value !== null) {
                   return Object.entries(value).map(
                     ([nestedKey, nestedValue], nestedIndex) => (

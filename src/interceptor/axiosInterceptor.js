@@ -17,7 +17,10 @@ const useAxios = () => {
   // Function to refresh the access token
   const refreshAccessToken = async () => {
     if (!refreshToken) {
-      RenderToast("No refresh token found.", "error");
+      RenderToast({
+        message: "No refresh token found.",
+        type: "error",
+      });
       return null;
     }
 
@@ -49,7 +52,7 @@ const useAxios = () => {
     if (error?.message === "Network Error") {
       return `Network Error : Please Check Your Network Connection`;
     }
-    const message = error?.response?.data?.message?.error;
+    const message = error?.response?.data?.message;
     let errorMessage = "";
 
     Array.isArray(message)
@@ -82,9 +85,13 @@ const useAxios = () => {
       const response = await axios({ method, url, data, headers: _headers });
       return { response: response?.data, error: null };
     } catch (error) {
+      console.log("Error in API call:", error);
       const errorMessage = getErrorMsg(error);
       if (showAlert) {
-        RenderToast(errorMessage || "An unexpected error occurred.", "error");
+        RenderToast({
+          message: errorMessage || "An unexpected error occurred.",
+          type: "error",
+        });
       }
 
       if (error?.response?.status === 401) {

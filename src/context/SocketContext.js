@@ -70,7 +70,7 @@ export const SocketProvider = ({ children }) => {
 
         // **************** Listener End ****************
       };
-      initSocket();
+      // initSocket();
       return () => {
         if (socket.current) {
           socket.current.disconnect();

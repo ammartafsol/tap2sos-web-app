@@ -8,7 +8,7 @@ import MapAndPlaces from "@/component/organisms/MapAndPlaces";
 import { SIGNUP_FORM_VALUES } from "@/formik/formikInitialValues/form-initial-values";
 import { signUpSchema } from "@/formik/formikSchema/formik-schemas";
 import useAxios from "@/interceptor/axiosInterceptor";
-import { mergeClass } from "@/resources/utils/helper";
+import { handleEncrypt, mergeClass } from "@/resources/utils/helper";
 import { saveLoginUserData } from "@/store/auth/authSlice";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
@@ -20,6 +20,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import classes from "./SignupTemplate.module.css";
+import Cookies from "js-cookie";
 
 export default function SignupTemplate() {
   const router = useRouter();
@@ -41,13 +42,22 @@ export default function SignupTemplate() {
 
     const { response } = await Post({ route: `users/signup`, data: values });
     if (response) {
-      Cookies.set("_xpdx", handleEncrypt(response?.token), { expires: 90 });
-      dispatch(saveLoginUserData(response));
+      let responseData = response?.data;
+      Cookies.set("_xpdx", handleEncrypt(responseData?.token), {
+        expires: 90,
+      });
+      Cookies.set("_xpdx_rf", handleEncrypt(responseData?.refreshToken), {
+        expires: 90,
+      });
+      Cookies.set("_xpdx_ur", handleEncrypt(responseData?.user?.role), {
+        expires: 90,
+      });
+      dispatch(saveLoginUserData(responseData));
       RenderToast({
         type: "success",
-        message: "Login Successfully",
+        message: "Account Created Successfully",
       });
-      router.push("/dashboard");
+      router.push("/clinic/patient");
     }
     setLoading("");
   };
@@ -165,7 +175,7 @@ export default function SignupTemplate() {
               Forgot Password?
             </p>
             <Button
-              label={loading == "submitSignup" ? "Please Wait..." : "Login"}
+              label={loading == "submitSignup" ? "Please Wait..." : "Sign Up"}
               variant={"gradient"}
               onClick={SignupFormik.handleSubmit}
               disabled={loading == "submitSignup"}

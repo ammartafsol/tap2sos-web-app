@@ -390,7 +390,7 @@ export const formatPathname = (pathname) => {
 
 export const flattenObject = (obj) => {
   let result = {};
-
+  delete obj.attachments;
   for (const [key, value] of Object.entries(obj)) {
     // If the value is an object, flatten it by combining the key and its properties
     if (typeof value === "object" && value !== null) {
@@ -407,26 +407,30 @@ export const flattenObject = (obj) => {
     }
   }
 
-  // Fields to delete from the result
-  [
-    "__v",
-    "_id",
-    "createdAt",
-    "updatedAt",
-    "cid",
-    "clinic",
-    "isBlockedByAdmin",
-    "lastLogin",
-    "location",
-    "nfcTapCount",
-    "password",
-    "passwordChangedAt",
-    "role",
-    "slug",
-    "slugId",
-  ].forEach((key) => {
-    delete result[key];
-  });
+  // // Fields to delete from the result
+  // [
+  //   "__v",
+  //   "_id",
+  //   "createdAt",
+  //   "updatedAt",
+  //   "cid",
+  //   "clinic",
+  //   "isBlockedByAdmin",
+  //   "lastLogin",
+  //   "location",
+  //   "nfcTapCount",
+  //   "password",
+  //   "confirmPassword",
+  //   "passwordChangedAt",
+  //   "role",
+  //   "slug",
+  //   "slugId",
+  //   "token",
+  //   "key",
+  //   "fileName",
+  // ].forEach((key) => {
+  //   delete result[key];
+  // });
 
   // Define the sequence for the fields based on the given structure
   const fieldOrder = [
@@ -434,8 +438,6 @@ export const flattenObject = (obj) => {
     "firstName",
     "lastName",
     "email",
-    "password",
-    "confirmPassword",
     "medicalCondition",
     "usefulInformation",
     "organDonor",
@@ -486,9 +488,10 @@ export const flattenObject = (obj) => {
   fieldOrder.forEach((field) => {
     if (result.hasOwnProperty(field)) {
       orderedResult[field] = result[field];
-    } else {
-      orderedResult[field] = ""; // Add empty string for missing fields
     }
+    //  else {
+    //   orderedResult[field] = ""; // Add empty string for missing fields
+    // }
   });
   orderedResult["dateOfBirth"] = moment(
     orderedResult["dateOfBirth"] || new Date()

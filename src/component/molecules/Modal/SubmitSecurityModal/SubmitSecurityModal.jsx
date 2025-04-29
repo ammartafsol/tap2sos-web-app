@@ -41,19 +41,14 @@ const SubmitSecurityModal = ({
       data: obj,
     });
     if (response) {
-      const responseData = response?.data;
-      const flattenedData = flattenObject(responseData);
-      let filteredData = Object.fromEntries(
-        Object.entries(flattenedData).filter(
-          ([key]) => !excludedFields.includes(key)
-        )
-      );
+      const responseData = response?.data?.user;
+      const filteredData = flattenObject(responseData);
       filteredData.phoneNumber = `+${filteredData?.callingCode} ${filteredData.phoneNumber}`;
       filteredData.emergencyContact = `+${filteredData?.emergencyCallingCode} ${filteredData.emergencyContact}`;
       delete filteredData?.callingCode;
       delete filteredData?.emergencyCallingCode;
 
-      setAttachments(responseData?.user?.attachments);
+      setAttachments(responseData?.attachments);
       setShow(false);
       setData(filteredData);
       PasswordFormik.resetForm();

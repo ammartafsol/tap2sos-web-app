@@ -51,7 +51,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
     },
   });
 
-
   const handleAddPatient = async (value) => {
     const yesNoToBool = (val) => val?.value === "yes";
     let params = {
@@ -92,13 +91,12 @@ export default function AddOrEditPatientTemplate({ slug }) {
           route: url,
           data: params,
         });
-    console.log(response, "response");
-    if (response !== undefined) {
+    if (response) {
       RenderToast({
         type: "success",
         message: `Patient ${slug ? "Updated" : "Added"} Successfully`,
       });
-      router.push(`/clinic/patient/${response?.data?.user?.slug}`);
+      router.push(`/clinic/patient/${response?.data?.slug}`);
     }
     setLoading("");
   };
@@ -107,7 +105,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
     setLoading("getPatientDetails");
 
     const { response } = await Get({ route: `users/detail/${slug}` });
-    if (response !== undefined) {
+    if (response) {
       const boolToYesNo = (val) => ({
         label: val ? "Yes" : "No",
         value: val ? "yes" : "no",
@@ -196,12 +194,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
     docs
   ) => {
     const existingFiles = docs[type] || [];
-    console.log("existingFiles", existingFiles);
-    console.log("files", files);
-    console.log(
-      "files.length + existingFiles.length",
-      files.length + existingFiles.length
-    );
     let uploadedFiles = files.filter((file) => file instanceof File);
 
     if (uploadedFiles.length + existingFiles.length > maxCount) {
@@ -222,7 +214,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
           ...(media?.images || []),
           ...(media?.photo || []),
         ];
-        console.log("media", media);
         const updatedDocs = {
           ...docs,
           [type]: [
@@ -248,8 +239,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
       </div>
     );
   }
-
-  console.log("docs", docs);
 
   return (
     <LayoutWrapper>
