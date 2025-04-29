@@ -78,7 +78,7 @@ export const getAddPatientValidationSchema = (slug) => {
       "Emergency contact number is required."
     ),
     emergencyCallingCode: Yup.string().optional(),
-    pesel: Yup.string().optional(),
+    pesel: Yup.string().required("Pesel is required."),
     education: Yup.string().optional(),
     job: Yup.string().optional(),
     civilStatus: Yup.object().required("Civil status is required."),
