@@ -256,7 +256,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="text"
-                label="Patient No"
+                label="Patient No*"
                 placeholder={"Enter Patient No"}
                 value={formikAddPatient.values.patientNo}
                 onChange={formikAddPatient.handleChange("patientNo")}
@@ -270,7 +270,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="text"
-                label="First Name"
+                label="First Name*"
                 placeholder={"Enter First Name"}
                 value={formikAddPatient.values.firstName}
                 onChange={formikAddPatient.handleChange("firstName")}
@@ -284,7 +284,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="text"
-                label="Last Name"
+                label="Last Name*"
                 placeholder={"Enter Last Name"}
                 value={formikAddPatient.values.lastName}
                 onChange={formikAddPatient.handleChange("lastName")}
@@ -298,7 +298,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="email"
-                label="Email Address"
+                label="Email Address*"
                 placeholder={"Enter Email Address"}
                 value={formikAddPatient.values.email}
                 onChange={formikAddPatient.handleChange("email")}
@@ -314,7 +314,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
                 <Col md={6}>
                   <Input
                     type="password"
-                    label="Password"
+                    label="Password*"
                     placeholder={"Enter Password"}
                     value={formikAddPatient?.values?.password}
                     onChange={formikAddPatient.handleChange("password")}
@@ -327,7 +327,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
                 <Col md={6}>
                   <Input
                     type="password"
-                    label="Confirm Password"
+                    label="Confirm Password*"
                     placeholder={"Enter Confirm Password"}
                     value={formikAddPatient?.values?.confirmPassword}
                     onChange={formikAddPatient.handleChange("confirmPassword")}
@@ -401,7 +401,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <DropDown
                 placeholder={`Select Gender`}
-                label={"Gender"}
+                label={"Gender*"}
                 options={genderData}
                 value={formikAddPatient.values.gender}
                 setValue={(e) => {
@@ -416,7 +416,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="date"
-                label="Date Of Birth"
+                label="Date Of Birth*"
                 placeholder={"Select Date Of Birth"}
                 value={formikAddPatient.values.dateOfBirth}
                 onChange={formikAddPatient.handleChange("dateOfBirth")}
@@ -434,7 +434,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
                     ? ""
                     : `${formikAddPatient.values.callingCode}${formikAddPatient.values.phoneNumber}`
                 }
-                label={"Phone Number"}
+                label={"Phone Number*"}
                 placeholder={"Enter Phone Number"}
                 setValue={(data) => {
                   formikAddPatient.setFieldValue(
@@ -459,7 +459,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
                     ? ""
                     : `${formikAddPatient.values.emergencyCallingCode}${formikAddPatient.values.emergencyContact}`
                 }
-                label={"Emergency Contact"}
+                label={"Emergency Contact*"}
                 placeholder={"Enter Emergency Contact"}
                 setValue={(data) => {
                   formikAddPatient.setFieldValue(
@@ -481,7 +481,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="text"
-                label="Doctor Name"
+                label="Doctor Name*"
                 placeholder="Enter Doctor Name"
                 value={formikAddPatient.values.doctorName}
                 onChange={formikAddPatient.handleChange("doctorName")}
@@ -495,7 +495,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="text"
-                label="PESEL"
+                label="PESEL*"
                 placeholder="Enter PESEL"
                 value={formikAddPatient.values.pesel}
                 onChange={formikAddPatient.handleChange("pesel")}
@@ -535,7 +535,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
 
             <Col md={6}>
               <DropDown
-                label="Civil Status"
+                label="Civil Status*"
                 placeholder="Select Civil Status"
                 options={civilData}
                 setValue={(e) => {
@@ -551,7 +551,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
 
             <Col md={6}>
               <DropDown
-                label="Family History of Dementia"
+                label="Family History of Dementia*"
                 placeholder="Select Family History"
                 options={yesNoData}
                 setValue={(e) => {
@@ -588,7 +588,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="number"
-                label="Height (cm)"
+                label="Height (cm)*"
                 placeholder="Enter Height"
                 value={formikAddPatient.values.height}
                 onChange={formikAddPatient.handleChange("height")}
@@ -602,7 +602,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="number"
-                label="Weight (kg)"
+                label="Weight (kg)*"
                 placeholder="Enter Weight"
                 value={formikAddPatient.values.weight}
                 onChange={formikAddPatient.handleChange("weight")}
@@ -643,7 +643,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="text"
-                label="Blood Pressure"
+                label="Blood Pressure*"
                 placeholder="Enter Blood Pressure"
                 value={formikAddPatient.values.bloodPressure}
                 onChange={formikAddPatient.handleChange("bloodPressure")}
@@ -657,7 +657,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="number"
-                label="Heart Rate (bpm)"
+                label="Heart Rate (bpm)*"
                 placeholder="Enter Heart Rate"
                 value={formikAddPatient.values.heartRate}
                 onChange={formikAddPatient.handleChange("heartRate")}
@@ -674,7 +674,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             </Col>
             <Col md={6}>
               <DropDown
-                label="Hypertension"
+                label="Hypertension*"
                 placeholder="Select Hypertension"
                 options={yesNoData}
                 setValue={(e) => {
@@ -690,7 +690,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
 
             <Col md={6}>
               <DropDown
-                label="Diabetes"
+                label="Diabetes*"
                 placeholder="Select Diabetes"
                 options={yesNoData}
                 setValue={(e) => {
@@ -706,7 +706,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
 
             <Col md={6}>
               <DropDown
-                label="Heart Disease"
+                label="Heart Disease*"
                 placeholder="Select Heart Disease"
                 options={yesNoData}
                 setValue={(e) => {
@@ -769,7 +769,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
 
             <Col md={6}>
               <DropDown
-                label="Mental Illness"
+                label="Mental Illness*"
                 placeholder="Select Mental Illness"
                 options={yesNoData}
                 setValue={(e) => {
@@ -800,7 +800,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="text"
-                label="Medication Taken"
+                label="Medication Taken*"
                 placeholder="Enter Medication Taken"
                 value={formikAddPatient.values.medicationTaken}
                 onChange={formikAddPatient.handleChange("medicationTaken")}
@@ -818,7 +818,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="number"
-                label="Smoking"
+                label="Smoking*"
                 placeholder="Enter Smoking (no. of cigarettes/day)"
                 value={formikAddPatient.values.smoking}
                 onChange={formikAddPatient.handleChange("smoking")}
@@ -832,7 +832,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="number"
-                label="Alcohol Consumption"
+                label="Alcohol Consumption*"
                 placeholder="Enter Alcohol Consumption (units/week)"
                 value={formikAddPatient.values.alcoholConsumption}
                 onChange={formikAddPatient.handleChange("alcoholConsumption")}
@@ -846,7 +846,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="number"
-                label="Physical Exercise"
+                label="Physical Exercise*"
                 placeholder="Enter Physical Exercise (hours/day)"
                 value={formikAddPatient.values.physicalExercise}
                 onChange={formikAddPatient.handleChange("physicalExercise")}
@@ -874,7 +874,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={6}>
               <Input
                 type="number"
-                label="Sleep Duration"
+                label="Sleep Duration*"
                 placeholder="Enter Sleep Duration (hours/day)"
                 value={formikAddPatient.values.sleepDuration}
                 onChange={formikAddPatient.handleChange("sleepDuration")}
@@ -884,7 +884,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
                 }
               />
             </Col>
-
             <Col md={6}>
               <DropDown
                 label="Cognitive Stimulation"

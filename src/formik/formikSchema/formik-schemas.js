@@ -58,6 +58,7 @@ export const updatePasswordSchema = Yup.object({
 });
 export const getAddPatientValidationSchema = (slug) => {
   const baseSchema = {
+    // Demographics
     patientNo: Yup.string().required("Patient No is required."),
     firstName: Yup.string().required("First Name is required."),
     lastName: Yup.string().required("Last Name is required."),
@@ -66,10 +67,8 @@ export const getAddPatientValidationSchema = (slug) => {
       .required("Email is required."),
     medicalCondition: Yup.string().optional(),
     usefulInformation: Yup.string().optional(),
-    organDonor: Yup.object().required(
-      "Please select if you are an organ donor."
-    ),
-    bloodType: Yup.object().required("Please select your blood type."),
+    organDonor: Yup.object().optional(),
+    bloodType: Yup.object().optional(),
     gender: Yup.object().required("Gender is required."),
     dateOfBirth: Yup.date().required("Date of Birth is required."),
     doctorName: Yup.string().required("Doctor full name is required."),
@@ -82,34 +81,46 @@ export const getAddPatientValidationSchema = (slug) => {
     pesel: Yup.string().optional(),
     education: Yup.string().optional(),
     job: Yup.string().optional(),
-    civilStatus: Yup.object().optional(),
-    familyHistoryOfDementia: Yup.object().optional(),
+    civilStatus: Yup.object().required("Civil status is required."),
+    familyHistoryOfDementia: Yup.object().required(
+      "Family history of dementia is required."
+    ),
     economicStatus: Yup.object().optional(),
-    height: Yup.string().optional(),
-    weight: Yup.string().optional(),
+
+    // Physical Characteristics
+    height: Yup.string().required("Height is required."),
+    weight: Yup.string().required("Weight is required."),
     bmi: Yup.string().optional(),
     waistCircumference: Yup.string().optional(),
-    bloodPressure: Yup.string().optional(),
-    heartRate: Yup.string().optional(),
-    hyperTension: Yup.object().optional(),
-    diabetes: Yup.object().optional(),
-    heartDisease: Yup.object().optional(),
+    bloodPressure: Yup.string().required("Blood pressure is required."),
+    heartRate: Yup.string().required("Heart rate is required."),
+
+    // Disease Status / Comorbidities
+    hyperTension: Yup.object().required("Hypertension status is required."),
+    diabetes: Yup.object().required("Diabetes status is required."),
+    heartDisease: Yup.object().required("Heart disease status is required."),
     liverDisease: Yup.object().optional(),
     renalDisease: Yup.object().optional(),
     obesity: Yup.object().optional(),
-    mentalIllness: Yup.object().optional(),
+    mentalIllness: Yup.object().required("Mental illness status is required."),
     others: Yup.string().optional(),
-    medicationTaken: Yup.string().optional(),
-    smoking: Yup.string().optional(),
-    alcoholConsumption: Yup.string().optional(),
-    physicalExercise: Yup.string().optional(),
-    sleepDuration: Yup.string().optional(),
+    medicationTaken: Yup.string().required("Medication taken is required."),
+
+    // Lifestyle Factors
+    smoking: Yup.string().required("Smoking status is required."),
+    alcoholConsumption: Yup.string().required(
+      "Alcohol consumption status is required."
+    ),
+    physicalExercise: Yup.string().required(
+      "Physical exercise status is required."
+    ),
     dietAdequacy: Yup.string().optional(),
+    sleepDuration: Yup.string().required("Sleep duration is required."),
     cognitiveStimulation: Yup.object().optional(),
     relaxationTechniques: Yup.string().optional(),
+    waterConsumption: Yup.string().optional(),
     timeSpentAlone: Yup.string().optional(),
     useOfElectronicDevice: Yup.object().optional(),
-    waterConsumption: Yup.string().optional(),
   };
 
   if (!slug) {
