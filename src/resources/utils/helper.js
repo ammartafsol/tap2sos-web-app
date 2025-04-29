@@ -487,7 +487,12 @@ export const flattenObject = (obj) => {
 
   fieldOrder.forEach((field) => {
     if (result.hasOwnProperty(field)) {
-      orderedResult[field] = result[field];
+      orderedResult[field] =
+        typeof result[field] !== "boolean"
+          ? result[field]
+          : result[field]
+          ? "Yes"
+          : "No";
     }
     //  else {
     //   orderedResult[field] = ""; // Add empty string for missing fields
