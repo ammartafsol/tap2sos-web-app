@@ -45,6 +45,7 @@ export default function DesktopHeader({ isScroll, logout }) {
                 </div>
                 {isLogin ? (
                   <OverlayTrigger
+                   rootClose
                     trigger={["click"]}
                     placement={"bottom-end"}
                     overlay={
