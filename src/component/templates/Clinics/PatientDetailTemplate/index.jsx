@@ -124,7 +124,7 @@ export default function PatientDetailTemplate({ slug }) {
             )} */}
 
             {Object.keys(attachments).map((type) => {
-              const docs = attachments[type] || []; // Safe fallback
+              const docs = attachments[type] || []; 
               return (
                 <div key={type} className={classes.tagGroup}>
                   <div className={classes.tagWrapper}>
@@ -133,7 +133,6 @@ export default function PatientDetailTemplate({ slug }) {
                     </div>
                   </div>
 
-                  {/* Render all documents for this type */}
                   <div className={classes.documentsList}>
                     {docs.map((doc, index) => (
                       <div key={index} className={classes.documentItem}>
