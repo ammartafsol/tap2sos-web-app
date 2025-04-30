@@ -49,5 +49,10 @@
 
 .errorText {
   color: red;
-  font-size: 15px;
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 5px !important;
+  margin-bottom: 0;
+  font-family: var(--inter);
+font-weight: 400;
 }

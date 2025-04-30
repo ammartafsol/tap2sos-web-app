@@ -19,11 +19,12 @@
 
 .errorText {
   color: red;
-  text-align: left;
-  width: 100%;
-  margin-top: 5px;
-  margin-left: 5px;
   font-size: 12px;
+  font-weight: normal;
+  margin-top: 5px;
+  margin-bottom: 0;
+  font-family: var(--inter);
+  font-weight: 400;
 }
 
 .labelDisabled {
