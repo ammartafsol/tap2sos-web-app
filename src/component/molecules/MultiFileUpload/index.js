@@ -145,17 +145,17 @@ const MultiFileUpload = ({
         <div className={classes.filePreviewList}>
           {files?.map((file, index) => {
             return (
-              <div>
-              <div key={index} className={classes.fileItem}>
-                <span
-                  className={classes.removeFile}
-                  onClick={() => removeFile(file?.key || "")}
-                >
-                  <IoCloseOutline color="var(--white)" size={22} />
-                </span>
-                {renderFileComponent(file)}
-              </div>
-              <div>{file.fileName.slice(-14)}</div>
+              <div key={index}>
+                <div  className={classes.fileItem}>
+                  <span
+                    className={classes.removeFile}
+                    onClick={() => removeFile(file?.key || "")}
+                  >
+                    <IoCloseOutline color="var(--white)" size={22} />
+                  </span>
+                  {renderFileComponent(file)}
+                </div>
+                <div>{file.fileName.slice(-14)}</div>
               </div>
             );
           })}
