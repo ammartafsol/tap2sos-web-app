@@ -14,6 +14,7 @@ import {
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import classes from "./PatientDetailTemplate.module.css";
+import DocumentsView from "@/component/atoms/DocumentsView/DocumentsView";
 
 export default function PatientDetailTemplate({ slug }) {
   const { Get } = useAxios();
@@ -105,7 +106,7 @@ export default function PatientDetailTemplate({ slug }) {
               );
             })}
 
-            {attachments?.length > 0 && (
+            {/* {attachments?.length > 0 && (
               <>
                 <h5 className={classes?.attachmentsHeading}>Attachments</h5>
                 <div className={classes?.attachments}>
@@ -120,7 +121,30 @@ export default function PatientDetailTemplate({ slug }) {
                   ))}
                 </div>
               </>
-            )}
+            )} */}
+
+            {Object.keys(attachments).map((type) => {
+              const docs = attachments[type] || []; // Safe fallback
+              return (
+                <div key={type} className={classes.tagGroup}>
+                  <div className={classes.tagWrapper}>
+                    <div className={classes.tag}>
+                      <span>{type}</span>
+                    </div>
+                  </div>
+
+                  {/* Render all documents for this type */}
+                  <div className={classes.documentsList}>
+                    {docs.map((doc, index) => (
+                      <div key={index} className={classes.documentItem}>
+                        <DocumentsView />
+                        <span>{doc.fileName.slice(-14)}</span>{" "}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </Row>
         </div>
       </Container>

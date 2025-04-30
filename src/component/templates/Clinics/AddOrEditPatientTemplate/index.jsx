@@ -240,6 +240,8 @@ export default function AddOrEditPatientTemplate({ slug }) {
     );
   }
 
+  console.log("formikAddPatient",formikAddPatient.values);
+
   return (
     <LayoutWrapper>
       <Container>
@@ -471,6 +473,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
                     data.phoneNumber
                   );
                 }}
+
                 errorText={
                   formikAddPatient.touched.emergencyContact &&
                   formikAddPatient.errors.emergencyContact
@@ -1109,87 +1112,4 @@ export default function AddOrEditPatientTemplate({ slug }) {
   );
 }
 
-// {Object.keys(docs).map((type) => {
-//   const uploadedFiles = docs[type] || [];
-//   const uploaderSlots = uploaders[type] || [];
 
-//   // Count all uploaded + pending files
-//   const totalFiles =
-//     uploadedFiles.length +
-//     uploaderSlots.reduce(
-//       (acc, uploader) => acc + (uploader.files?.length || 0),
-//       0
-//     );
-
-//   // ✅ Show "➕" only if less than 2 files total AND max 2 slots aren't already there
-//   const canAddMore = uploaderSlots.length < 2;
-
-//   return (
-//     <div key={type} className={classes.tagGroup}>
-//       <div className={classes.tagWrapper}>
-//         <div className={classes.tag}>
-//           <span>{type}</span>
-//           <button
-//             onClick={() => {
-//               const updatedDocs = { ...docs };
-//               delete updatedDocs[type];
-//               setDocs(updatedDocs);
-
-//               const updatedUploaders = { ...uploaders };
-//               delete updatedUploaders[type];
-//               setUploaders(updatedUploaders);
-//             }}
-//             className={classes.closeBtn}
-//           >
-//             ✕
-//           </button>
-//         </div>
-
-//         {canAddMore && (
-//           <button
-//             onClick={() => handleAddUploader(type)}
-//             className={classes.uploadBtn}
-//           >
-//             ➕
-//           </button>
-//         )}
-//       </div>
-
-//       {/* Uploaders */}
-//       {uploaderSlots.map((uploader, idx) => {
-//         const uploaderFiles = uploader.files || [];
-
-//         return (
-//           <MultiFileUpload
-//             key={idx}
-//             files={uploaderFiles}
-//             acceptedFiles={getSupportedImageTypes("pdf")}
-//             maxFileCount={2}
-//             Patch={Patch}
-//             setFiles={(f) => {
-//               const updatedFiles = [...uploaderFiles, ...f];
-//               const updatedUploaders = { ...uploaders };
-//               updatedUploaders[type][idx] = { files: updatedFiles };
-//               setUploaders(updatedUploaders);
-//               handleUploadMedia(f, type, 2, setDocs, docs);
-//             }}
-//             removeFileCb={(key) => {
-//               const updatedFiles = uploaderFiles.filter(
-//                 (f) => f.key !== key
-//               );
-//               const updatedUploaders = { ...uploaders };
-//               updatedUploaders[type][idx] = { files: updatedFiles };
-//               setUploaders(updatedUploaders);
-
-//               const updatedDocs = {
-//                 ...docs,
-//                 [type]: updatedFiles,
-//               };
-//               setDocs(updatedDocs);
-//             }}
-//           />
-//         );
-//       })}
-//     </div>
-//   );
-// })}

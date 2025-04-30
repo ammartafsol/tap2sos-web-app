@@ -97,6 +97,37 @@
   margin-bottom: 20px !important;
 }
 
+
+.tagWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.tag {
+  background-color: #e6f7ff;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #333;
+  margin-right: 8px;
+}
+
+.documentsList{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px 0px;
+}
+
+.documentItem span{
+  color:var(--royal-navy-blue);
+}
+
+
+
 @media (max-width: 991px) {
   .contactUsCard {
     gap: 50px;
