@@ -141,7 +141,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
         ),
         useOfElectronicDevice: boolToYesNo(data.useOfElectronicDevice),
       });
-      setDocs(response?.data?.attachments);
+      setDocs(response?.data?.attachments? response?.data?.attachments : {});
     }
     setLoading("");
   };
