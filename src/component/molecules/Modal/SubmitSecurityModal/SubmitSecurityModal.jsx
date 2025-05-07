@@ -48,7 +48,7 @@ const SubmitSecurityModal = ({
       delete filteredData?.callingCode;
       delete filteredData?.emergencyCallingCode;
 
-      setAttachments(responseData?.attachments);
+      setAttachments(responseData?.attachments ? responseData?.attachments : {});
       setShow(false);
       setData(filteredData);
       PasswordFormik.resetForm();

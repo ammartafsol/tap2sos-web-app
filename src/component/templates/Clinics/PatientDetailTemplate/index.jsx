@@ -20,14 +20,14 @@ export default function PatientDetailTemplate({ slug }) {
   const { Get } = useAxios();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState("load");
-  const [attachments, setAttachments] = useState([]);
+  const [attachments, setAttachments] = useState({});
   const [selectedKey, setSelectedKey] = useState("");
 
   const getData = async () => {
     setLoading("loading");
     const { response } = await Get({ route: `users/detail/${slug}` });
     const obj = response?.data;
-    setAttachments(obj?.attachments);
+    setAttachments(obj?.attachments ? obj?.attachments : {});
     if (response) {
       const flattenedData = flattenObject(obj || {});
       flattenedData.phoneNumber = `+${flattenedData?.callingCode} ${flattenedData.phoneNumber}`;
@@ -67,27 +67,6 @@ export default function PatientDetailTemplate({ slug }) {
           <TopHeader data="Patient Details" />
           <Row>
             {Object.entries(data || {}).map(([key, value], index) => {
-              if (typeof value === "object" && value !== null) {
-                return Object.entries(value).map(
-                  ([nestedKey, nestedValue], nestedIndex) => (
-                    <Col md={6} key={`${index}-${nestedIndex}`}>
-                      <Input
-                        type="text"
-                        disabled={true}
-                        label={formatLabel(key)}
-                        value={
-                          key === "organDonor"
-                            ? value
-                              ? "Yes"
-                              : "No"
-                            : capitalizeFirstLetter(String(value)) || "No Data"
-                        }
-                      />
-                    </Col>
-                  )
-                );
-              }
-
               return (
                 <Col md={6} key={index}>
                   <Input

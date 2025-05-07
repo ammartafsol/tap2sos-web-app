@@ -24,14 +24,15 @@ export default function SecurityKey({ slug }) {
   const [loading, setLoading] = useState("load");
   const [show, setShow] = useState(false);
   const [initialData, setInitialData] = useState({});
-  const [attachments, setAttachments] = useState([]);
+  const [attachments, setAttachments] = useState({});
   const [selectedKey, setSelectedKey] = useState("");
 
   const getData = async () => {
     setLoading("loading");
     const { response } = await Get({ route: `users/patient/detail/${slug}` });
     const obj = response?.data;
-    setAttachments(obj?.attachments);
+    setAttachments(obj?.attachments ? obj?.attachments : {});
+
     if (response) {
       const flattenedData = flattenObject(obj || {});
       setInitialData(flattenedData);
