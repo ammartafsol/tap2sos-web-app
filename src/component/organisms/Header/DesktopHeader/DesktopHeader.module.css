@@ -104,3 +104,7 @@
   border: 2px solid var(--primary-color-opacity);
   position: relative;
 }
+
+.overlayContainer {
+  z-index: 1050;
+}
