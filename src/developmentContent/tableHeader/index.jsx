@@ -13,6 +13,12 @@ export const PatientTableHeader = [
     },
   },
   {
+    key: "patientNo",
+    title: "Patient No",
+    style: { width: "10%" },
+    renderValue: (cellValue) => <RenderTextCell {...{ cellValue }} />,
+  },
+  {
     key: "email",
     title: "Email Address",
     style: { width: "20%" },
@@ -21,7 +27,7 @@ export const PatientTableHeader = [
   {
     key: "medicalCondition",
     title: "Medical Conditions",
-    style: { width: "20%" },
+    style: { width: "15%" },
     renderValue: (cellValue) => <RenderTextCell {...{ cellValue }} />,
   },
   {
@@ -39,7 +45,7 @@ export const PatientTableHeader = [
   {
     key: "usefulInformation",
     title: "Useful Information",
-    style: { width: "20%" },
+    style: { width: "15%" },
     renderValue: (cellValue) => <RenderTextCell {...{ cellValue }} />,
   },
   {

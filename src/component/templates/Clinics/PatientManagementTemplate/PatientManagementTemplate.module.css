@@ -30,6 +30,17 @@
   margin-block: 20px;
   min-height: 38vh;
 }
+.filter{
+  width: 120px;
+}
+.main{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.containerClass{
+  margin-bottom: 0px !important;
+}
 
 @media screen and (max-width: 1560px) {
   .tableContainer {

@@ -16,6 +16,8 @@ import classes from "./PatientManagementTemplate.module.css";
 import { IconButton } from "@/component/organisms/AppTable/CommonCells";
 import { FaEye, FaUserEdit } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import DropDown from "@/component/molecules/DropDown/DropDown";
+import { patientFilter } from "@/developmentContent/enums/enum";
 
 const PatientManagementTemplate = () => {
   const router = useRouter();
@@ -24,6 +26,7 @@ const PatientManagementTemplate = () => {
   const [loading, setLoading] = useState("");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [selectedFilter, setSelectedFilter] = useState(null);
   const [totalRecords, setTotalRecords] = useState(0);
   const debouceSearch = useDebounce(search, 500);
   const getData = async (p = page) => {
@@ -32,6 +35,7 @@ const PatientManagementTemplate = () => {
       page: p,
       limit: RECORDS_LIMIT,
       search: debouceSearch,
+      sortBy: selectedFilter?.value ??"",
     };
     const queryString = new URLSearchParams(query)
       .toString()
@@ -48,7 +52,7 @@ const PatientManagementTemplate = () => {
 
   useEffect(() => {
     getData();
-  }, [debouceSearch]);
+  }, [debouceSearch,selectedFilter]);
 
   return (
     <>
@@ -56,24 +60,35 @@ const PatientManagementTemplate = () => {
         <Container className="g-0">
           <div className={classes?.pageHeader}>
             <div className="h1">Patient Management</div>
-            <div className={classes?.rightContainer}>
-              <Input
-                placeholder={"Search"}
-                setter={setSearch}
-                mainContClassName={classes?.mainContClassName}
-                type={"search"}
-                leftIcon={
-                  <IoSearchOutline size={20} color={"var(--text-color-v1)"} />
-                }
-              />
-              <Button
-                leftIcon={<IoAdd fontSize={22} />}
-                className={classes?.btn}
-                label={"Add Patient"}
-                onClick={() => {
-                  router.push("/clinic/patient/create");
-                }}
-              />
+            <div className={classes?.main}>
+              <div className={classes?.rightContainer}>
+                <Input
+                  placeholder={"Search"}
+                  setter={setSearch}
+                  mainContClassName={classes?.mainContClassName}
+                  type={"search"}
+                  leftIcon={
+                    <IoSearchOutline size={20} color={"var(--text-color-v1)"} />
+                  }
+                />
+                <Button
+                  leftIcon={<IoAdd fontSize={22} />}
+                  className={classes?.btn}
+                  label={"Add Patient"}
+                  onClick={() => {
+                    router.push("/clinic/patient/create");
+                  }}
+                />
+              </div>
+              <div className={classes?.filter}>
+                <DropDown
+                  setValue={setSelectedFilter}
+                  value={selectedFilter}
+                  options={patientFilter}
+                  placeholder={"Filter"}
+                  className={classes?.containerClass}
+                />
+              </div>
             </div>
           </div>
           <div className={classes?.tableContainer}>

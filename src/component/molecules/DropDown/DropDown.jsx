@@ -23,6 +23,7 @@ const DropDown = ({
   borderRadius = "5px",
   classNamePrefix,
   customContainerClass,
+  className,
   variant = "",
   customContainerStyle,
   inputClass,
@@ -142,7 +143,7 @@ const DropDown = ({
     }),
   };
   return (
-    <div className={`${[classes.Container].join(" ")}`} data-variant={variant}>
+    <div className={`${[classes.Container, className].join(" ")}`} data-variant={variant}>
       <style>{`
         .DropdownOptionContainer__menu {
           margin: 0px;
