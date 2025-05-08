@@ -68,7 +68,7 @@ export default function SignupTemplate() {
         <Row className={mergeClass("g-0", classes.loginContainer)}>
           <Col md={12} className={classes.loginFormDiv}>
             <div className={classes.headingDiv}>
-              <h2>Sign Up to Tap2sos</h2>
+            <h2>Sign up for Medical Personnel</h2>
               <p>
                 Create your account in just a few steps. Access all our features
                 and more!
