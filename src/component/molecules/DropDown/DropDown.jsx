@@ -94,6 +94,7 @@ const DropDown = ({
         fontFamily: "var(--inter)",
         fontWeight: 400,
         fontSize: "14px",
+        zIndex:"1050",
 
         ":active": {
           ...styles[":active"],
@@ -140,6 +141,9 @@ const DropDown = ({
       ":hover": {
         color: "var(--white-color)",
       },
+    }),menu: (styles) => ({
+      ...styles,
+      zIndex:"999"
     }),
   };
   return (
@@ -184,6 +188,7 @@ const DropDown = ({
         style={{ ...customContainerStyle }}
       >
         <ReactSelect
+        // menuIsOpen
           inputId={`dropdown${label}`}
           value={value}
           onChange={(e) => {
@@ -194,7 +199,7 @@ const DropDown = ({
           isDisabled={disabled}
           placeholder={placeholder}
           options={options}
-          styles={{ ...dropDownStyle, ...style }}
+          styles={{ ...dropDownStyle, ...style ,}}
           isClearable={false}
           isSearchable={isSearchable}
           classNamePrefix={`DropdownOptionContainer ${
