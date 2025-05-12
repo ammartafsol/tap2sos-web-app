@@ -30,6 +30,7 @@ import {
   uploadImagesHelper,
 } from "@/resources/utils/mediaUpload";
 import LottieLoader from "@/component/atoms/LottieLoader/LottieLoader";
+import UploadProfile from "@/component/molecules/UploadProfile";
 
 export default function AddOrEditPatientTemplate({ slug }) {
   const { Get, Post, Patch, Delete } = useAxios();
@@ -41,6 +42,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
   const [docs, setDocs] = useState({});
   const [uploaders, setUploaders] = useState({});
   const [isLoadingWithType, setIsLoadingWithTypes] = useState("");
+  const [uploadImage, setUploadImage] = useState(null);
 
   const formikAddPatient = useFormik({
     initialValues: ADD_EDIT_PATIENT_FORM_VALUES,
@@ -72,6 +74,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
       useOfElectronicDevice: yesNoToBool(value.useOfElectronicDevice),
       dateOfBirth: new Date(value.dateOfBirth),
       attachments: docs,
+      photo: uploadImage ? uploadImage : "",
       // ...(docs?.length > 0 && { attachments: docs }),
     };
 
@@ -112,7 +115,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
       });
       const findOption = (arr, val) => arr.find((item) => item.value === val);
       let data = response?.data;
-
       formikAddPatient.setValues({
         ...formikAddPatient.values,
         ...data,
@@ -141,7 +143,8 @@ export default function AddOrEditPatientTemplate({ slug }) {
         ),
         useOfElectronicDevice: boolToYesNo(data.useOfElectronicDevice),
       });
-      setDocs(response?.data?.attachments? response?.data?.attachments : {});
+      setUploadImage(data?.photo ? data?.photo : null);
+      setDocs(response?.data?.attachments ? response?.data?.attachments : {});
     }
     setLoading("");
   };
@@ -240,8 +243,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
     );
   }
 
-  console.log("formikAddPatient",formikAddPatient.values);
-
   return (
     <LayoutWrapper>
       <Container>
@@ -254,6 +255,13 @@ export default function AddOrEditPatientTemplate({ slug }) {
             <Col md={12} className="mb-3">
               <h4 className="mb-0">Demographics</h4>
             </Col>
+            <Col md={12}>
+              <UploadProfile
+                uploadImage={uploadImage}
+                setUploadImage={setUploadImage}
+              />
+            </Col>
+
             {/* Demographics */}
             <Col md={6}>
               <Input
@@ -473,7 +481,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
                     data.phoneNumber
                   );
                 }}
-
                 errorText={
                   formikAddPatient.touched.emergencyContact &&
                   formikAddPatient.errors.emergencyContact
@@ -1111,5 +1118,3 @@ export default function AddOrEditPatientTemplate({ slug }) {
     </LayoutWrapper>
   );
 }
-
-

@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import classes from "./PatientDetailTemplate.module.css";
 import DocumentsView from "@/component/atoms/DocumentsView/DocumentsView";
+import UploadProfile from "@/component/molecules/UploadProfile";
 
 export default function PatientDetailTemplate({ slug }) {
   const { Get } = useAxios();
@@ -22,13 +23,15 @@ export default function PatientDetailTemplate({ slug }) {
   const [loading, setLoading] = useState("load");
   const [attachments, setAttachments] = useState({});
   const [selectedKey, setSelectedKey] = useState("");
+  const [photo,setPhoto] = useState(null);
 
   const getData = async () => {
     setLoading("loading");
     const { response } = await Get({ route: `users/detail/${slug}` });
     const obj = response?.data;
-    setAttachments(obj?.attachments ? obj?.attachments : {});
     if (response) {
+      setAttachments(obj?.attachments ? obj?.attachments : {});
+      setPhoto(obj?.photo? obj?.photo:null)
       const flattenedData = flattenObject(obj || {});
       flattenedData.phoneNumber = `+${flattenedData?.callingCode} ${flattenedData.phoneNumber}`;
       flattenedData.emergencyContact = `+${flattenedData?.emergencyCallingCode} ${flattenedData.emergencyContact}`;
@@ -65,6 +68,7 @@ export default function PatientDetailTemplate({ slug }) {
       <Container>
         <div>
           <TopHeader data="Patient Details" />
+          <UploadProfile uploadImage={photo} readOnly={true} />
           <Row>
             {Object.entries(data || {}).map(([key, value], index) => {
               return (
