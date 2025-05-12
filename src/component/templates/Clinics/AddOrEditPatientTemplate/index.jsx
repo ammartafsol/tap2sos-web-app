@@ -252,14 +252,14 @@ export default function AddOrEditPatientTemplate({ slug }) {
             showBreadcrumb={false}
           />
           <Row>
-            <Col md={12} className="mb-3">
-              <h4 className="mb-0">Demographics</h4>
-            </Col>
             <Col md={12}>
               <UploadProfile
                 uploadImage={uploadImage}
                 setUploadImage={setUploadImage}
               />
+            </Col>
+            <Col md={12} className="mb-3">
+              <h4 className="mb-0">Demographics</h4>
             </Col>
 
             {/* Demographics */}
