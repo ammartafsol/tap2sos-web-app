@@ -11,8 +11,9 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { MdEmail } from "react-icons/md";
+import classes from "./FogetPasswordTemplate.module.css";
 
 const FogetPasswordTemplate = () => {
   const router = useRouter();
@@ -44,39 +45,37 @@ const FogetPasswordTemplate = () => {
   return (
     <LayoutWrapper>
       <Container>
-        <div>
-          <div className={"signInText"}>
-            <h4>Forgot Password</h4>
+        <div className={classes.loginContainer}>
+          <div className={classes.headingDiv}>
+            <h2>Forgot Password</h2>
             <p>
-              Enter the email address associated with your account, and we’ll
-              email you a link to reset your password..
+              Enter the email address associated with your account, and we'll
+              email you a link to reset your password.
             </p>
           </div>
-          <Row>
-            <Col xs="12">
-              <Input
-                type={"email"}
-                leftIcon={<MdEmail color="#B0B7C3" fontSize={20} />}
-                placeholder={"Email"}
-                setter={(e) => {
-                  formikForgetPassword.setFieldValue("email", e);
-                }}
-                value={formikForgetPassword.values.email}
-                errorText={
-                  formikForgetPassword.touched.email &&
-                  formikForgetPassword.errors.email
-                }
-              />
-            </Col>
-          </Row>
-          <Button
-            disabled={loading === "loading"}
-            onClick={() => {
-              formikForgetPassword.handleSubmit();
-            }}
-            className="btnfull"
-            label={loading === "loading" ? "loading..." : "Send"}
-          />
+          <div className={classes.loginFormDiv}>
+            <Input
+              type={"email"}
+              leftIcon={<MdEmail color="#B0B7C3" fontSize={20} />}
+              placeholder={"Email"}
+              setter={(e) => {
+                formikForgetPassword.setFieldValue("email", e);
+              }}
+              value={formikForgetPassword.values.email}
+              errorText={
+                formikForgetPassword.touched.email &&
+                formikForgetPassword.errors.email
+              }
+            />
+            <Button
+              disabled={loading === "loading"}
+              onClick={() => {
+                formikForgetPassword.handleSubmit();
+              }}
+              variant={"gradient"}
+              label={loading === "loading" ? "loading..." : "Send"}
+            />
+          </div>
         </div>
       </Container>
     </LayoutWrapper>
