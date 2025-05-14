@@ -36,7 +36,7 @@ const FogetPasswordTemplate = () => {
     if (response) {
       Cookies.set("email", obj.email);
       RenderToast({ type: "success", message: "success" });
-      router.push("/auth/otp");
+      router.push("/otp");
     }
     setLoading("");
   };
