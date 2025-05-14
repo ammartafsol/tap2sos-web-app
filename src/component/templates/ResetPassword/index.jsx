@@ -32,8 +32,8 @@ const ResetPassword = () => {
     setLoading("loading");
     const obj = {
       email: Cookies.get("email"),
-      otpCode: Cookies.get("code"),
-      // newPassword: values?.newPassword,
+      otpCode: Cookies.get("otpCode"),
+      password: values?.newPassword,
       confirmPassword: values?.confirmPassword,
     };
     const response = await Post({ route: "users/resetPasswordDone", data: obj });
