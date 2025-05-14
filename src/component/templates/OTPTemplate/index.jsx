@@ -57,12 +57,13 @@ const OTPTemplate = () => {
     }
     const obj = {
       email: userEmail || Cookies.get("email"),
-      code: otpValues.join(""),
+      otpCode: otpValues.join(""),
       fromForgotPassword,
     };
-    Cookies.set("code", obj.code);
-    const response = await Post({ route: "auth/verify/otp", data: obj });
-    if (response) {
+    Cookies.set("otpCode", obj.otpCode);
+    const { response } = await Post({ route: "users/verify-otp", data: obj });
+    console.log("reponse",response);
+    if (response.status === "success") {
       if (!fromForgotPassword) {
         Cookies.remove("_xpdx_ver");
         Cookies.remove("email");
@@ -89,7 +90,7 @@ const OTPTemplate = () => {
         //   dispatch(setPortfolioProgress(profileCompletion));
         // }
       } else {
-        router.push("/auth/reset-password");
+        router.push("/reset-password");
       }
       RenderToast({ type: "success", message: "Success" });
       setCanResend(false);
@@ -102,7 +103,7 @@ const OTPTemplate = () => {
     if (loading) return;
     const obj = {
       email: userEmail || Cookies.get("email"),
-      fromForgotPassword: fromForgotPassword,
+      fromForgotPassword: true,
     };
     setLoading("otp");
     const response = await Post({ route: "auth/resend/otp", data: obj });
@@ -144,56 +145,58 @@ const OTPTemplate = () => {
   return (
     <LayoutWrapper>
       <Container>
-        <div className={"signInText"}>
-          <h4>Email Verification</h4>
-          <p>
-            Enter the OTP sent to your email address to reset your password.
-          </p>
-        </div>
-        <div className={classes.container}>
-          <div className={classes.otpContainer}>
-            {otpValues.map((value, idx) => (
-              <Input
-                key={idx}
-                type="text"
-                className={classes.otpInput}
-                value={value}
-                onChange={(e) => handleInputChange(e.target.value, idx)}
-                maxLength={1}
-                onKeyDown={(e) => handleKeyDown(e, idx)}
-                id={`otp-input-${idx}`}
-              />
-            ))}
-          </div>
-          <div className={classes.timerMain}>
-            <p className={classes.timer}>
-              {timer > 0 ? (
-                `⏳ ${timer} sec`
-              ) : (
-                <span
-                  className={classes.resendText}
-                  onClick={canResend ? handleResendOTP : undefined}
-                  style={{ cursor: canResend ? "pointer" : "default" }}
-                >
-                  Didn't get the code?{" "}
-                  <span className={classes.resendLink}>
-                    {loading === "otp" ? "Sending..." : "Resend"}
-                  </span>
-                </span>
-              )}
+        <div className={classes.loginContainer}>
+          <div className={classes.headingDiv}>
+            <h2>Email Verification</h2>
+            <p>
+              Enter the OTP sent to your email address to reset your password.
             </p>
           </div>
+          <div className={classes.formContainer}>
+            <div className={classes.otpContainer}>
+              {otpValues.map((value, idx) => (
+                <Input
+                  key={idx}
+                  type="text"
+                  className={classes.otpInput}
+                  value={value}
+                  onChange={(e) => handleInputChange(e.target.value, idx)}
+                  maxLength={1}
+                  onKeyDown={(e) => handleKeyDown(e, idx)}
+                  id={`otp-input-${idx}`}
+                />
+              ))}
+            </div>
+            <div className={classes.timerMain}>
+              <p className={classes.timer}>
+                {timer > 0 ? (
+                  `⏳ ${timer} sec`
+                ) : (
+                  <span
+                    className={classes.resendText}
+                    onClick={canResend ? handleResendOTP : undefined}
+                    style={{ cursor: canResend ? "pointer" : "default" }}
+                  >
+                    Didn't get the code?{" "}
+                    <span className={classes.resendLink}>
+                      {loading === "otp" ? "Sending..." : "Resend"}
+                    </span>
+                  </span>
+                )}
+              </p>
+            </div>
 
-          {errorMessage && (
-            <p className={classes.errorMessage}>{errorMessage}</p>
-          )}
+            {errorMessage && (
+              <p className={classes.errorMessage}>{errorMessage}</p>
+            )}
 
-          <Button
-            disabled={loading === "loading"}
-            onClick={handleSubmit}
-            className="btnfull"
-            label={loading === "loading" ? "loading..." : "Submit"}
-          />
+            <Button
+              disabled={loading === "loading"}
+              onClick={handleSubmit}
+              variant={"gradient"}
+              label={loading === "loading" ? "loading..." : "Submit"}
+            />
+          </div>
         </div>
       </Container>
     </LayoutWrapper>

@@ -33,7 +33,7 @@ const FogetPasswordTemplate = () => {
     const obj = {
       email: values?.email,
     };
-    const response = await Post({ route: "auth/forgot/password", data: obj });
+    const response = await Post({ route: "users/forgotPassword", data: obj });
     if (response) {
       Cookies.set("email", obj.email);
       RenderToast({ type: "success", message: "success" });
