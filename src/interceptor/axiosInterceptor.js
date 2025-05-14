@@ -95,11 +95,15 @@ const useAxios = () => {
       }
 
       if (error?.response?.status === 401) {
-        const newAccessToken = await refreshAccessToken();
-        if (newAccessToken) {
-          headers.Authorization = `Bearer ${newAccessToken}`;
-          return await axios({ method, url, data, headers });
-        }
+        Cookies.remove("_xpdx");
+        Cookies.remove("_xpdx_rf");
+        Cookies.remove("_xpdx_ur");
+        dispatch(signOutRequest());
+        // const newAccessToken = await refreshAccessToken();
+        // if (newAccessToken) {
+        //   headers.Authorization = `Bearer ${newAccessToken}`;
+        //   return await axios({ method, url, data, headers });
+        // }
       }
       return { error, response: null };
     }
