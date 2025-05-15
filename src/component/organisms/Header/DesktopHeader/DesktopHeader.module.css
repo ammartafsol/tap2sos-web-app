@@ -25,6 +25,7 @@
   width: 153px;
   position: relative;
   height: 45px;
+  cursor: pointer;
 }
 
 .headerRight {

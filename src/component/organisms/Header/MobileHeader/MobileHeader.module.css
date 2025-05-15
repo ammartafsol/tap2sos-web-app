@@ -18,6 +18,7 @@
   width: 90px;
   position: relative;
   height: 34px;
+  cursor: pointer;
 }
 
 .navHamIcon {

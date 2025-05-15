@@ -29,7 +29,7 @@ export default function MobileHeader({ logout }) {
             <div className={classes.header}>
               <Row>
                 <Col xs={8}>
-                  <div className={classes.logoDiv}>
+                  <div onClick={()=>{router.push('/')}} className={classes.logoDiv}>
                     <Image
                       src={"/Images/app-images/logo.svg"}
                       alt="logo"

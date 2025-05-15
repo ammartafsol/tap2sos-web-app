@@ -26,7 +26,7 @@ export default function DesktopHeader({ isScroll, logout }) {
         <Row className="g-0 w-100">
           <Col md={12} className="p-0">
             <div className={classes.mainHeader}>
-              <div className={classes.logoDiv}>
+              <div onClick={()=>{router.push('/')}} className={classes.logoDiv}>
                 <Image src={"/Images/app-images/logo.svg"} alt="logo" fill />
               </div>
 
