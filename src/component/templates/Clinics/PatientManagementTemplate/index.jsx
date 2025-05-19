@@ -18,24 +18,28 @@ import { FaEye, FaUserEdit } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import DropDown from "@/component/molecules/DropDown/DropDown";
 import { patientFilter } from "@/developmentContent/enums/enum";
+import { MdDelete } from "react-icons/md";
+import AreYouSureModal from "@/component/molecules/Modal/AreYouSureModal";
+import RenderToast from "@/component/atoms/RenderToast";
 
 const PatientManagementTemplate = () => {
   const router = useRouter();
-  const { Get } = useAxios();
+  const { Get, Delete } = useAxios();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState("");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [selectedFilter, setSelectedFilter] = useState(null);
+  const [selectedFilter, setSelectedFilter] = useState(patientFilter[0]);
   const [totalRecords, setTotalRecords] = useState(0);
   const debouceSearch = useDebounce(search, 500);
+  const [selectedPatient, setSelectedPatient] = useState("");
   const getData = async (p = page) => {
     setLoading("loading");
     const query = {
       page: p,
       limit: RECORDS_LIMIT,
       search: debouceSearch,
-      sortBy: selectedFilter?.value ??"",
+      sortBy: selectedFilter?.value ?? "",
     };
     const queryString = new URLSearchParams(query)
       .toString()
@@ -52,7 +56,26 @@ const PatientManagementTemplate = () => {
 
   useEffect(() => {
     getData();
-  }, [debouceSearch,selectedFilter]);
+  }, [debouceSearch, selectedFilter]);
+
+  const handleDelete = async () => {
+    setLoading("deletePatient");
+    const { response, error } = await Delete({
+      route: `users/clinic/delete-patient/${selectedPatient?.slug}`,
+    });
+    if (error == null) {
+      RenderToast({
+        type: "success",
+        message: `${selectedPatient?.firstName} ${selectedPatient?.lastName} Deleted Successfully`,
+      });
+      setData((prev) =>
+        prev.filter((item) => item.slug !== selectedPatient?.slug)
+      );
+      setSelectedPatient("");
+      getData();
+    }
+    setLoading("");
+  };
 
   return (
     <>
@@ -125,6 +148,12 @@ const PatientManagementTemplate = () => {
                         }
                         icon={<FaUserEdit size={20} />}
                       />
+                      <IconButton
+                        onClick={() => {
+                          setSelectedPatient(rowItem);
+                        }}
+                        icon={<MdDelete size={20} />}
+                      />
                     </div>
                   );
                 }
@@ -134,6 +163,18 @@ const PatientManagementTemplate = () => {
           </div>
         </Container>
       </LayoutWrapper>
+
+      {selectedPatient !== "" && (
+        <AreYouSureModal
+          show={selectedPatient !== ""}
+          setShow={() => {
+            setSelectedPatient("");
+          }}
+          title={`Are You Sure You Want To Delete ${selectedPatient?.firstName} ${selectedPatient?.lastName}?`}
+          onClick={handleDelete}
+          loading={loading === "deletePatient"}
+        />
+      )}
     </>
   );
 };

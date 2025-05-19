@@ -1,0 +1,30 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  background: var(--white-color);
+  height: 100%;
+  border-radius: 12px;
+}
+
+.mainDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-block: 20px;
+}
+.__icon {
+  margin-bottom: 1rem;
+}
+
+.btnsBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin-block: 20px;
+}

@@ -12,6 +12,9 @@
   background-color: var(--royal-navy-blue);
   color: var(--white-color);
 }
+.btn label {
+  cursor: pointer;
+}
 
 .btn:disabled {
   opacity: 0.8;
@@ -19,8 +22,6 @@
 }
 .btn[color-variant="gradient"] {
   color: white;
-  border-radius: 6px;
-  padding: 15px 32px;
   background: linear-gradient(225deg, #e04018 0%, #f8d11d 100%), #0a2147;
 }
 .btn[color-variant="primary"] {
@@ -29,16 +30,20 @@
 }
 .btn[color-variant="secondary"] {
   background: transparent;
-  color:  var(--black-color);
+  color: var(--black-color);
+}
+.btn[color-variant="danger"] {
+  background: var(--reddish-orange);
+  color: var(--white-color);
 }
 .btn[color-variant="dark"] {
   background: var(--black);
   color: var(--white);
 }
 .btn[color-variant="black-outlined"] {
-  background: var(--white);
-  color: var(--black);
-  border: 1px solid var(--black) !important;
+  background: var(--white-color);
+  color: var(--black-color);
+  border: 1px solid var(--black-color) !important;
 }
 
 .btn[color-variant="tertiary"] {
@@ -49,14 +54,6 @@
   background: var(--blue-v1);
   color: var(--white);
 }
-
-.btn[color-variant="outlined"] {
-  /* border: 1px solid var(--royal-navy-blue) !important; */
-  color:  linear-gradient(225deg, #e04018 0%, #f8d11d 100%), #0a2147;
-  box-shadow: none !important;
-  background-color: transparent;
-}
-
 @media screen and (max-width: 767px) {
   .btn {
     font-size: 14px;

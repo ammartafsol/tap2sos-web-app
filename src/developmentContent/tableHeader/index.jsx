@@ -21,7 +21,7 @@ export const PatientTableHeader = [
   {
     key: "email",
     title: "Email Address",
-    style: { width: "20%" },
+    style: { width: "15%" },
     renderValue: (cellValue) => <RenderTextCell {...{ cellValue }} />,
   },
   {
@@ -51,6 +51,6 @@ export const PatientTableHeader = [
   {
     title: "Action",
     key: "action",
-    style: { width: "10%" },
+    style: { width: "15%" },
   },
 ];
