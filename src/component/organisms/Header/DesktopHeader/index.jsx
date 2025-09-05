@@ -56,11 +56,12 @@ export default function DesktopHeader({ isScroll, logout }) {
                             key={index}
                             href={item?.route}
                             className={mergeClass(classes.overLayLinks)}
+                            onClick={()=>{setShow(false);}}
                           >
                             {item?.title}
                           </Link>
                         ))}
-                        <p className={classes.overLayLinks} onClick={logout}>
+                        <p  className={classes.overLayLinks} onClick={()=>{logout();setShow(false);}}>
                           Logout
                         </p>
                       </div>
