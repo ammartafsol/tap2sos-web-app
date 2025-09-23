@@ -88,3 +88,52 @@
   padding: 30px 20px;
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.30) 100%), var(--bg-snow-color);
 }
+
+
+@media screen and (max-width: 992px) {
+  .headerChild{
+    width: 70%;
+  }
+  .headerChild h4{
+    font-size: 36px;
+    line-height: 50px;
+  }
+  .headerChild p{
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .header{
+    height: 340px;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .headerChild{
+    width: 80%;
+  }
+  .headerChild h4{
+    font-size: 30px;
+    line-height: 40px;
+  }
+  .headerChild p{
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .header{
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .headerChild{
+    width: 90%;
+  }
+  .headerChild h4{
+    font-size: 24px;
+    line-height: 30px;
+  }
+  .headerChild{
+    gap: 15px;
+  }
+}

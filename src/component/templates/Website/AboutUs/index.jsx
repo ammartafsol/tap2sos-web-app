@@ -33,7 +33,7 @@ const AboutUs = () => {
       </LayoutWrapper>
       <Container>
         <Row className={classes?.main}>
-          <Col md="7" className={classes?.image}>
+          <Col lg="7" className={classes?.image}>
             <div className={classes?.textImage}>
               <Image
                 src={aboutUsPageData?.learnMoreData?.image}
@@ -42,7 +42,7 @@ const AboutUs = () => {
               />
             </div>
           </Col>
-          <Col md="5" className={classes?.Text}>
+          <Col lg="5" className={classes?.Text}>
             <h4>{aboutUsPageData?.learnMoreData.title}</h4>
             <p>{aboutUsPageData?.learnMoreData?.description}</p>
             <Button className={classes.btn} label={"Learn More"} />

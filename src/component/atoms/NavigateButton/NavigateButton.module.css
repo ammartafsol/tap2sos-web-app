@@ -22,3 +22,19 @@
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 }
+
+
+@media screen and (max-width: 992px) {
+  .downBtn span{
+    height: 80px;
+    width: 80px;
+  }
+}
+
+
+@media screen and (max-width: 575px) {
+  .downBtn span{
+    height: 50px;
+    width: 50px;
+  }
+}
