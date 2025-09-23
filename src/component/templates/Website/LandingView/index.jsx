@@ -37,7 +37,7 @@ export default function LandingView() {
               <TextImage data={data?.benefitsData} />
             </div>
           </Col>
-          <Col md={12} className="p-0">
+          <Col md={12} className="">
             <div className={classes.newsletterSection}>
               <Newsletter />
             </div>

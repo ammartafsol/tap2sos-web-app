@@ -10,7 +10,7 @@ const Newsletter = () => {
         <h2>Ready to Secure Your Healthcare Data?</h2>
         <p>Stay in the loop with everything you need to know.</p>
       </div>
-      <div className={classes.fieldOption}>
+      {/* <div className={classes.fieldOption}>
         <div className={classes.newsField}>
           <Input
             mainContClassName={classes.inputClass}
@@ -24,7 +24,7 @@ const Newsletter = () => {
         <p>
           We care about your data in our <span>Privacy policy</span>
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };

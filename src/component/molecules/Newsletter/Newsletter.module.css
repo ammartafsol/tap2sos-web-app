@@ -65,3 +65,55 @@
   line-height: 30px;
   text-decoration: underline;
 }
+
+
+
+@media screen and (max-width: 992px) {
+  .newsletterMain{
+    height: 300px;
+    padding: 30px 0px;
+  }
+  .topHead h2{
+    font-size: 30px;
+  }
+  .topHead p{
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .topHead h2{
+    font-size: 22px;
+    line-height: 26px;
+  }
+  .topHead p{
+    font-size: 15px;
+  }
+  .newsletterMain{
+    height: auto;
+  }
+  .topHead p{
+    padding-top: 0px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .topHead h2{
+    font-size: 20px;
+  }
+  .topHead p{
+    font-size: 14px;
+  }
+  .newsletterMain{
+    padding: 30px 0px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .topHead h2{
+    font-size: 16px;
+  }
+  .topHead p{
+    font-size: 13px;
+  }
+}
