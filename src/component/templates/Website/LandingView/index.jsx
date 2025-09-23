@@ -22,17 +22,17 @@ export default function LandingView() {
       </LayoutWrapper>
       <GuideSection data={data?.guideSection} />
       <div className={classes.chooseUsSec}>
-        <Container className="p-0">
+        <Container className="">
           <Row>
-            <Col md={12} className="p-0">
+            <Col md={12} className="">
               <TextImage rowReverse={true} data={data?.chooseUsData} />
             </Col>
           </Row>
         </Container>
       </div>
-      <Container className="p-0">
+      <Container className="">
         <Row>
-          <Col md={12} className="p-0">
+          <Col md={12} className="">
             <div className={classes.benefitsSection}>
               <TextImage data={data?.benefitsData} />
             </div>
