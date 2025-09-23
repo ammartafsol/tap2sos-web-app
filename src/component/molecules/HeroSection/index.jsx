@@ -8,7 +8,7 @@ const HeroSection = ({ data }) => {
   return (
     <Container>
       <Row className="align-items-center">
-        <Col md={6}>
+        <Col lg={6}>
           <div className={classes.heroLeft}>
             <Image
               src={data?.topIcon}
@@ -37,7 +37,7 @@ const HeroSection = ({ data }) => {
             </div>
           </div>
         </Col>
-        <Col md={6}>
+        <Col lg={6}>
           <div className={classes.heroRightDiv}>
             <div className={classes.rightImg}>
               <Image src={data?.imageRight} fill alt="hero img" />

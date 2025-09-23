@@ -15,7 +15,7 @@ const GuideCard = ({ data,removeBorder }) => {
       </div>
       <div className={classes.cardContent}>
         <h2>{data?.title}</h2>
-        <p>{data?.description}</p>
+        <p className="maxLine2">{data?.description}</p>
       </div>
     </div>
   );

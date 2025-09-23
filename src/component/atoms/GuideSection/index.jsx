@@ -9,16 +9,16 @@ const GuideSection = ({data,removeBorder}) => {
     <div className={classes.guideSection}>
         <Container>
           <Row>
-            <Col md={12} className="p-0">
+            <Col md={12} className="">
               <div className={classes.guideHead}>
                 <h2>{data?.title}</h2>
                 <p>{data?.description}</p>
               </div>
               <div className={classes.guideCardWrapper}>
-                <Row>
+                <Row className='gy-3'>
                   {data?.guideCards?.map((data, index) => {
                     return (
-                      <Col md={3} key={index}>
+                      <Col md={6} lg={4} xl={3} key={index}>
                         <GuideCard removeBorder={removeBorder} data={data} />
                       </Col>
                     );

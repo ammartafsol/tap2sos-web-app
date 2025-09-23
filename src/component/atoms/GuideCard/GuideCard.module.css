@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  min-height: 230px;
+  width: 100%;
 }
 .removeBorder{
   border: none !important;
@@ -41,4 +43,15 @@
   font-weight: 600;
   line-height: 19.6px;
   opacity: 0.8;
+}
+
+
+@media(max-width: 768px) {
+.guidCardMain{
+  gap: 25px;
+}
+.guidCardMain{
+  padding: 30px 10px;
+  min-height: 25vh;
+}
 }

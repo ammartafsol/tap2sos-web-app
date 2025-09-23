@@ -56,9 +56,9 @@
       rgba(255, 255, 255, 0.7) 100%
     ),
     #97b2dd;
-  width: 543px;
+  width: 100%;
   height: 684px;
-  margin-inline: auto 0;
+  margin-inline: auto;
 }
 
 .rightImg {
@@ -73,4 +73,83 @@
 }
 .navigate {
   padding-block: 70px;
+}
+
+
+@media(max-width: 992px) {
+  .heroRightDiv{
+    margin-top: 30px;
+  }
+  .heroLeft{
+    align-items: center;
+  }
+  .heroLeft h1{
+    font-size: 50px;
+    text-align: center;
+  }
+  .rightImg{
+    height: 550px;
+    width: 100%;
+  }
+  .heroLeft p{
+    font-size: 20px;
+    text-align: center;
+  }
+  .heroRightDiv{
+    height: auto;
+  }
+  .navigate{
+    padding-block: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .heroLeft h1{
+    font-size: 35px;
+  }
+  .heroLeft p{
+    font-size: 17px;
+  }
+  .heroLeft{
+    gap: 30px;
+  }
+
+  .navigate{
+    padding-block: 25px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .heroLeft h1{
+    font-size: 30px;
+  }
+  .heroLeft p{
+    font-size: 15px;
+  }
+  .rightImg{
+    height: 450px;
+  }
+  .navigate{
+    padding-block: 20px;
+  }
+}
+
+
+
+
+@media screen and (max-width: 450px) {
+  .heroLeft h1{
+    font-size: 27px;
+  }
+  .heroLeft p{
+    font-size: 14px;
+  }
+  .heroLeft{
+    gap: 20px;
+  }
+  .rightImg{
+    height: 400px;
+  }
+  .navigate{
+    padding-block: 15px;
+  }
 }

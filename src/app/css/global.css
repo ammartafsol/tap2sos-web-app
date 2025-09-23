@@ -82,3 +82,43 @@ a {
   justify-content: center;
   align-items: center;
 }
+
+
+.maxLine1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.maxLine2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.maxLine3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.wbbw {
+  word-break: break-word;
+}
+
+.wspr {
+  white-space: pre-line;
+}
+
+.t-t-c {
+  text-transform: capitalize;
+}
+
+.c-p {
+  cursor: pointer;
+}
