@@ -30,7 +30,7 @@ export default function LandingView() {
           </Row>
         </Container>
       </div>
-      {/* <Container className="p-0">
+      <Container className="p-0">
         <Row>
           <Col md={12} className="p-0">
             <div className={classes.benefitsSection}>
@@ -43,7 +43,7 @@ export default function LandingView() {
             </div>
           </Col>
         </Row>
-      </Container> */}
+      </Container>
     </>
   );
 }
