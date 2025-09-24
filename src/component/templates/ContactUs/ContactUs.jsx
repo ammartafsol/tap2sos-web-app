@@ -15,7 +15,7 @@ export default function ContactUs() {
       <Container>
         <TopHeader />
         <div className={classes.contactUsCard}>
-            <Col md={6}>
+            <Col lg={6}>
                 <div className={classes.headingDiv}>
                     <h2>Stay Tuned</h2>
                     <p>Whether you’re looking to start a new project or simply want to chat, feel free to reach out to us!</p>
@@ -41,7 +41,7 @@ export default function ContactUs() {
                     </div>
                 </div>
             </Col>
-            <Col md={6} className={classes.contactUsFormDiv}>
+            <Col lg={6} className={classes.contactUsFormDiv}>
             <Input placeholder={"Name"} mainContClassName={'mb-0'}/>
             <Input placeholder={"Email address"} mainContClassName={'mb-0'}/>
             <Input placeholder={"Subject"} mainContClassName={'mb-0'}/>

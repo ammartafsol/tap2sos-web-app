@@ -54,6 +54,7 @@
   align-items: center;
 }
 
+
 .contactInfoDiv p {
   color: #1a488d;
   font-size: 20px;
@@ -64,8 +65,97 @@
 }
 
 .contactUsFormDiv{
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-left: 35px;
+}
+
+/* Large Desktop styles */
+@media (max-width: 1200px) {
+  .contactInfoDiv p {
+    font-size: 17px;
+  }
+}
+
+/* Tablet styles */
+@media (max-width: 992px) {
+  .contactUsCard {
+    padding: 60px 50px;
+  }
+  
+  .headingDiv h2 {
+    font-size: 36px;
+    line-height: 42px;
+  }
+  
+  .contactUsFormDiv {
+    padding-left: 0;
+    width: 100%;
+  }
+  .contactInfoDiv p {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .contactUsCard {
+    padding: 40px 20px;
     flex-direction: column;
-    gap: 18px;
-    padding-left: 35px;
+    gap: 30px;
+    align-items: flex-start;
+  }
+  
+  .headingDiv h2 {
+    font-size: 28px;
+    line-height: 34px;
+  }
+  .contactInfoDiv p {
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .contactUsDetails {
+    margin-top: 30px;
+    gap: 24px;
+  }
+  
+  .contactInfoDiv {
+    gap: 16px;
+  }
+  
+ 
+  
+  .imageDiv {
+    width: 50px;
+    height: 50px;
+    padding: 12px;
+  }
+  
+  .contactUsFormDiv {
+    gap: 16px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .headingDiv h2{
+    font-size: 22px;
+  }
+  .headingDiv p{
+    font-size: 14px;
+  }
+  .headingDiv{
+    gap: 10px;
+  }
+  .contactInfoDiv p{
+    font-size: 14px;
+  }
+  .imageDiv{
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+  }
 }
