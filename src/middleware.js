@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import {
-  CLINIC_AFTER_LOGIN_ROUTES,
-  WITHOUT_LOGIN_ROUTES,
+  AUTH_ROUTES,
+  PUBLIC_ROUTES,
+  PROTECTED_ROUTES,
 } from "./developmentContent/routes";
 import { handleDecrypt } from "./resources/utils/helper";
 
@@ -11,24 +12,17 @@ export function middleware(request) {
   const role = handleDecrypt(request?.cookies.get("_xpdx_ur")?.value);
   const accessToken = handleDecrypt(request?.cookies.get("_xpdx")?.value);
 
-  // Redirect clinic to /clinic/dashboard
-  if (
-    accessToken &&
-    role === "clinic" &&
-    WITHOUT_LOGIN_ROUTES.includes(pathname)
-  ) {
+  // Redirect logged-in users away from auth pages
+  if (accessToken && AUTH_ROUTES.includes(pathname)) {
     return NextResponse.redirect(new URL("/clinic/dashboard", request.url));
   }
-  
-      // ![...WITHOUT_LOGIN_ROUTES, ...CLINIC_AFTER_LOGIN_ROUTES].includes(pathname)
 
-
-  // Redirect to '/' if no accessToken
-  if (!accessToken) {
-    if (pathname.startsWith("/clinic")) {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
+  // Redirect to login if trying to access protected routes without token
+  if (!accessToken && PROTECTED_ROUTES.some(route => pathname.startsWith(route.replace('/[slug]', '')))) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
+
+  // Allow access to public routes and auth pages
   return NextResponse.next();
 }
 

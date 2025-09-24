@@ -182,7 +182,7 @@ export default function SignupTemplate() {
             />
             <div className={classes.alreadyContainer}>
               Already have an account?
-              <span onClick={() => router.push("/")}>Log in</span>
+              <span onClick={() => router.push("/login")}>Log in</span>
             </div>
           </Col>
         </Row>

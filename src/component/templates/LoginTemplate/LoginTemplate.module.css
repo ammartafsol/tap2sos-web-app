@@ -52,6 +52,30 @@
   align-self: flex-end;
 }
 
+.signupContainer {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  color: var(--gray-color);
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.signupLink {
+  color: var(--reddish-orange);
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.signupLink:hover {
+  color: var(--deep-ocean-blue);
+}
+
 
 /* Responsive styles */
 @media screen and (max-width: 992px) {
@@ -89,6 +113,14 @@
     gap: 10px !important;
   }
   .forgetPassword{
+    font-size: 14px !important;
+  }
+  
+  .signupContainer {
+    font-size: 14px !important;
+  }
+  
+  .signupLink {
     font-size: 14px !important;
   }
 }
