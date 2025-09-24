@@ -12,6 +12,7 @@
   margin-bottom: 20px;
 }
 
+
 .headingDiv {
   display: flex;
   flex-direction: column;
@@ -20,7 +21,7 @@
 }
 
 .headingDiv h2 {
-  font-size: 44px;
+  font-size: 44px !important;
   font-weight: 700;
   color: #000;
   line-height: 50px;
@@ -49,4 +50,59 @@
   cursor: pointer;
   width: max-content;
   align-self: flex-end;
+}
+
+
+/* Responsive styles */
+@media screen and (max-width: 992px) {
+  .loginContainer {
+    padding: 60px 50px;
+  }
+  
+  .loginFormDiv {
+    width: 90% !important;
+  }
+  
+  .headingDiv h2 {
+    font-size: 36px !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .loginContainer {
+    padding: 40px 30px;
+  }
+  
+  .loginFormDiv {
+    width: 100%;
+  }
+  
+  .headingDiv h2 {
+    font-size: 28px !important;
+  }
+  
+  .headingDiv p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .headingDiv{
+    gap: 10px !important;
+  }
+  .forgetPassword{
+    font-size: 14px !important;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .loginContainer {
+    padding: 30px 20px;
+  }
+  
+  .headingDiv h2 {
+    font-size: 24px !important;
+  }
+  
+  .headingDiv {
+    gap: 16px;
+  }
 }
