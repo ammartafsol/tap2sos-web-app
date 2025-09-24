@@ -12,10 +12,10 @@ export const AFTER_LOGIN_NAV_DATA = [
 
 export const FOOTER_LINKS = [
   { title: "Home", route: "/" },
-  { title: "How it works", route: "/how-it-works" },
+  { title: "About Us", route: "/about-us" },
   { title: "Contact Us", route: "/contact-us" },
-  { title: "Privacy", route: "/privacy" },
-  { title: "Term & Conditions", route: "/term-and-condition" },
+  { title: "Privacy", route: "/privacy-policy" },
+  { title: "Term & Conditions", route: "/terms-and-conditions" },
 ];
 
 export const bloodTypesData = [

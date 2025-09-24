@@ -1,0 +1,70 @@
+.privacyContainer {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+
+.pageTitle {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 30px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.quillContent {
+  margin-top: 20px;
+}
+
+.noContent {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.noContent p {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 992px) {
+  .pageTitle {
+    font-size: 32px;
+    margin-bottom: 25px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pageTitle {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .noContent {
+    padding: 30px 15px;
+  }
+  
+  .noContent p {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .pageTitle {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .noContent {
+    padding: 20px 10px;
+  }
+  
+  .noContent p {
+    font-size: 13px;
+  }
+}
