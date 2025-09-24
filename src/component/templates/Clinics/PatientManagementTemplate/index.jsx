@@ -80,9 +80,9 @@ const PatientManagementTemplate = () => {
   return (
     <>
       <LayoutWrapper>
-        <Container className="g-0">
+        <Container className="g-2">
           <div className={classes?.pageHeader}>
-            <div className="h1">Patient Management</div>
+            <div className={classes?.heading}>Patient Management</div>
             <div className={classes?.main}>
               <div className={classes?.rightContainer}>
                 <Input
