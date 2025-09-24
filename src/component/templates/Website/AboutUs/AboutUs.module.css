@@ -6,8 +6,8 @@
   background-repeat: no-repeat;
   border-radius: 8px;
   background-blend-mode: normal, multiply, normal;
-
 }
+
 .headerChild{
     display: flex;
     align-items: center;
@@ -18,6 +18,7 @@
     width: 50%;
     margin: auto;
 }
+
 .headerChild h4 {
   text-align: center;
   margin-bottom: 0px;
@@ -28,6 +29,7 @@
   line-height: 64px;
   letter-spacing: -0.88px;
 }
+
 .headerChild p {
   text-align: center;
   color: var(--white-color);
@@ -39,24 +41,25 @@
   line-height: 21px;
 }
 
-
-
 .textImage{
     position: relative;
     width: 550px;
     height: 550px;
 }
+
 .main{
     display: flex;
     align-items: center;
     padding: 100px 0;
 }
+
 .main .image{
     width: 60%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .main .Text{
     width: 40%;
     display: flex;
@@ -70,26 +73,30 @@
     width: fit-content;
     padding: 16px 30px !important;
 }
+
 .imagesSection{
   position: relative;
   width: 232px;
   height: 110px;
   margin-top: 60px;
 }
+
 .imagesTop{
   border-top: 1px solid var(--field-border-color);
   padding-bottom: 50px;
 }
+
 .ImageBottom{
   margin-bottom: 0px !important;
 }
+
 .guideSection{
   border-radius: 8px;
   padding: 30px 20px;
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.30) 100%), var(--bg-snow-color);
 }
 
-
+/* Tablet styles */
 @media screen and (max-width: 992px) {
   .headerChild{
     width: 70%;
@@ -105,9 +112,38 @@
   .header{
     height: 340px;
   }
+  
+  .main {
+    padding: 60px 0;
+  }
+  
+  .main .image {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .main .Text {
+    width: 100%;
+  }
+  
+  .textImage {
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+  }
+  
+  .imagesSection {
+    width: 200px;
+    height: 90px;
+    margin-top: 40px;
+  }
+  
+  .imagesTop {
+    padding-bottom: 30px;
+  }
 }
 
-
+/* Mobile styles */
 @media screen and (max-width: 768px) {
   .headerChild{
     width: 80%;
@@ -123,17 +159,76 @@
   .header{
     height: 300px;
   }
+  
+  .main {
+    padding: 40px 0;
+  }
+  
+  .textImage {
+    width: 100%;
+    max-width: 350px;
+    height: 350px;
+  }
+  
+  .main .Text h4 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+  
+  .main .Text p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  
+  .imagesSection {
+    width: 150px;
+    height: 70px;
+    margin-top: 30px;
+  }
+  
+  .imagesTop {
+    padding-bottom: 20px;
+  }
+  
+  .guideSection {
+    padding: 20px 15px;
+  }
+  .main .image{
+    margin-bottom: 20px;
+  }
 }
 
+/* Small mobile styles */
 @media screen and (max-width: 575px) {
   .headerChild{
     width: 90%;
+    gap: 15px;
   }
   .headerChild h4{
     font-size: 24px;
     line-height: 30px;
   }
-  .headerChild{
-    gap: 15px;
+  
+  .imagesSection {
+    width: 120px;
+    height: 60px;
+    margin-top: 20px;
+  }
+  
+  .guideSection {
+    padding: 15px 10px;
+  }
+  .main {
+    padding: 20px 0px;
+  }
+  .btn{
+    width: 100%;
+  }
+
+}
+
+@media screen and (max-width: 475px) {
+  .main .image{
+    margin-bottom: 10px;
   }
 }
