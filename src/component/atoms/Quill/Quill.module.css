@@ -1,11 +1,11 @@
 .quillContainer {
   width: 100%;
-  padding: 20px;
-  border-radius: 8px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  line-height: 1.6;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  line-height: 1.5;
   color: #333;
 }
 
@@ -16,7 +16,7 @@
 .quillContainer h5,
 .quillContainer h6 {
   margin-top: 0;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   font-weight: 600;
   color: #1a1a1a;
 }
@@ -52,27 +52,27 @@
 }
 
 .quillContainer p {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .quillContainer ul,
 .quillContainer ol {
-  margin-bottom: 16px;
-  padding-left: 24px;
+  margin-bottom: 12px;
+  padding-left: 20px;
 }
 
 .quillContainer li {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .quillContainer blockquote {
-  margin: 16px 0;
-  padding: 16px 20px;
-  border-left: 4px solid #007bff;
+  margin: 12px 0;
+  padding: 12px 16px;
+  border-left: 3px solid #007bff;
   background-color: #f8f9fa;
   font-style: italic;
   border-radius: 0 4px 4px 0;
@@ -108,10 +108,10 @@
 
 .quillContainer pre {
   background-color: #f1f3f4;
-  padding: 16px;
-  border-radius: 6px;
+  padding: 12px;
+  border-radius: 4px;
   overflow-x: auto;
-  margin: 16px 0;
+  margin: 12px 0;
 }
 
 .quillContainer pre code {
@@ -122,12 +122,12 @@
 .quillContainer table {
   width: 100%;
   border-collapse: collapse;
-  margin: 16px 0;
+  margin: 12px 0;
 }
 
 .quillContainer th,
 .quillContainer td {
-  padding: 12px;
+  padding: 8px 12px;
   text-align: left;
   border-bottom: 1px solid #e0e0e0;
 }
@@ -141,16 +141,11 @@
   max-width: 100%;
   height: auto;
   border-radius: 4px;
-  margin: 16px 0;
+  margin: 12px 0;
 }
 
 /* Responsive styles */
 @media screen and (max-width: 768px) {
-  .quillContainer {
-    padding: 16px;
-    border-radius: 6px;
-  }
-  
   .quillContainer h1 {
     font-size: 24px;
   }
@@ -170,16 +165,11 @@
   
   .quillContainer ul,
   .quillContainer ol {
-    padding-left: 20px;
+    padding-left: 18px;
   }
 }
 
 @media screen and (max-width: 575px) {
-  .quillContainer {
-    padding: 12px;
-    border-radius: 4px;
-  }
-  
   .quillContainer h1 {
     font-size: 20px;
   }
@@ -204,7 +194,7 @@
   
   .quillContainer th,
   .quillContainer td {
-    padding: 8px;
+    padding: 6px 8px;
     font-size: 13px;
   }
 }
