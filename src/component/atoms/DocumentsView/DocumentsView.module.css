@@ -14,15 +14,48 @@
     cursor: pointer;
   }
 
-  .fileItem{
-    display: flex;
-    align-items: center;
-    color: var(--heading-gray);
-    border-radius: 6px;
-    width: 250px;
-    height: 160px;
-    overflow: hidden;
-    position: relative;
-    margin-top: 5px;
-    border: 1px solid var(--primary-color) !important;
-  }
+.fileItem{
+  display: flex;
+  align-items: center;
+  color: var(--heading-gray);
+  border-radius: 6px;
+  width: 250px;
+  height: 160px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 5px;
+  border: 1px solid var(--primary-color) !important;
+}
+
+.loadingContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 8px;
+}
+
+.loadingText {
+  font-size: 12px;
+  color: var(--secondary-text);
+  font-weight: 500;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
