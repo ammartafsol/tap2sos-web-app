@@ -117,12 +117,14 @@ export default function PatientDetailTemplate({ slug }) {
                   </div>
 
                   <div className={classes.documentsList}>
-                    {docs.map((doc, index) => (
-                      <div key={index} className={classes.documentItem}>
-                        <DocumentsView />
-                        <span>{doc.fileName.slice(-14)}</span>{" "}
-                      </div>
-                    ))}
+                    {docs.map((doc, index) => {
+                      return(
+                        <div key={index} className={classes.documentItem}>
+                          <DocumentsView doc={doc} />
+                          <span>{doc.fileName.slice(-14)}</span>{" "}
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
               );
