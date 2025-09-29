@@ -17,6 +17,7 @@ import {
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import classes from "./SecurityKey.module.css";
+import DocumentsView from "@/component/atoms/DocumentsView/DocumentsView";
 
 export default function SecurityKey({ slug }) {
   const { Get } = useAxios();
@@ -61,6 +62,8 @@ export default function SecurityKey({ slug }) {
     );
   }
 
+  console.log("attachments",attachments);
+
   return (
     <LayoutWrapper>
       <Container>
@@ -87,22 +90,27 @@ export default function SecurityKey({ slug }) {
                 );
               })}
 
-              {attachments?.length > 0 && (
-                <>
-                  <h5 className={classes?.attachmentsHeading}>Attachments</h5>
-                  <div className={classes?.attachments}>
-                    {attachments.map((item) => (
-                      <ShowDocuments
-                        key={item?.key}
-                        item={item}
-                        downloadDocumens={downloadDocumens}
-                        loading={loading}
-                        selectedKey={selectedKey}
-                      />
-                    ))}
+              {Object.keys(attachments).map((type) => {
+                const docs = attachments[type] || []; 
+                return (
+                  <div key={type} className={classes.tagGroup}>
+                    <div className={classes.tagWrapper}>
+                      <div className={classes.tag}>
+                        <span>{type}</span>
+                      </div>
+                    </div>
+
+                    <div className={classes.documentsList}>
+                      {docs.map((doc, index) => (
+                        <div key={index} className={classes.documentItem}>
+                          <DocumentsView doc={doc} />
+                          <span>{doc.fileName?.slice(-14) || doc.name?.slice(-14) || 'Document'}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </>
-              )}
+                );
+              })}
             </Row>
           </div>
         ) : (
@@ -139,6 +147,29 @@ export default function SecurityKey({ slug }) {
                   </Col>
                 );
               })}
+
+              {Object.keys(attachments).map((type) => {
+                const docs = attachments[type] || []; 
+                return (
+                  <div key={type} className={classes.tagGroup}>
+                    <div className={classes.tagWrapper}>
+                      <div className={classes.tag}>
+                        <span>{type}</span>
+                      </div>
+                    </div>
+
+                    <div className={classes.documentsList}>
+                      {docs.map((doc, index) => (
+                        <div key={index} className={classes.documentItem}>
+                          <DocumentsView doc={doc} />
+                          <span>{doc.fileName?.slice(-14) || doc.name?.slice(-14) || 'Document'}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+
               {Object.keys(initialData).length !== 0 && (
                 <div className={classes.button}>
                   <Button
