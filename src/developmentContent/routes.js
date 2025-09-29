@@ -1,21 +1,24 @@
-export const WITHOUT_LOGIN_ROUTES = [
-  // auth pages
+// Auth pages that logged-in users should be redirected away from
+export const AUTH_ROUTES = [
   "/login",
-  "/sign-up",
+  "/sign-up", 
   "/forget-password",
   "/otp",
   "/reset-password",
-  // web pages
-  "/about-us",
-  "/contact-us",
-  "/how-it-works",
-  "/help",
-  "/privacy",
-  "/term-and-condition",
 ];
 
-export const CLINIC_AFTER_LOGIN_ROUTES = [
-  // clinic pages
+// Public pages that anyone can access
+export const PUBLIC_ROUTES = [
+  "/",
+  "/about-us",
+  "/contact-us", 
+  "/how-it-works",
+  "/privacy-policy",
+  "/terms-and-conditions",
+];
+
+// Routes that require login
+export const PROTECTED_ROUTES = [
   "/clinic/dashboard",
   "/clinic/patient",
   "/clinic/patient/create",
@@ -23,3 +26,7 @@ export const CLINIC_AFTER_LOGIN_ROUTES = [
   "/clinic/patient/[slug]/edit",
   "/profile",
 ];
+
+// Legacy exports for backward compatibility
+export const WITHOUT_LOGIN_ROUTES = [...AUTH_ROUTES, ...PUBLIC_ROUTES];
+export const CLINIC_AFTER_LOGIN_ROUTES = [...PROTECTED_ROUTES, ...PUBLIC_ROUTES];

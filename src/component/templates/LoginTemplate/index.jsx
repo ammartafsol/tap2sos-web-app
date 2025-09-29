@@ -105,6 +105,15 @@ export default function LoginTemplate() {
               onClick={LoginFormik.handleSubmit}
               disabled={loading == "submitLogin"}
             />
+            <div className={classes.signupContainer}>
+              Don't have an account?{" "}
+              <span 
+                onClick={() => router.push("/sign-up")}
+                className={classes.signupLink}
+              >
+                Sign up
+              </span>
+            </div>
           </Col>
         </div>
       </Container>

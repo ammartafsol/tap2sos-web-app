@@ -64,17 +64,17 @@ const DashboardTemplate = () => {
 
   return (
     <LayoutWrapper>
-      <Container className="g-0">
+      <Container >
         {loading === "loading" ? (
           <div className={classes?.loaderContainer}>
             <Loader />
           </div>
         ) : (
           <>
-            <Row className="g-0" style={{ gap: "20px" }}>
+            <Row className="g-2" >
               {statsData?.map((item, index) => {
                 return (
-                  <Col key={index} md="6" lg="4" className="p-0">
+                  <Col key={index}   md="6" xl={4} >
                     <StatesCard item={item} />
                   </Col>
                 );

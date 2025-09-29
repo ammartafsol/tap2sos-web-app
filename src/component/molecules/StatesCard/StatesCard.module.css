@@ -40,3 +40,11 @@
   font-size: 24px;
   font-weight: 700;
 }
+
+
+@media (max-width: 1200px) {
+  .statesCard h5{
+    font-size: 16px;
+  }
+
+}

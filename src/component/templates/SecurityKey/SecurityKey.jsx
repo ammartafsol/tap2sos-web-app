@@ -2,6 +2,7 @@
 import Button from "@/component/atoms/Button";
 import { Input } from "@/component/atoms/Input";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
+import NoDataFound from "@/component/atoms/NoDataFound/NoDataFound";
 import ShowDocuments from "@/component/atoms/ShowDocuments";
 import TopHeader from "@/component/atoms/TopHeader";
 import LoadingComponent from "@/component/molecules/LoadingComponent";
@@ -34,9 +35,12 @@ export default function SecurityKey({ slug }) {
     const obj = response?.data;
     setAttachments(obj?.attachments ? obj?.attachments : {});
 
-    if (response) {
+    if (response && obj) {
       const flattenedData = flattenObject(obj || {});
       setInitialData(flattenedData);
+    } else {
+      // No data found
+      setInitialData({});
     }
     setLoading("");
   };
@@ -62,7 +66,21 @@ export default function SecurityKey({ slug }) {
     );
   }
 
-  console.log("attachments",attachments);
+  // Show NoDataFound if no data is available
+  if (!data && Object.keys(initialData).length === 0) {
+    return (
+      <LayoutWrapper>
+        <Container>
+          <TopHeader data="Security Key" />
+          <NoDataFound 
+            text="No Patient Data Found"
+            showSubText={true}
+            subText="The requested patient information could not be found. Please verify the security key or contact support if you believe this is an error."
+          />
+        </Container>
+      </LayoutWrapper>
+    );
+  }
 
   return (
     <LayoutWrapper>
