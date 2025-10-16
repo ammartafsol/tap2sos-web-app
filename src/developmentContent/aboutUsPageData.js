@@ -1,29 +1,24 @@
 export const aboutUsPageData = {
+  heroSection: {
+    title: "About Us",
+    subTitle: "Empowering Businesses Digitally",
+    description: "At our core, we believe in collaboration and creativity. Our mission is to simplify complex processes, ensuring that our users can navigate their challenges effortlessly. Join us on this journey to transform the way you work!",
+    image: "/Images/app-images/aboutTextImage.svg",
+
+  },
   learnMoreData: {
     title: "Lorem ipsum dolor sit amet",
     description:
       "Lorem ipsum dolor sit amet consectetur. Facilisi magna mattis id aliquet. Magna adipiscing egestas gravida adipiscing volutpat nibh vulputate in. Et senectus venenatis enim purus elit. Non venenatis quam risus nec in. Morbi neque nisl aenean facilisis viverra purus suspendisse sit. Sit felis adipiscing quis dolor euismod sollicitudin leo faucibus laoreet. At facilisi ridiculus donec platea laoreet.",
     image: "/Images/app-images/aboutTextImage.svg",
   },
-  imagesSection: [
+  partnersSection: [
     "/Images/app-images/google.svg",
     "/Images/app-images/Magento.svg",
     "/Images/app-images/colorLib.svg",
     "/Images/app-images/woo-commerce.svg",
   ],
-  chooseUsData: {
-    image: "/Images/app-images/about_choose_image.svg",
-    title: "Why Choose Us?",
-    description:
-      "Securely retrieve, store, and manage patient data using COTIC and blockchain technology. Fast, reliable, and immutable healthcare data access for hospitals and clinics.",
-    listText: [
-      "COTIC-Based Patient Data Retrieval",
-      "Immutable Blockchain Storage (IPFS)",
-      "Offline Data Access & Auto-Sync",
-      "COTIC-Based Patient Data Retrieval",
-      "Immutable Blockchain Storage (IPFS)",
-    ],
-  },
+
   guideSection: {
     title: "Step-by-Step Guide",
     description: "Follow these simple steps to complete the process with ease.",
@@ -50,4 +45,18 @@ export const aboutUsPageData = {
       },
     ],
   },
+  chooseUsData: {
+    image: "/Images/app-images/about_choose_image.svg",
+    title: "Why Choose Us?",
+    description:
+      "Securely retrieve, store, and manage patient data using COTIC and blockchain technology. Fast, reliable, and immutable healthcare data access for hospitals and clinics.",
+    listText: [
+      "COTIC-Based Patient Data Retrieval",
+      "Immutable Blockchain Storage (IPFS)",
+      "Offline Data Access & Auto-Sync",
+      "COTIC-Based Patient Data Retrieval",
+      "Immutable Blockchain Storage (IPFS)",
+    ],
+  },
+
 };

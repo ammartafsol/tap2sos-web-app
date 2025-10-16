@@ -1,7 +1,7 @@
 "use client";
 import useAxios from "@/interceptor/axiosInterceptor";
 import { updateUserData } from "@/store/auth/authSlice";
-import { setCMSData } from "@/store/common/commonSlice";
+import { setCMSData, setFooterData } from "@/store/common/commonSlice";
 import store, { persistor } from "@/store/index";
 import { useEffect } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -43,6 +43,20 @@ export default function ApisProvider({ children }) {
       dispatch(setCMSData(response?.data));
     }
   };
+
+  // const getFooterData = async () => {
+  //   const [{ response: footerResponse }] = await Promise?.all([
+  //     Get({ route: "cms/page/footerData" }),
+  //   ]);
+  //   if (footerResponse) {
+  //     const footerData = footerResponse?.data || footerResponse;
+  //     dispatch(setFooterData(footerData));
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getFooterData();
+  // }, []);
 
   return children;
 }

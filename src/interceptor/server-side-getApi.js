@@ -1,16 +1,19 @@
-import { BaseURL, handleDecrypt } from "@/resources/utils/helper";
-import { cookies } from "next/headers";
+import { BaseURL } from "@/resources/utils/helper";
+import { handleDecrypt } from "@/resources/utils/helper";
+// import { TOKEN_COOKIE_NAME } from "@/resources/utils/cookie";
+import Cookies from "js-cookie";
 
 export const getApi = async (endpoint = "") => {
-  const Cookies = await cookies();
-  const value = Cookies.get("_xpdx")?.value;
-  const accessToken = value && handleDecrypt(value);
+  //   const value = Cookies.get(ACCESS_TOKEN);
+  //   const accessToken = value && handleDecrypt(value);
+  const accessToken = handleDecrypt(Cookies.get("_xpdx"));
 
   try {
     const response = await fetch(BaseURL(endpoint), {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+        // Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
       cache: "no-store",
@@ -23,7 +26,6 @@ export const getApi = async (endpoint = "") => {
 
     return await response.json();
   } catch (error) {
-    console.log("🚀  getApi  error:", error);
     return null;
   }
 };

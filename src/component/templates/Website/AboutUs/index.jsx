@@ -49,7 +49,7 @@ const AboutUs = () => {
           </Col>
         </Row>
         <Row className={classes?.imagesTop}>
-          {aboutUsPageData?.imagesSection?.map((item, index) => (
+          {aboutUsPageData?.partnersSection?.map((item, index) => (
             <Col className={classes?.imagesSection} key={index}>
               <Image src={item} fill alt="logo" />
             </Col>

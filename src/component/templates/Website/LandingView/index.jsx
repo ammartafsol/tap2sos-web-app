@@ -12,15 +12,17 @@ import GuideSection from "@/component/atoms/GuideSection";
 import TextImage from "@/component/atoms/TextImage";
 import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 
-export default function LandingView() {
-  const [data, setData] = useState(LANDING_PAGE_DATA);
+export default function LandingView({ landingPageData }) {
+
+  console.log("🚀 home page data:", landingPageData)
+  const [data, setData] = useState(landingPageData);
 
   return (
     <>
       <LayoutWrapper>
-        <HeroSection data={data.heroSection} />
+        <HeroSection data={data?.heroSection} />
       </LayoutWrapper>
-      <GuideSection data={data?.guideSection} />
+      {/* <GuideSection data={data?.guideSection} />
       <div className={classes.chooseUsSec}>
         <Container className="">
           <Row>
@@ -43,7 +45,7 @@ export default function LandingView() {
             </div>
           </Col>
         </Row>
-      </Container>
+      </Container> */}
     </>
   );
 }

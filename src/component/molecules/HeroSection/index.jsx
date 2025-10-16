@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import classes from "./HeroSection.module.css";
+import {  MediaUrl } from "@/resources/utils/helper";
 
 const HeroSection = ({ data }) => {
   return (
@@ -10,37 +11,37 @@ const HeroSection = ({ data }) => {
       <Row className="align-items-center">
         <Col lg={6}>
           <div className={classes.heroLeft}>
-            <Image
-              src={data?.topIcon}
+            {/* <Image
+              src={MediaUrl(data?.topIcon)}
               fill
               className={classes.tap2Image}
               alt="app img"
-            />
+            /> */}
             <h1>
               {data?.title}
               <span>{data?.spanText}</span>
             </h1>
             <p>{data?.description}</p>
             <div className={classes.storeImages}>
-              <Image
-                src={data?.appImage}
+              {/* <Image
+                src={MediaUrl(data?.appImage)}
                 fill
                 className={classes.appImage}
                 alt="app img"
               />
               <Image
-                src={data?.googleImage}
+                src={MediaUrl(data?.googleImage)}
                 fill
                 className={classes.storeImage}
                 alt="app img"
-              />
+              /> */}
             </div>
           </div>
         </Col>
         <Col lg={6}>
           <div className={classes.heroRightDiv}>
             <div className={classes.rightImg}>
-              <Image src={data?.imageRight} fill alt="hero img" />
+              {/* <Image src={MediaUrl(data?.imageRight)} fill alt="hero img" /> */}
             </div>
           </div>
         </Col>

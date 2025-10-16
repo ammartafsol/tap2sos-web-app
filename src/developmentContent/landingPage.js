@@ -36,7 +36,6 @@ export const LANDING_PAGE_DATA = {
       },
     ],
   },
-
   chooseUsData: {
     image: "/Images/app-images/about_choose_image.svg",
     title: "Why Choose Us?",

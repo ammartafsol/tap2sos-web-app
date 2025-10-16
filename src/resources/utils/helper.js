@@ -45,11 +45,17 @@ export const apiHeader = (token, isFormData) => {
   }
 };
 export const BaseURL = (link) => `${API_URL}/api/v1/${link}`;
+
 export const MediaUrl = (url) => {
   if (!url) return "";
+
+  if (url.startsWith("/")) return url;
+
   const result = url.indexOf("http");
-  if (result === -1) return `${S3_URL}/${url}`;
-  return url;
+
+  const imageRenderUrl = result === -1 ? `${S3_URL}/${url}` : url;
+
+  return imageRenderUrl;
 };
 
 export const mergeClass = (...classes) => {
