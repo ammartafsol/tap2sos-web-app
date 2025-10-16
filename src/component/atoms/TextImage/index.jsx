@@ -4,6 +4,7 @@ import Image from "next/image";
 import classes from "./TextImage.module.css";
 import Button from "../Button";
 import { FaCheck } from "react-icons/fa6";
+import { MediaUrl } from "@/resources/utils/helper";
 
 const TextImage = ({rowReverse,data,classTop}) => {
   return (
@@ -11,7 +12,7 @@ const TextImage = ({rowReverse,data,classTop}) => {
       <div className={classes.imageCol}>
         <div className={classes.imageWrapper}>
           <Image
-            src={data?.image}
+            src={MediaUrl(data?.image)}
             alt="about image"
             layout="fill"
             objectFit="cover"

@@ -11,19 +11,19 @@ const HeroSection = ({ data }) => {
       <Row className="align-items-center">
         <Col lg={6}>
           <div className={classes.heroLeft}>
-            {/* <Image
+            <Image
               src={MediaUrl(data?.topIcon)}
               fill
               className={classes.tap2Image}
               alt="app img"
-            /> */}
+            />
             <h1>
               {data?.title}
               <span>{data?.spanText}</span>
             </h1>
             <p>{data?.description}</p>
             <div className={classes.storeImages}>
-              {/* <Image
+              <Image
                 src={MediaUrl(data?.appImage)}
                 fill
                 className={classes.appImage}
@@ -34,14 +34,14 @@ const HeroSection = ({ data }) => {
                 fill
                 className={classes.storeImage}
                 alt="app img"
-              /> */}
+              />
             </div>
           </div>
         </Col>
         <Col lg={6}>
           <div className={classes.heroRightDiv}>
             <div className={classes.rightImg}>
-              {/* <Image src={MediaUrl(data?.imageRight)} fill alt="hero img" /> */}
+              <Image src={MediaUrl(data?.imageRight)} fill alt="hero img" />
             </div>
           </div>
         </Col>

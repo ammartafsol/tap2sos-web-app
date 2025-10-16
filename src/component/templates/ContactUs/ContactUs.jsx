@@ -8,49 +8,43 @@ import Image from "next/image";
 import { Input } from "@/component/atoms/Input";
 import { TextArea } from "@/component/atoms/TextArea/TextArea";
 import Button from "@/component/atoms/Button";
+import { useState } from "react";
+import { MediaUrl } from "@/resources/utils/helper";
 
-export default function ContactUs() {
-  return (
-    <LayoutWrapper>
-      <Container>
-        <TopHeader />
-        <div className={classes.contactUsCard}>
-            <Col lg={6}>
-                <div className={classes.headingDiv}>
-                    <h2>Stay Tuned</h2>
-                    <p>Whether you’re looking to start a new project or simply want to chat, feel free to reach out to us!</p>
-                </div>
-                <div className={classes.contactUsDetails}>
-                    <div className={classes.contactInfoDiv}>
-                        <div className={classes.imageDiv}>
-                            <Image src={"/Images/app-images/phone.png"} width={32} height={32} alt=""/>
+export default function ContactUs({ _data }) {
+    console.log("🚀 ~ ContactUs ~ data:", _data)
+    const [data, setData] = useState(_data)
+    return (
+        <LayoutWrapper>
+            <Container>
+                <TopHeader />
+                <div className={classes.contactUsCard}>
+                    <Col lg={6}>
+                        <div className={classes.headingDiv}>
+                            <h2>{data?.text}</h2>
+                            <p>{data?.description}</p>
                         </div>
-                        <p>+1 890 473 5102</p>
-                    </div>
-                    <div className={classes.contactInfoDiv}>
-                        <div className={classes.imageDiv}>
-                            <Image src={"/Images/app-images/email.png"} width={32} height={32} alt=""/>
+                        <div className={classes.contactUsDetails}>
+                            {data?.details?.map((item, index) => (
+                                <div className={classes.contactInfoDiv} key={index}>
+                                    <div className={classes.imageDiv}>
+                                        <Image src={MediaUrl(item?.icon)} width={32} height={32} alt="" />
+                                    </div>
+                                    <p>{item?.value}</p>
+                                </div>
+                            ))}
                         </div>
-                        <p>hello@yourmail.com</p>
-                    </div>
-                    <div className={classes.contactInfoDiv}>
-                        <div className={classes.imageDiv}>
-                            <Image src={"/Images/app-images/location.png"} width={32} height={32} alt=""/>
-                        </div>
-                        <p>912 Park Ave, Ketchikan, Alaska 99901, USA</p>
-                    </div>
-                </div>
-            </Col>
-            <Col lg={6} className={classes.contactUsFormDiv}>
-            <Input placeholder={"Name"} mainContClassName={'mb-0'}/>
-            <Input placeholder={"Email address"} mainContClassName={'mb-0'}/>
-            <Input placeholder={"Subject"} mainContClassName={'mb-0'}/>
-            <TextArea placeholder={"Medical Conditions"}/>
-            <Button label={"Submit Message"} variant={"gradient"} />
-            </Col>
+                    </Col>
+                    <Col lg={6} className={classes.contactUsFormDiv}>
+                        <Input placeholder={"Name"} mainContClassName={'mb-0'} />
+                        <Input placeholder={"Email address"} mainContClassName={'mb-0'} />
+                        <Input placeholder={"Subject"} mainContClassName={'mb-0'} />
+                        <TextArea placeholder={"Medical Conditions"} />
+                        <Button label={"Submit Message"} variant={"gradient"} />
+                    </Col>
 
-        </div>
-      </Container>
-    </LayoutWrapper>
-  );
+                </div>
+            </Container>
+        </LayoutWrapper>
+    );
 }
