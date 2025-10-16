@@ -22,7 +22,7 @@ export default function LandingView({ landingPageData }) {
       <LayoutWrapper>
         <HeroSection data={data?.heroSection} />
       </LayoutWrapper>
-      {/* <GuideSection data={data?.guideSection} />
+      <GuideSection data={data?.guideSection} />
       <div className={classes.chooseUsSec}>
         <Container className="">
           <Row>
@@ -45,7 +45,7 @@ export default function LandingView({ landingPageData }) {
             </div>
           </Col>
         </Row>
-      </Container> */}
+      </Container>
     </>
   );
 }
