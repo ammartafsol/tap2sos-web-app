@@ -12,7 +12,7 @@ import { useState } from "react";
 import { MediaUrl } from "@/resources/utils/helper";
 
 export default function ContactUs({ _data }) {
-    console.log("🚀 ~ ContactUs ~ data:", _data)
+
     const [data, setData] = useState(_data)
     return (
         <LayoutWrapper>
@@ -21,19 +21,40 @@ export default function ContactUs({ _data }) {
                 <div className={classes.contactUsCard}>
                     <Col lg={6}>
                         <div className={classes.headingDiv}>
-                            <h2>{data?.text}</h2>
+                            {/* <h2>{data?.text}</h2> */}
+                            <h2>Stay Tuned</h2>
                             <p>{data?.description}</p>
                         </div>
-                        <div className={classes.contactUsDetails}>
-                            {data?.details?.map((item, index) => (
+                        {/* <div className={classes.contactUsDetails}> */}
+                            {/* {data?.details?.map((item, index) => (
                                 <div className={classes.contactInfoDiv} key={index}>
                                     <div className={classes.imageDiv}>
                                         <Image src={MediaUrl(item?.icon)} width={32} height={32} alt="" />
                                     </div>
                                     <p>{item?.value}</p>
                                 </div>
-                            ))}
-                        </div>
+                            ))} */}
+                            <div className={classes.contactUsDetails}>
+                                <div className={classes.contactInfoDiv}>
+                                    <div className={classes.imageDiv}>
+                                        <Image src={"/Images/app-images/phone.png"} width={32} height={32} alt="" />
+                                    </div>
+                                    <p>+1 890 473 5102</p>
+                                </div>
+                                <div className={classes.contactInfoDiv}>
+                                    <div className={classes.imageDiv}>
+                                        <Image src={"/Images/app-images/email.png"} width={32} height={32} alt="" />
+                                    </div>
+                                    <p>hello@yourmail.com</p>
+                                </div>
+                                <div className={classes.contactInfoDiv}>
+                                    <div className={classes.imageDiv}>
+                                        <Image src={"/Images/app-images/location.png"} width={32} height={32} alt="" />
+                                    </div>
+                                    <p>912 Park Ave, Ketchikan, Alaska 99901, USA</p>
+                                </div>
+                            </div>
+                        {/* </div> */}
                     </Col>
                     <Col lg={6} className={classes.contactUsFormDiv}>
                         <Input placeholder={"Name"} mainContClassName={'mb-0'} />

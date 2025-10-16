@@ -22,7 +22,8 @@ const AboutUs = ({ data }) => {
       <LayoutWrapper>
         <TopHeader />
         <Container>
-          <div className={classes.header} style={{ backgroundImage: `url(${MediaUrl(aboutUsData?.heroSection?.image)})` }}>
+          {/* <div className={classes.header} style={{ backgroundImage: `url(${MediaUrl(aboutUsData?.heroSection?.image)})` }}> */}
+          <div className={classes.header}>
             <div className={classes?.headerChild}>
               <h4>{aboutUsData?.heroSection?.subTitle}</h4>
               <p>
@@ -38,7 +39,7 @@ const AboutUs = ({ data }) => {
           <Col lg="7" className={classes?.image}>
             <div className={classes?.textImage}>
               <Image
-                src={MediaUrl(aboutUsData?.learnMoreData?.image)}
+                src={"/Images/app-images/aboutTextImage.svg"}
                 alt="image"
                 fill
               />
@@ -53,7 +54,7 @@ const AboutUs = ({ data }) => {
         <Row className={classes?.imagesTop}>
           {aboutUsData?.partnersSection?.map((item, index) => (
             <Col className={classes?.imagesSection} key={index}>
-              <Image src={MediaUrl(item)} fill alt="logo" />
+              <Image src={"/Images/app-images/google.svg"} fill alt="logo" />
             </Col>
           ))}
         </Row>

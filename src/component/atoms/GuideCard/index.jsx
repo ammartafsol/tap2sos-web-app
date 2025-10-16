@@ -8,7 +8,7 @@ const GuideCard = ({ data,removeBorder }) => {
     <div className={`${classes.guidCardMain} ${removeBorder && classes?.removeBorder}`}>
       <div className={classes.cardImg}>
         <Image
-          src={MediaUrl(data?.image)}
+          src={"/Images/svg/loginReg.svg"}
           fill
           className={classes.tap2Image}
           alt="app img"

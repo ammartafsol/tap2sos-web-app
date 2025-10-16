@@ -12,7 +12,7 @@ const TextImage = ({rowReverse,data,classTop}) => {
       <div className={classes.imageCol}>
         <div className={classes.imageWrapper}>
           <Image
-            src={MediaUrl(data?.image)}
+            src={"/Images/app-images/about_choose_image.svg"}
             alt="about image"
             layout="fill"
             objectFit="cover"
