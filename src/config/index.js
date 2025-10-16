@@ -3,7 +3,7 @@ export const config = {
   // apiBaseURL: "https://3wlwjj5k-3026.inc1.devtunnels.ms",
   // apiBaseURL: "https://tap2sos-backend-dd-8bd70d25feb3.herokuapp.com", // LIVE
   // apiBaseURL: "https://wb6bv6gg-3026.inc1.devtunnels.ms", // LIVE
-  apiBaseURL: "https://tap2sos-backend-dg-302f66829072.herokuapp.com", // Faisal Tuuneel
+  apiBaseURL: "https://tap2sos-backend-dg-302f66829072.herokuapp.com", // live
   // apiBaseURL: "https://tap2sos-backend-b11-01b2e85e565c.herokuapp.com", // LIVE
   s3BucketURL: "https://tap2sos-backend-dd-8bd70d25feb3.herokuapp.com", // LIVE
   pinataURL: "https://gateway.pinata.cloud/ipfs", // LIVE
