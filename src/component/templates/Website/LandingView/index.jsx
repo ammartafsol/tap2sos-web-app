@@ -39,7 +39,7 @@ export default function LandingView({ landingPageData }) {
           </Col>
           <Col md={12} className="">
             <div className={classes.newsletterSection}>
-              <Newsletter />
+              <Newsletter data={data?.newsletter} />
             </div>
           </Col>
         </Row>
