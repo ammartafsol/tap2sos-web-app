@@ -20,7 +20,7 @@ const TermsAndConditionTemplate = ({ _data }) => {
         <Container>
           <div className={classes.termsAndConditionsContainer}>
             <div className={classes.quillContent}> 
-            {Parser(data?.htmlDescription)}
+            {data?.htmlDescription && Parser(data?.htmlDescription)}
             </div>
           </div>
         </Container>
