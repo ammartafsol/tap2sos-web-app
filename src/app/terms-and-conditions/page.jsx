@@ -5,7 +5,7 @@ import React from 'react'
 
 export const dynamic = "force-dynamic"
 const page = async () => {
-  const { data } = await getApi(`cms/page/termsAndConditionsPage`);
+  const { data } = await getApi(`cms/pages/termsAndConditionsPage`);
   return (
     <div>
       <TermsAndConditionTemplate cmsData={data} />

@@ -46,7 +46,7 @@ export default function ApisProvider({ children }) {
 
   // const getFooterData = async () => {
   //   const [{ response: footerResponse }] = await Promise?.all([
-  //     Get({ route: "cms/page/footerData" }),
+  //     Get({ route: "cms/pages/footerData" }),
   //   ]);
   //   if (footerResponse) {
   //     const footerData = footerResponse?.data || footerResponse;

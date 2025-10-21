@@ -5,7 +5,7 @@ import React from 'react'
 
 export const dynamic = "force-dynamic"
 const page = async () => {
-    const { data } = await getApi(`cms/page/privacyPolicyPage`);
+    const { data } = await getApi(`cms/pages/privacyPolicyPage`);
   return (
    <PrivacyPolicyTemplate cmsData={data} />
   )
