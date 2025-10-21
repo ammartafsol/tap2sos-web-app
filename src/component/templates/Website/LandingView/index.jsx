@@ -12,7 +12,7 @@ import GuideSection from "@/component/atoms/GuideSection";
 import TextImage from "@/component/atoms/TextImage";
 import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 
-export default function LandingView({ landingPageData }) {
+export default function LandingView() {
   // const [data, setData] = useState(landingPageData);
   const data = LANDING_PAGE_DATA;
   return (

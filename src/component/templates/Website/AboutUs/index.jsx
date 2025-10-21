@@ -15,7 +15,7 @@ import { useState } from "react";
 import { MediaUrl } from "@/resources/utils/helper";
 import Parser from "html-react-parser";
 
-const AboutUs = ({ data }) => {
+const AboutUs = () => {
  
   // const [aboutUsData, setAboutUsData] = useState(data)
   const aboutUsData = aboutUsPageData;

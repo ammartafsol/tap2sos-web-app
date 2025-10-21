@@ -8,7 +8,7 @@ import { Container } from "react-bootstrap";
 import { useState } from "react";
 import Parser from "html-react-parser";
 
-const PrivacyPolicyTemplate = ({ _data }) => {
+const PrivacyPolicyTemplate = () => {
 
   // const [data, setData] = useState(_data)
 
