@@ -6,13 +6,13 @@ import Button from "../Button";
 import { FaCheck } from "react-icons/fa6";
 import { MediaUrl } from "@/resources/utils/helper";
 
-const TextImage = ({rowReverse,data,classTop}) => {
+const TextImage = ({ rowReverse, data, classTop }) => {
   return (
     <Row className={`${classes.row} ${classTop} ${rowReverse && classes?.rowReverse} `}>
       <div className={classes.imageCol}>
         <div className={classes.imageWrapper}>
           <Image
-            src={"/Images/app-images/about_choose_image.svg"}
+            src={data?.image}
             alt="about image"
             layout="fill"
             objectFit="cover"
@@ -26,18 +26,19 @@ const TextImage = ({rowReverse,data,classTop}) => {
         <p>
           {data?.description}
         </p>
-        <ul className={classes?.listStyle}>
-            {
-                data?.listText?.map((item,index)=>{
-                    return(
-                        <li key={index}>
-                        <FaCheck />
-                        <p>{item}</p>
-                      </li>
-                    )
-                })
-            }
-        </ul>
+        <ol className={classes?.listStyle}  >
+          {
+            data?.listText?.map((item, index) => {
+              return (
+                <li key={index} >
+                  {/* <FaCheck /> */}
+                  <p className={classes.textTitle}>{item?.title}</p>
+                  <p className={classes?.description}>{item?.description}</p>
+                </li>
+              )
+            })
+          }
+        </ol>
         <Button label={"Get Started"} className={classes?.btn} />
       </div>
     </Row>

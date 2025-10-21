@@ -13,8 +13,8 @@ import TextImage from "@/component/atoms/TextImage";
 import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 
 export default function LandingView({ landingPageData }) {
-  const [data, setData] = useState(landingPageData);
-
+  // const [data, setData] = useState(landingPageData);
+  const data = LANDING_PAGE_DATA;
   return (
     <>
       <LayoutWrapper>
