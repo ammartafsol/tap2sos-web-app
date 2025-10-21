@@ -13,10 +13,12 @@ import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 import GuideSection from "@/component/atoms/GuideSection";
 import { useState } from "react";
 import { MediaUrl } from "@/resources/utils/helper";
+import Parser from "html-react-parser";
 
 const AboutUs = ({ data }) => {
  
-  const [aboutUsData, setAboutUsData] = useState(data)
+  // const [aboutUsData, setAboutUsData] = useState(data)
+  const aboutUsData = aboutUsPageData;
   return (
     <>
       <LayoutWrapper>
@@ -48,13 +50,15 @@ const AboutUs = ({ data }) => {
           <Col lg="5" className={classes?.Text}>
             <h4>{aboutUsData?.learnMoreData?.title}</h4>
             <p>{aboutUsData?.learnMoreData?.description}</p>
+            <div>{Parser(aboutUsData?.learnMoreData?.htmlDescription)}</div>
+            <div>{Parser(aboutUsData?.learnMoreData?.htmlDescription2)}</div>
             <Button className={classes.btn} label={"Learn More"} />
           </Col>
         </Row>
         <Row className={classes?.imagesTop}>
           {aboutUsData?.partnersSection?.map((item, index) => (
             <Col className={classes?.imagesSection} key={index}>
-              <Image src={"/Images/app-images/google.svg"} fill alt="logo" />
+              <Image src={item} fill alt="logo" />
             </Col>
           ))}
         </Row>

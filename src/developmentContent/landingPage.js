@@ -41,25 +41,60 @@ export const LANDING_PAGE_DATA = {
     title: "Why Choose Us?",
     description:
       "Securely retrieve, store, and manage patient data using COTIC and blockchain technology. Fast, reliable, and immutable healthcare data access for hospitals and clinics.",
-    listText: [
-      "COTIC-Based Patient Data Retrieval",
-      "Immutable Blockchain Storage (IPFS)",
-      "Offline Data Access & Auto-Sync",
-      "COTIC-Based Patient Data Retrieval",
-      "Immutable Blockchain Storage (IPFS)",
-    ],
+      listText: [
+        {
+          title: "Instant access saves lives",
+          description: "With a single tap or scan, first responders see the critical details that matter — allergies, medications, conditions, and emergency contacts. No app, no delay.",
+        },
+        {
+          title: "GDPR-compliant by design",
+          description: "Your data is stored securely, encrypted, and fully controlled by you. Tap2SOS meets EU privacy and security standards end-to-end.",
+        },
+        {
+          title: "Battery-free technology",
+          description: "Our wearables never need charging — they're always ready when you need them most.",
+        },
+        {
+          title: "Works anywhere, anytime",
+          description: "NFC and QR ensure universal compatibility, whether you're in a city, a clinic, or off-grid.",
+        },
+        {
+          title: "Trusted by professionals",
+          description: "Used by municipalities, NGOs, and medical teams across Europe for safety programmes and emergency pilots.",
+        },
+        {
+          title: "Blockchain-anchored integrity",
+          description: "Each update is traceable and tamper-resistant, reinforcing medical data authenticity and trust.",
+        },
+        {
+          title: "Simple, affordable, and human",
+          description: "No subscriptions, no complexity — just life-saving information, always within reach.",
+        }
+      ],
   },
 
   benefitsData: {
-    image: "/Images/app-images/about_choose_image.svg",
+    image: "/Images/app-images/benefit-image.png",
     title: "Real-World Benefits",
     description: "Trusted by Healthcare Professionals & Organizations",
     listText: [
-      "COTIC-Based Patient Data Retrieval",
-      "Immutable Blockchain Storage (IPFS)",
-      "Offline Data Access & Auto-Sync",
-      "COTIC-Based Patient Data Retrieval",
-      "Immutable Blockchain Storage (IPFS)",
+      {
+        description: "COTIC-Based Patient Data Retrieval",
+      },
+      {
+        description: "Immutable Blockchain Storage (IPFS)",
+      
+      },
+      {
+          description: "Offline Data Access & Auto-Sync",
+      },
+      {
+      description: "COTIC-Based Patient Data Retrieval",
+        
+      },
+      {
+        description: "Immutable Blockchain Storage (IPFS)",
+      },
     ],
   },
 };

@@ -6,27 +6,22 @@ import TopHeader from "@/component/atoms/TopHeader";
 import Quill from "@/component/atoms/Quill";
 import { Container } from "react-bootstrap";
 import { useState } from "react";
-
+import Parser from "html-react-parser";
+import { termsAndConditionsData } from "@/developmentContent/termsAndConditionsData";
 const TermsAndConditionTemplate = ({ _data }) => {
 
-  const [data, setData] = useState(_data)
+  // const [data, setData] = useState(_data)
+  const data = termsAndConditionsData;
 
   return (
     <>
       <LayoutWrapper>
         <TopHeader />
         <Container>
-          <div className={classes.termsContainer}>
-            {data?.htmlDescription ? (
-              <Quill
-                htmlContent={data?.htmlDescription}
-                className={classes.quillContent}
-              />
-            ) : (
-              <div className={classes.noContent}>
-                <p>No terms and conditions content available.</p>
-              </div>
-            )}
+          <div className={classes.termsAndConditionsContainer}>
+            <div className={classes.quillContent}> 
+            {Parser(data?.htmlDescription)}
+            </div>
           </div>
         </Container>
       </LayoutWrapper>
