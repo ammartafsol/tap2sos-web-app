@@ -3,12 +3,12 @@ import { Input } from "@/component/atoms/Input";
 import React from "react";
 import classes from "./Newsletter.module.css";
 
-const Newsletter = () => {
+const Newsletter = ({ data }) => {
   return (
     <div className={classes.newsletterMain}>
       <div className={classes.topHead}>
-        <h2>Ready to Secure Your Healthcare Data?</h2>
-        <p>Stay in the loop with everything you need to know.</p>
+        <h2>{data?.title}</h2>
+        <p>{data?.description}</p>
       </div>
       {/* <div className={classes.fieldOption}>
         <div className={classes.newsField}>

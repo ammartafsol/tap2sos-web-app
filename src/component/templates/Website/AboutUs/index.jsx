@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import classes from "./AboutUs.module.css";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
@@ -10,21 +11,23 @@ import Button from "@/component/atoms/Button";
 import { imagesSection } from "@/developmentContent/appData";
 import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 import GuideSection from "@/component/atoms/GuideSection";
+import { useState } from "react";
+import { MediaUrl } from "@/resources/utils/helper";
 
-const AboutUs = () => {
+const AboutUs = ({ data }) => {
+ 
+  const [aboutUsData, setAboutUsData] = useState(data)
   return (
     <>
       <LayoutWrapper>
         <TopHeader />
         <Container>
+          {/* <div className={classes.header} style={{ backgroundImage: `url(${MediaUrl(aboutUsData?.heroSection?.image)})` }}> */}
           <div className={classes.header}>
             <div className={classes?.headerChild}>
-              <h4>Empowering Businesses Digitally</h4>
+              <h4>{aboutUsData?.heroSection?.subTitle}</h4>
               <p>
-                At our core, we believe in collaboration and creativity. Our
-                mission is to simplify complex processes, ensuring that our
-                users can navigate their challenges effortlessly. Join us on
-                this journey to transform the way you work!
+                {aboutUsData?.heroSection?.description}
               </p>
               <NavigateButton color="white" />
             </div>
@@ -36,34 +39,34 @@ const AboutUs = () => {
           <Col lg="7" className={classes?.image}>
             <div className={classes?.textImage}>
               <Image
-                src={aboutUsPageData?.learnMoreData?.image}
+                src={"/Images/app-images/aboutTextImage.svg"}
                 alt="image"
                 fill
               />
             </div>
           </Col>
           <Col lg="5" className={classes?.Text}>
-            <h4>{aboutUsPageData?.learnMoreData.title}</h4>
-            <p>{aboutUsPageData?.learnMoreData?.description}</p>
+            <h4>{aboutUsData?.learnMoreData?.title}</h4>
+            <p>{aboutUsData?.learnMoreData?.description}</p>
             <Button className={classes.btn} label={"Learn More"} />
           </Col>
         </Row>
         <Row className={classes?.imagesTop}>
-          {aboutUsPageData?.partnersSection?.map((item, index) => (
+          {aboutUsData?.partnersSection?.map((item, index) => (
             <Col className={classes?.imagesSection} key={index}>
-              <Image src={item} fill alt="logo" />
+              <Image src={"/Images/app-images/google.svg"} fill alt="logo" />
             </Col>
           ))}
         </Row>
         <div className={classes?.guideSection}>
-          <GuideSection removeBorder={true} data={aboutUsPageData?.guideSection} />
+          <GuideSection removeBorder={true} data={aboutUsData?.guideSection} />
         </div>
         <TextImage
           rowReverse={true}
           classTop={classes?.ImageBottom}
-          data={aboutUsPageData?.chooseUsData}
+          data={aboutUsData?.chooseUsData}
         />
-        <TextImage data={aboutUsPageData?.chooseUsData} />
+        <TextImage data={aboutUsData?.chooseUsData} />
       </Container>
     </>
   );

@@ -2,7 +2,7 @@ import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import GuideCard from '../GuideCard';
 import classes from "./GuideSection.module.css"
-
+import { MediaUrl } from "@/resources/utils/helper";
 const GuideSection = ({data,removeBorder}) => {
     console.log("data",data);
   return (

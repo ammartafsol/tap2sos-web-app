@@ -13,8 +13,6 @@ import TextImage from "@/component/atoms/TextImage";
 import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 
 export default function LandingView({ landingPageData }) {
-
-  console.log("🚀 home page data:", landingPageData)
   const [data, setData] = useState(landingPageData);
 
   return (
@@ -41,7 +39,7 @@ export default function LandingView({ landingPageData }) {
           </Col>
           <Col md={12} className="">
             <div className={classes.newsletterSection}>
-              <Newsletter />
+              <Newsletter data={data?.newsletter} />
             </div>
           </Col>
         </Row>

@@ -1,12 +1,13 @@
 import AboutUs from '@/component/templates/Website/AboutUs'
 import React from 'react'
+import { getApi } from '@/interceptor/server-side-getApi'
 
-const Page = () => {
+export default async function AboutUsPage() {
+  const data = await getApi('cms/page/aboutUsPage')
+
   return (
     <>
-    <AboutUs />
+      <AboutUs data={data?.data} />
     </>
   )
 }
-
-export default Page

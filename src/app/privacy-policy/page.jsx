@@ -1,5 +1,4 @@
 import PrivacyPolicyTemplate from '@/component/templates/Website/PrivacyPolicyTemplate/PrivacyPolicyTemplate'
-import { getApi } from '@/interceptor/server-side-getApi';
 import React from 'react'
 
 

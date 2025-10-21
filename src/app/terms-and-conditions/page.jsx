@@ -1,7 +1,7 @@
 import TermsAndConditionTemplate from '@/component/templates/Website/TermsAndConditionTemplate/page'
-import { getApi } from '@/interceptor/server-side-getApi';
-import React from 'react'
 
+import React from 'react'
+import { getApi } from '@/interceptor/server-side-getApi'
 
 export const dynamic = "force-dynamic"
 const page = async () => {
