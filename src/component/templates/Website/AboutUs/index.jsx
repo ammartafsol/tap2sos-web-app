@@ -50,8 +50,8 @@ const AboutUs = ({ data }) => {
           <Col lg="5" className={classes?.Text}>
             <h4>{aboutUsData?.learnMoreData?.title}</h4>
             <p>{aboutUsData?.learnMoreData?.description}</p>
-            <div>{Parser(aboutUsData?.learnMoreData?.htmlDescription)}</div>
-            <div>{Parser(aboutUsData?.learnMoreData?.htmlDescription2)}</div>
+            <div>{aboutUsData?.learnMoreData?.htmlDescription && Parser(aboutUsData?.learnMoreData?.htmlDescription)}</div>
+            <div>{aboutUsData?.learnMoreData?.htmlDescription2 && Parser(aboutUsData?.learnMoreData?.htmlDescription2)}</div>
             <Button className={classes.btn} label={"Learn More"} />
           </Col>
         </Row>

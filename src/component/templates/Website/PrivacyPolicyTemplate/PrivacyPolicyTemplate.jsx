@@ -170,7 +170,7 @@ const PrivacyPolicyTemplate = ({ _data }) => {
           <div className={classes.privacyContainer}>
             {/* <Parser htmlContent={data?.htmlDescription} /> */}
             <div className={classes.quillContent}> 
-            {Parser(data?.htmlDescription)}
+            {data?.htmlDescription && Parser(data?.htmlDescription)}
             </div>
           </div>
         </Container>

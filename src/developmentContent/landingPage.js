@@ -97,4 +97,8 @@ export const LANDING_PAGE_DATA = {
       },
     ],
   },
+  newsletterData: {
+    title: "Ready to Secure Your Healthcare Data?",
+    description: "Stay in the loop with everything you need to know.",
+  },
 };
