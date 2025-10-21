@@ -3,8 +3,14 @@ import TermsAndConditionTemplate from '@/component/templates/Website/TermsAndCon
 import React from 'react'
 import { getApi } from '@/interceptor/server-side-getApi'
 
-export default async function TermsAndConditionsPage() {
-  const data = await getApi('cms/page/termsAndConditionsPage')
-
-  return <TermsAndConditionTemplate _data={data?.data} />
+export const dynamic = "force-dynamic"
+const page = async () => {
+  const { data } = await getApi(`cms/pages/termsAndConditionsPage`);
+  return (
+    <div>
+      <TermsAndConditionTemplate cmsData={data} />
+    </div>
+  )
 }
+
+export default page
