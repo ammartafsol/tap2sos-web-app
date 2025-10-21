@@ -1,13 +1,9 @@
 import PrivacyPolicyTemplate from '@/component/templates/Website/PrivacyPolicyTemplate/PrivacyPolicyTemplate'
 import React from 'react'
+// import { getApi } from '@/interceptor/server-side-getApi'
 
-
-export const dynamic = "force-dynamic"
-const page = async () => {
-    const { data } = await getApi(`cms/pages/privacyPolicyPage`);
-  return (
-   <PrivacyPolicyTemplate cmsData={data} />
-  )
+export default async function PrivacyPolicyPage() {
+  // const data = await getApi('cms/page/privacyPolicyPage')
+  
+  return <PrivacyPolicyTemplate  />
 }
-
-export default page

@@ -8,7 +8,7 @@ import { Container } from "react-bootstrap";
 import { useState } from "react";
 import Parser from "html-react-parser";
 import { termsAndConditionsData } from "@/developmentContent/termsAndConditionsData";
-const TermsAndConditionTemplate = ({ _data }) => {
+const TermsAndConditionTemplate = () => {
 
   // const [data, setData] = useState(_data)
   const data = termsAndConditionsData;
