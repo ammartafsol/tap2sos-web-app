@@ -135,3 +135,12 @@ export const getAddPatientValidationSchema = (slug) => {
 
   return Yup.object().shape(baseSchema);
 };
+
+export const contactUsSchema = Yup.object({
+  name: Yup.string().required("Name is required."),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required."),
+  subject: Yup.string().required("Subject is required."),
+  message: Yup.string().required("Message is required."),
+});

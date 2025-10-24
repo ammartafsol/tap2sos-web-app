@@ -81,3 +81,11 @@ export const ADD_EDIT_PATIENT_FORM_VALUES = {
   timeSpentAlone: "", // input
   useOfElectronicDevice: "", //dropdown
 };
+
+
+export const CONTACT_US_FORM_VALUES = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+};

@@ -70,7 +70,7 @@ const AboutUs = () => {
           classTop={classes?.ImageBottom}
           data={aboutUsData?.chooseUsData}
         />
-        <TextImage data={aboutUsData?.chooseUsData} />
+        {/* <TextImage data={aboutUsData?.chooseUsData} /> */}
       </Container>
     </>
   );

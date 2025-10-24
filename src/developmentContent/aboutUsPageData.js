@@ -1,8 +1,8 @@
 export const aboutUsPageData = {
   heroSection: {
     title: "About Us",
-    subTitle: "Empowering Businesses Digitally",
-    description: "At our core, we believe in collaboration and creativity. Our mission is to simplify complex processes, ensuring that our users can navigate their challenges effortlessly. Join us on this journey to transform the way you work!",
+    subTitle: "Our Company: NewCo. ",
+    description: "For Greek and European citizens and internationally who need for their everyday's actions and activities to be safe, convenient and affordable, NewCo provides efficient and effective utilization of the blockchain and Internet of Thing technology because it can combine the knowledge and the accumulated experience with the innovation required for the development in the globalized exponential era. NewCo will be the enabler of the Blockchain and Internet of Things revolution! ",
     image: "/Images/app-images/aboutTextImage.svg",
 
   },
