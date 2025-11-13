@@ -1,6 +1,6 @@
-import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import classes from './FeaturesSection.module.css';
+import React from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import classes from "./FeaturesSection.module.css";
 
 const FeaturesSection = ({ data }) => {
   return (
@@ -17,7 +17,10 @@ const FeaturesSection = ({ data }) => {
                   return (
                     <Col md={6} lg={3} key={index}>
                       <div className={classes.featureItem}>
-                        <p>{feature}</p>
+                        <div className={`${classes.featureItemTitle} `}>
+                          <h3 className="maxLine2" title={feature?.title}>{feature?.title}</h3>
+                        </div>
+                        <p>{feature?.description}</p>
                       </div>
                     </Col>
                   );
@@ -32,4 +35,3 @@ const FeaturesSection = ({ data }) => {
 };
 
 export default FeaturesSection;
-

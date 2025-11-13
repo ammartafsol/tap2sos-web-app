@@ -103,10 +103,22 @@ export const LANDING_PAGE_DATA = {
   featuresSection: {
     title: "Some Features that Make us Unique",
     features: [
-      "Easy access and data retrieval from any smartphone, tablet, or desktop pc equipped with NFC",
-      "Unlimited data capacity, with 100% personal medical blockchain data protection, as provided by Blockchain technology",
-      "Deal with the incident on-the-spot and in real-time, by connecting the patient directly with those who come for help",
-      "Fast data transfer with confidentiality and safety guaranteed by Blockchain technology and security protocols, as determined by the European Union",
+      {
+        title:"Easy access and data retrieval:",
+        description:"Easy access and data retrieval from any smartphone, tablet, or desktop pc equipped with NFC",
+      },
+      {
+        title:"Unlimited data capacity:",
+        description:"Unlimited data capacity, with 100% personal medical blockchain data protection, as provided by Blockchain technology",
+      },
+      {
+        title:"Deal with the incident on-the-spot and in real-time:",
+        description:"Deal with the incident on-the-spot and in real-time, by connecting the patient directly with those who come for help",
+      },
+      {
+        title:"Fast data transfer",
+        description:"Fast data transfer with confidentiality and safety guaranteed by Blockchain technology and security protocols, as determined by the European Union",
+      },
     ],
   },
   faqSection: {
