@@ -35,6 +35,7 @@
   gap: 10px;
   overflow: hidden;
   min-width: 0;
+  border-bottom: 1px solid #eaecf0;
   transition: all 0.3s ease-in-out;
 }
 .noBorder {
@@ -42,6 +43,7 @@
 }
 .activeHeader {
   padding: 0px;
+  border-bottom: none;
   transition: all 0.3s ease-in-out;
 }
 
