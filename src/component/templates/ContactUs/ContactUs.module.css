@@ -120,6 +120,17 @@
   font-weight: 700;
 }
 
+.emailLink{
+  border-bottom: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21px;
+  opacity: 0.8;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .recaptchaContainer {
   margin-top: 16px;
   margin-bottom: 8px;

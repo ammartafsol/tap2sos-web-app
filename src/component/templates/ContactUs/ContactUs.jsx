@@ -77,13 +77,7 @@ export default function ContactUs({ _data }) {
         setRecaptchaToken(token);
     }
 
-    const responseHandler = () => {
-        RenderToast({
-            type: "success",
-            message: "We respond within 24 hours on business days",
-        });
-        window.open('mailto:info@newcotech.io', '_blank');
-    }
+ 
     return (
         <LayoutWrapper>
             <Container>
@@ -112,11 +106,11 @@ export default function ContactUs({ _data }) {
                                     </div>
                                     <p>+1 890 473 5102</p>
                                 </div> */}
-                            <div className={classes.contactInfoDiv} onClick={responseHandler} >
+                            <div className={classes.contactInfoDiv}  >
                                 <div className={classes.imageDiv}>
                                     <Image src={"/Images/app-images/email.png"} width={32} height={32} alt="" />
                                 </div>
-                                <p>info@newcotech.io</p>
+                                <a className={classes?.emailLink} href="mailto:info@newcotech.io">info@newcotech.io</a>
                             </div>
                             {/* <div className={classes.contactInfoDiv}>
                                     <div className={classes.imageDiv}>
