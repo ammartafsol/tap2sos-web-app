@@ -10,6 +10,7 @@ import classes from "./LandingView.module.css";
 import Newsletter from "@/component/molecules/Newsletter";
 import GuideSection from "@/component/atoms/GuideSection";
 import TextImage from "@/component/atoms/TextImage";
+import FeaturesSection from "@/component/atoms/FeaturesSection";
 import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 
 export default function LandingView() {
@@ -21,6 +22,7 @@ export default function LandingView() {
         <HeroSection data={data?.heroSection} />
       </LayoutWrapper>
       <GuideSection data={data?.guideSection} />
+      <FeaturesSection data={data?.featuresSection} />
       <div className={classes.chooseUsSec}>
         <Container className="">
           <Row>

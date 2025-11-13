@@ -19,6 +19,9 @@ const Footer = () => {
           ))}
         </div>
       </div>
+      <div className={classes.footerEmail}>
+      info@newcotech.io
+      </div>
       <div className={classes.footerBottom}>
         <p>© 2025 Tap2sos All rights reserved.</p>
       </div>

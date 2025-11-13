@@ -17,7 +17,7 @@ export function TextArea({
   errorText,
 }) {
   return (
-    <div className={[classes.textAreaBox, containerClass].join(" ")}>
+    <div className={[classes.textAreaBox, containerClass,classes?.error].join(" ")}>
       {label && (
         <label
           style={{ ...labelStyle }}
@@ -40,7 +40,7 @@ export function TextArea({
         // onBlur={() => {
         //   setter(value?.trim());
         // }}
-        className={className}
+        className={`${className} ${errorText && classes.borderError}`}
         rows={rows}
         disabled={disabled}
       />

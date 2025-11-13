@@ -1,0 +1,148 @@
+.featuresSection {
+  padding-block: 60px;
+  background-color: var(--white);
+}
+
+.featuresHead {
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.featuresHead h2 {
+  color: var(--black-color);
+  font-size: 44px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 64px;
+  letter-spacing: -0.88px;
+  text-align: center;
+}
+
+.featuresList {
+  width: 100%;
+}
+
+.featuresList .row > [class*="col-"] {
+  display: flex;
+}
+
+.featuresListWrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.featureItem {
+  padding: 24px;
+  border-radius: 10px;
+  border: 1px solid var(--border-blue);
+  background-color: var(--white);
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+}
+
+.featureItem:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(26, 72, 141, 0.1);
+}
+
+.featureItem p {
+  color: var(--text-color-v1);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Tablet styles */
+@media (max-width: 992px) {
+  .featuresSection {
+    padding-block: 40px;
+  }
+
+  .featuresHead {
+    padding-bottom: 40px;
+  }
+
+  .featuresHead h2 {
+    font-size: 35px;
+    line-height: 45px;
+  }
+
+  .featureItem {
+    padding: 20px;
+  }
+
+  .featureItem p {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .featuresSection {
+    padding-block: 30px;
+  }
+
+  .featuresHead {
+    padding-bottom: 30px;
+    gap: 8px;
+  }
+
+  .featuresHead h2 {
+    font-size: 30px;
+    line-height: 40px;
+  }
+
+  .featureItem {
+    padding: 18px;
+  }
+
+  .featureItem p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .featuresHead h2{
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .featuresHead h2 {
+    font-size: 20px;
+    line-height: 32px;
+  }
+
+  .featureItem {
+    padding: 16px;
+  }
+
+  .featureItem p {
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .featuresHead{
+    padding-bottom: 20px;
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  .featuresHead h2 {
+    font-size: 17px;
+  }
+  .featuresHead{
+    padding-bottom: 10px;
+  }
+}

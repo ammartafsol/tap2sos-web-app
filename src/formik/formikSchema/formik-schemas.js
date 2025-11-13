@@ -143,4 +143,7 @@ export const contactUsSchema = Yup.object({
     .required("Email is required."),
   subject: Yup.string().required("Subject is required."),
   message: Yup.string().required("Message is required."),
+  gdprConsent: Yup.boolean()
+    .oneOf([true], "*You must agree to the processing of your personal data.")
+    .required("GDPR consent is required."),
 });

@@ -1,7 +1,7 @@
 .contactUsCard {
-  display: flex;
+  /* display: flex; */
   padding: 80px 90px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   border-radius: 8px;
   border: 1px solid #f0f0f0;
@@ -11,7 +11,6 @@
 .headingDiv {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   justify-content: left;
 }
 
@@ -71,6 +70,49 @@
   padding-left: 35px;
 }
 
+.responseTimeText {
+  color: #484848;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0;
+}
+
+.gdprConsentDiv {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.gdprCheckbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: #1a488d;
+  flex-shrink: 0;
+}
+
+.gdprLabel {
+  color: #484848;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  cursor: pointer;
+  margin: 0;
+  user-select: none;
+}
+
+.errorText {
+  color: red;
+  font-size: 12px;
+  font-weight: 400;
+  margin: 4px 0 0 0;
+}
+
 /* Large Desktop styles */
 @media (max-width: 1200px) {
   .contactInfoDiv p {
@@ -97,6 +139,10 @@
     font-size: 16px;
     line-height: 20px;
   }
+  .contactUsDetails{
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
 
 }
 
@@ -118,16 +164,10 @@
     line-height: 20px;
   }
 
-  .contactUsDetails {
-    margin-top: 30px;
-    gap: 24px;
-  }
   
   .contactInfoDiv {
     gap: 16px;
   }
-  
- 
   
   .imageDiv {
     width: 50px;
@@ -158,4 +198,9 @@
     height: 40px;
     border-radius: 4px;
   }
+  .gdprConsentDiv{
+    flex-direction: column;
+   }
 }
+
+

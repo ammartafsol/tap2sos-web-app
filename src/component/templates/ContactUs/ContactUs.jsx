@@ -2,7 +2,7 @@
 import React from "react";
 import classes from "./ContactUs.module.css";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
-import { Col, Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import TopHeader from "@/component/atoms/TopHeader";
 import Image from "next/image";
 import { Input } from "@/component/atoms/Input";
@@ -34,6 +34,12 @@ export default function ContactUs({ _data }) {
 
     const handleSubmit = async (values) => {
         setLoading("loading");
+        const payload = {
+          name: values.name,
+          email: values.email,
+          subject: values.subject,
+          message: values.message,
+        }
         const { response } = await Post({
             route: "contact-us",
             data: values,
@@ -61,6 +67,7 @@ export default function ContactUs({ _data }) {
             <Container>
                 <TopHeader />
                 <div className={classes.contactUsCard}>
+                  <Row>
                     <Col lg={6}>
                         <div className={classes.headingDiv}>
                             {/* <h2>{data?.text}</h2> */}
@@ -124,6 +131,26 @@ export default function ContactUs({ _data }) {
                         setter={ContactUsFormik.handleChange("message")} 
                         errorText={ContactUsFormik.touched.message && ContactUsFormik.errors.message } />
 
+                        <p className={classes.responseTimeText}>
+                            We respond within 24 hours on business days
+                        </p>
+<div>
+                        <div className={classes.gdprConsentDiv}>
+                            <input
+                                type="checkbox"
+                                id="gdprConsent"
+                                checked={ContactUsFormik.values.gdprConsent}
+                                onChange={ContactUsFormik.handleChange("gdprConsent")}
+                                className={classes.gdprCheckbox}
+                            />
+                            <label htmlFor="gdprConsent" className={classes.gdprLabel}>
+                                I agree to the processing of my personal data according to our Privacy Policy
+                            </label>
+                        </div>
+                        {ContactUsFormik.touched.gdprConsent && ContactUsFormik.errors.gdprConsent && (
+                            <p className={classes.errorText}>{ContactUsFormik.errors.gdprConsent}</p>
+                        )}
+</div>
 
                         <Button label={loading == "loading" ? "Please Wait..." : "Submit Message"}
                          variant={"gradient"} 
@@ -132,6 +159,7 @@ export default function ContactUs({ _data }) {
                          loading={loading == "loading"} 
                          type="submit"/>
                     </Col>
+                  </Row>
                 </div>
             </Container>
         </LayoutWrapper>

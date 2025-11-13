@@ -88,4 +88,5 @@ export const CONTACT_US_FORM_VALUES = {
   email: "",
   subject: "",
   message: "",
+  gdprConsent: false,
 };
