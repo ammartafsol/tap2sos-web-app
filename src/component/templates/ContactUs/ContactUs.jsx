@@ -189,11 +189,11 @@ export default function ContactUs({ _data }) {
                          loading={loading == "loading"} 
                          type="submit"/>
                         
-                        {/* {showSuccessMessage && (
+                        {showSuccessMessage && (
                             <p className={classes.successMessage}>
                                 Thank you for contacting us. We'll get back to you within 24 hours.
                             </p>
-                        )} */}
+                        )}
                     </Col>
                   </Row>
                 </div>
