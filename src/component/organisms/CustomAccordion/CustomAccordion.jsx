@@ -49,19 +49,19 @@ export default function CustomAccordion({
             <IoIosArrowUp color="#454545" size={20} />
           )}
         </div>
-        <Accordion.Collapse eventKey={i}>
-          <Fragment>
+        <Accordion.Collapse eventKey={i.toString()}>
+          <div>
             {item?.description && (
               <p className={classes.answer}>{item?.description}</p>
             )}
-          </Fragment>
+          </div>
         </Accordion.Collapse>
       </div>
     ));
 
   return (
     <div className={classes.mainClass}>
-      <Accordion activeKey={isOpen}>
+      <Accordion activeKey={isOpen >= 0 ? isOpen.toString() : null}>
         {Array.isArray(data) && data.length > 0 && renderAccordionItems()}
       </Accordion>
     </div>
