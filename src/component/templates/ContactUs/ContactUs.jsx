@@ -21,6 +21,7 @@ export default function ContactUs({ _data }) {
 
     const [data, setData] = useState(_data)
     const [loading, setLoading] = useState("");
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     // ContactUsFormik
     const ContactUsFormik = useFormik({
@@ -51,6 +52,7 @@ export default function ContactUs({ _data }) {
                 message: "Thank you for contacting us. We'll get back to you within 24 hours.",
             });
             ContactUsFormik.resetForm();
+            setShowSuccessMessage(true);
         }
         setLoading("");
     }
@@ -158,6 +160,12 @@ export default function ContactUs({ _data }) {
                          disabled={loading == "loading"} 
                          loading={loading == "loading"} 
                          type="submit"/>
+                        
+                        {/* {showSuccessMessage && (
+                            <p className={classes.successMessage}>
+                                Thank you for contacting us. We'll get back to you within 24 hours.
+                            </p>
+                        )} */}
                     </Col>
                   </Row>
                 </div>

@@ -113,6 +113,13 @@
   margin: 4px 0 0 0;
 }
 
+.successMessage {
+  margin-top: 0px;
+  color: green;
+  font-size: 14px;
+  font-weight: 700;
+}
+
 /* Large Desktop styles */
 @media (max-width: 1200px) {
   .contactInfoDiv p {

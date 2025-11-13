@@ -11,6 +11,7 @@ import Newsletter from "@/component/molecules/Newsletter";
 import GuideSection from "@/component/atoms/GuideSection";
 import TextImage from "@/component/atoms/TextImage";
 import FeaturesSection from "@/component/atoms/FeaturesSection";
+import FaqSection from "@/component/molecules/FaqSection/FaqSection";
 import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 
 export default function LandingView() {
@@ -43,6 +44,9 @@ export default function LandingView() {
             <div className={classes.newsletterSection}>
               <Newsletter data={data?.newsletterData}/>
             </div>
+          </Col>
+          <Col md={12} className="">
+            <FaqSection data={data?.faqSection?.faqs} title={data?.faqSection?.title} />
           </Col>
         </Row>
       </Container>
