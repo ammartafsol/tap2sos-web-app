@@ -120,6 +120,13 @@
   font-weight: 700;
 }
 
+.recaptchaContainer {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: flex-start;
+}
+
 /* Large Desktop styles */
 @media (max-width: 1200px) {
   .contactInfoDiv p {

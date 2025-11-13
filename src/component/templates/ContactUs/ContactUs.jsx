@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import classes from "./ContactUs.module.css";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
 import { Col, Container, Row } from "react-bootstrap";
@@ -15,6 +15,8 @@ import { contactUsSchema } from "@/formik/formikSchema/formik-schemas";
 import { useFormik } from "formik";
 import useAxios from "@/interceptor/axiosInterceptor";
 import RenderToast from "@/component/atoms/RenderToast";
+import ReCAPTCHA from "react-google-recaptcha";
+import { recaptchaSitekey } from "@/const";
 
 export default function ContactUs({ _data }) {
     const { Post } = useAxios();
@@ -22,6 +24,8 @@ export default function ContactUs({ _data }) {
     const [data, setData] = useState(_data)
     const [loading, setLoading] = useState("");
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const recaptchaRef = useRef(null);
+    const [recaptchaToken, setRecaptchaToken] = useState(null);
 
     // ContactUsFormik
     const ContactUsFormik = useFormik({
@@ -34,6 +38,14 @@ export default function ContactUs({ _data }) {
 
 
     const handleSubmit = async (values) => {
+        if (!recaptchaToken) {
+            RenderToast({
+                type: "error",
+                message: "Please complete the reCAPTCHA verification.",
+            });
+            return;
+        }
+
         setLoading("loading");
         const payload = {
           name: values.name,
@@ -43,7 +55,7 @@ export default function ContactUs({ _data }) {
         }
         const { response } = await Post({
             route: "contact-us",
-            data: values,
+            data: payload,
         });
         console.log("response",response);
         if (response) {
@@ -53,8 +65,16 @@ export default function ContactUs({ _data }) {
             });
             ContactUsFormik.resetForm();
             setShowSuccessMessage(true);
+            setRecaptchaToken(null);
+            if (recaptchaRef.current) {
+                recaptchaRef.current.reset();
+            }
         }
         setLoading("");
+    }
+
+    const handleRecaptchaChange = (token) => {
+        setRecaptchaToken(token);
     }
 
     const responseHandler = () => {
@@ -153,6 +173,14 @@ export default function ContactUs({ _data }) {
                             <p className={classes.errorText}>{ContactUsFormik.errors.gdprConsent}</p>
                         )}
 </div>
+
+                        <div className={classes.recaptchaContainer}>
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey={recaptchaSitekey}
+                                onChange={handleRecaptchaChange}
+                            />
+                        </div>
 
                         <Button label={loading == "loading" ? "Please Wait..." : "Submit Message"}
                          variant={"gradient"} 
