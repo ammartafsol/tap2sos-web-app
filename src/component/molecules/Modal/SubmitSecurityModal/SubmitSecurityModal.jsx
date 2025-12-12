@@ -96,8 +96,6 @@
 
 // export default SubmitSecurityModal;
 
-
-
 import React, { useState } from "react";
 import ModalSkeleton from "../ModalSkeleton/ModalSkeleton";
 import { Input } from "@/component/atoms/Input";
@@ -144,7 +142,7 @@ const SubmitSecurityModal = ({
   //       "Content-Type": "application/json",
   //     },
   //     body: JSON.stringify(obj),
-  //   })  
+  //   })
   //   .then(response => response.json())
   //   .then(data => {
   //     console.log("data 112344354233❌❌❌❌", data?.data?.user?.attachments)
@@ -171,35 +169,30 @@ const SubmitSecurityModal = ({
   //   setLoading("");
   // };
 
-
   const handleSubmit = async (values) => {
     setLoading("loading");
-  
+
     const obj = {
       patientNo: slug,
       password: values?.password,
     };
-  
-    try {
-      const response = await fetch(BaseURL("users/patient/login"), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(obj),
-      });
-  
-      const result = await response.json();
-      const responseData = result?.data?.user;
+
+    const { response } = await Post({
+      route: "users/patient/login",
+      data: obj,
+    });
+
+    if (response) {
+      const responseData = response?.data?.user;
       setAttachments213(responseData?.attachments);
-  
+
       if (responseData) {
         setAttachments(responseData?.attachments || {});
         const filteredData = flattenObject(responseData);
         // Format phone numbers
         filteredData.phoneNumber = `+${filteredData?.callingCode} ${filteredData.phoneNumber}`;
         filteredData.emergencyContact = `+${filteredData?.emergencyCallingCode} ${filteredData.emergencyContact}`;
-  
+
         // Remove unnecessary keys
         delete filteredData.callingCode;
         delete filteredData.emergencyCallingCode;
@@ -207,18 +200,13 @@ const SubmitSecurityModal = ({
         setData(filteredData);
         PasswordFormik.resetForm();
       }
-    } catch (error) {
-      console.error("Fetch error ❌", error);
-    } finally {
-      setLoading("");
     }
+    setLoading("");
   };
-  
 
   const handleClose = () => {
     setShow(false);
   };
-
 
   return (
     <ModalSkeleton header={"Security Key"} setShow={setShow} show={show}>
