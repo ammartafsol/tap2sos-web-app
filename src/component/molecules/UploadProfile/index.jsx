@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useRef, useState } from "react";
 import classes from "./UploadProfile.module.css";
 import { BaseURL, CreateFormData } from "@/resources/utils/helper";
@@ -30,12 +31,36 @@ const UploadProfile = ({ uploadImage, setUploadImage, readOnly = false }) => {
     }
   };
 
+  const handleClick = () => {
+    if (readOnly) return;
+    fileInputRef.current?.click();
+  };
+
+  const handleKeyDown = (e) => {
+    if (readOnly) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      fileInputRef.current?.click();
+    }
+  };
+
   return (
     <div className={classes.wrapper}>
-      <div
+      <button
+        type="button"
         className={classes.uploadImage}
-        onClick={!readOnly ? () => fileInputRef.current.click() : undefined}
-        style={{ cursor: readOnly ? "default" : "pointer" }}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        disabled={readOnly}
+        aria-label={readOnly ? undefined : "Upload profile image"}
+        style={{ 
+          cursor: readOnly ? "default" : "pointer",
+          background: "none",
+          border: "none",
+          padding: 0,
+          width: "100%",
+          height: "100%"
+        }}
       >
         {preview || uploadImage ? (
           <img
@@ -46,7 +71,7 @@ const UploadProfile = ({ uploadImage, setUploadImage, readOnly = false }) => {
         ) : (
           <span className={classes.placeholder}>+</span>
         )}
-      </div>
+      </button>
       {!readOnly && (
         <input
           type="file"
@@ -59,6 +84,17 @@ const UploadProfile = ({ uploadImage, setUploadImage, readOnly = false }) => {
       {loading && <LottieLoader />}
     </div>
   );
+};
+
+UploadProfile.propTypes = {
+  uploadImage: PropTypes.string,
+  setUploadImage: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool,
+};
+
+UploadProfile.defaultProps = {
+  uploadImage: "",
+  readOnly: false,
 };
 
 export default UploadProfile;
