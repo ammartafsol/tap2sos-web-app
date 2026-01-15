@@ -30,13 +30,13 @@ import {
 } from "@/resources/utils/mediaUpload";
 import LottieLoader from "@/component/atoms/LottieLoader/LottieLoader";
 import UploadProfile from "@/component/molecules/UploadProfile";
+import PropTypes from 'prop-types';
 
 export default function AddOrEditPatientTemplate({ slug }) {
   const { Get, Post, Patch, Delete } = useAxios();
   const router = useRouter();
   const [loading, setLoading] = useState(""); // getPatientDetails, addOrEditPatientRequest
   const [docs, setDocs] = useState({});
-  const [uploaders, setUploaders] = useState({});
   const [isLoadingWithType, setIsLoadingWithTypes] = useState("");
   const [uploadImage, setUploadImage] = useState(null);
 
@@ -48,6 +48,13 @@ export default function AddOrEditPatientTemplate({ slug }) {
       handleAddPatient(values);
     },
   });
+
+  const getButtonLabel = () => {
+    if (loading === "addOrEditPatientRequest") {
+      return "Please Wait...";
+    }
+    return slug ? "Update Patient" : "Create Patient";
+  };
 
   const handleAddPatient = async (value) => {
     const yesNoToBool = (val) => val?.value === "yes";
@@ -953,21 +960,15 @@ export default function AddOrEditPatientTemplate({ slug }) {
                   const option = mediaTypeData.find(
                     (item) => item.label === label
                   );
-                  return option
-                    ? option
-                    : {
-                        label,
-                        value: label.toLowerCase().replace(/\s+/g, "_"),
-                      };
+                  return option || {
+                    label,
+                    value: label.toLowerCase().replaceAll(" ", "_"),
+                  };
                 })}
               />
             </Col>
             {Object.keys(docs).map((type) => {
-              const uploadedFiles = docs[type] || [];
-              const uploaderSlots = uploaders[type] || [];
-
               // ✅ Always allow adding a new uploader, as long as there are fewer than 2 uploaders
-              const canAddMore = uploaderSlots.length < 2;
 
               return (
                 <div key={type} className={classes.tagGroup}>
@@ -1002,13 +1003,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
 
             <Col md={12} className={classes?.buttonContainer}>
               <Button
-                label={
-                  loading == "addOrEditPatientRequest"
-                    ? "Please Wait..."
-                    : slug
-                    ? "Update Patient"
-                    : "Create Patient"
-                }
+                label={getButtonLabel()}
                 variant={"gradient"}
                 onClick={formikAddPatient.handleSubmit}
                 disabled={loading == "addOrEditPatientRequest"}
@@ -1023,3 +1018,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
     </LayoutWrapper>
   );
 }
+
+AddOrEditPatientTemplate.propTypes = {
+  slug: PropTypes.string,
+};

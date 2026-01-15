@@ -24,6 +24,7 @@
     "libphonenumber-js": "^1.12.6",
     "moment-timezone": "^0.5.48",
     "next": "15.5.9",
+    "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
