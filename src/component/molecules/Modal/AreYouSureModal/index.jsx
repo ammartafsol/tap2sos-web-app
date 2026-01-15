@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Button from "@/component/atoms/Button";
 import ModalSkeleton from "../ModalSkeleton/ModalSkeleton";
 import classes from "./AreYouSureModal.module.css";
@@ -7,7 +8,7 @@ const AreYouSureModal = ({
   show,
   setShow,
   title = "Are You Sure You Want To Delete",
-  subTitle = "Once you delete this can’t be recovered",
+  subTitle = "Once you delete this can't be recovered",
   loading = false,
   onClick,
 }) => {
@@ -38,6 +39,21 @@ const AreYouSureModal = ({
       </div>
     </ModalSkeleton>
   );
+};
+
+AreYouSureModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  setShow: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  subTitle: PropTypes.string,
+  loading: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
+};
+
+AreYouSureModal.defaultProps = {
+  title: "Are You Sure You Want To Delete",
+  subTitle: "Once you delete this can't be recovered",
+  loading: false,
 };
 
 export default AreYouSureModal;
