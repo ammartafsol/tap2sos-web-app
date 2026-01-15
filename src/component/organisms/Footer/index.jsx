@@ -12,11 +12,14 @@ const Footer = () => {
       </div>
       <div className={classes.footerMenus}>
         <div className={classes.links}>
-          {FOOTER_LINKS.map((link, i) => (
-            <Link key={i} href={link.route} className={classes.link}>
-              {link.title}
-            </Link>
-          ))}
+          {FOOTER_LINKS.map((link) => {
+            const linkKey = link?.route || link?.title || `footer-link-${link.title}-${link.route}`;
+            return (
+              <Link key={linkKey} href={link.route} className={classes.link}>
+                {link.title}
+              </Link>
+            );
+          })}
         </div>
       </div>
       <div className={classes.footerEmail}>
