@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Col, Container, Row } from 'react-bootstrap';
 import GuideCard from '../GuideCard';
-import classes from "./GuideSection.module.css"
-import { MediaUrl } from "@/resources/utils/helper";
-const GuideSection = ({data,removeBorder}) => {
-    console.log("data",data);
+import classes from "./GuideSection.module.css";
+
+const GuideSection = ({ data, removeBorder }) => {
   return (
     <div className={classes.guideSection}>
         <Container>
@@ -16,10 +16,11 @@ const GuideSection = ({data,removeBorder}) => {
               </div>
               <div className={classes.guideCardWrapper}>
                 <Row className='gy-3'>
-                  {data?.guideCards?.map((data, index) => {
+                  {data?.guideCards?.map((cardData) => {
+                    const cardKey = cardData?.id || cardData?.title || `guide-card-${cardData?.image}`;
                     return (
-                      <Col md={6} lg={4} xl={3} key={index}>
-                        <GuideCard removeBorder={removeBorder} data={data} />
+                      <Col md={6} lg={4} xl={3} key={cardKey}>
+                        <GuideCard removeBorder={removeBorder} data={cardData} />
                       </Col>
                     );
                   })}
@@ -29,7 +30,27 @@ const GuideSection = ({data,removeBorder}) => {
           </Row>
         </Container>
       </div>
-  )
-}
+  );
+};
 
-export default GuideSection
+GuideSection.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    guideCards: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        title: PropTypes.string,
+        description: PropTypes.string,
+        image: PropTypes.string,
+      })
+    ),
+  }).isRequired,
+  removeBorder: PropTypes.bool,
+};
+
+GuideSection.defaultProps = {
+  removeBorder: false,
+};
+
+export default GuideSection;
