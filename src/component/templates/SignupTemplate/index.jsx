@@ -166,14 +166,16 @@ export default function SignupTemplate() {
               }
               // mainContClassName={"mb-0"}
             />
-            <p
+            <button
+              type="button"
               onClick={() => {
                 router.push("/forget-password");
               }}
               className={classes.forgetPassword}
+              style={{ background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "left", width: "100%" }}
             >
               Forgot Password?
-            </p>
+            </button>
             <Button
               label={loading == "submitSignup" ? "Please Wait..." : "Sign Up"}
               variant={"gradient"}
@@ -181,8 +183,14 @@ export default function SignupTemplate() {
               disabled={loading == "submitSignup"}
             />
             <div className={classes.alreadyContainer}>
-              Already have an account?
-              <span onClick={() => router.push("/login")}>Log in</span>
+              Already have an account?{" "}
+              <button
+                type="button"
+                onClick={() => router.push("/login")}
+                style={{ background: "none", border: "none", padding: 0, cursor: "pointer", color: "inherit", textDecoration: "underline" }}
+              >
+                Log in
+              </button>
             </div>
           </Col>
         </Row>
