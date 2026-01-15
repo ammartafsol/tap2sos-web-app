@@ -3,20 +3,18 @@ import Button from "@/component/atoms/Button";
 import { Input } from "@/component/atoms/Input";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
 import NoDataFound from "@/component/atoms/NoDataFound/NoDataFound";
-import ShowDocuments from "@/component/atoms/ShowDocuments";
 import TopHeader from "@/component/atoms/TopHeader";
 import LoadingComponent from "@/component/molecules/LoadingComponent";
 import SubmitSecurityModal from "@/component/molecules/Modal/SubmitSecurityModal/SubmitSecurityModal";
-import { excludedFields } from "@/const";
 import useAxios from "@/interceptor/axiosInterceptor";
 import {
-  BaseURL,
   capitalizeFirstLetter,
   flattenObject,
   formatLabel,
 } from "@/resources/utils/helper";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import PropTypes from "prop-types";
 import classes from "./SecurityKey.module.css";
 import DocumentsView from "@/component/atoms/DocumentsView/DocumentsView";
 
@@ -27,7 +25,6 @@ export default function SecurityKey({ slug }) {
   const [show, setShow] = useState(false);
   const [initialData, setInitialData] = useState({});
   const [attachments, setAttachments] = useState({});
-  const [selectedKey, setSelectedKey] = useState("");
 
   const getData = async () => {
     setLoading("loading");
@@ -36,23 +33,14 @@ export default function SecurityKey({ slug }) {
     setAttachments(obj?.attachments ? obj?.attachments : {});
 
     if (response && obj) {
-      const flattenedData = flattenObject(obj || {});
+      const flattenedData = flattenObject(obj);
       setInitialData(flattenedData);
     } else {
-      // No data found
       setInitialData({});
     }
     setLoading("");
   };
 
-  const downloadDocumens = async (key) => {
-    setLoading("load");
-    setSelectedKey(key);
-    const url = BaseURL(`users/media/fetch/${key}`);
-    window.open(url);
-    setLoading("");
-    setSelectedKey("");
-  };
 
   useEffect(() => {
     getData();
@@ -89,20 +77,18 @@ export default function SecurityKey({ slug }) {
           <div>
             <TopHeader data="Patient Details" />
             <Row>
-              {Object.entries(data || {}).map(([key, value], index) => {
+              {Object.entries(data || {}).map(([key, value]) => {
+                const displayValue = key === "organDonor" 
+                  ? (value ? "Yes" : "No")
+                  : (capitalizeFirstLetter(String(value)) || "No Data");
+                
                 return (
-                  <Col md={6} key={index}>
+                  <Col md={6} key={key}>
                     <Input
                       type="text"
                       disabled={true}
                       label={formatLabel(key)}
-                      value={
-                        key === "organDonor"
-                          ? value
-                            ? "Yes"
-                            : "No"
-                          : capitalizeFirstLetter(String(value)) || "No Data"
-                      }
+                      value={displayValue}
                     />
                   </Col>
                 );
@@ -119,12 +105,15 @@ export default function SecurityKey({ slug }) {
                     </div>
 
                     <div className={classes.documentsList}>
-                      {docs.map((doc, index) => (
-                        <div key={index} className={classes.documentItem}>
-                          <DocumentsView doc={doc} />
-                          <span>{doc.fileName?.slice(-14) || doc.name?.slice(-14) || 'Document'}</span>
-                        </div>
-                      ))}
+                      {docs.map((doc, docIndex) => {
+                        const docId = doc.id || doc._id || doc.fileName || doc.name || `${type}-doc-${docIndex}`;
+                        return (
+                          <div key={docId} className={classes.documentItem}>
+                            <DocumentsView doc={doc} />
+                            <span>{doc.fileName?.slice(-14) || doc.name?.slice(-14) || 'Document'}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 );
@@ -135,11 +124,11 @@ export default function SecurityKey({ slug }) {
           <>
             <TopHeader data={"security-key"} />
             <Row>
-              {Object.entries(initialData || {}).map(([key, value], index) => {
+              {Object.entries(initialData || {}).flatMap(([key, value]) => {
                 if (typeof value === "object" && value !== null) {
                   return Object.entries(value).map(
-                    ([nestedKey, nestedValue], nestedIndex) => (
-                      <Col md={6} key={`${index}-${nestedIndex}`}>
+                    ([nestedKey, nestedValue]) => (
+                      <Col md={6} key={`${key}-${nestedKey}`}>
                         <Input
                           type="text"
                           disabled={true}
@@ -154,8 +143,8 @@ export default function SecurityKey({ slug }) {
                   );
                 }
 
-                return (
-                  <Col md={6} key={index}>
+                return [
+                  <Col md={6} key={key}>
                     <Input
                       type="text"
                       disabled={true}
@@ -163,7 +152,7 @@ export default function SecurityKey({ slug }) {
                       value={capitalizeFirstLetter(String(value))}
                     />
                   </Col>
-                );
+                ];
               })}
 
               {Object.keys(attachments).map((type) => {
@@ -177,12 +166,15 @@ export default function SecurityKey({ slug }) {
                     </div>
 
                     <div className={classes.documentsList}>
-                      {docs.map((doc, index) => (
-                        <div key={index} className={classes.documentItem}>
-                          <DocumentsView doc={doc} />
-                          <span>{doc.fileName?.slice(-14) || doc.name?.slice(-14) || 'Document'}</span>
-                        </div>
-                      ))}
+                      {docs.map((doc, docIndex) => {
+                        const docId = doc.id || doc._id || doc.fileName || doc.name || `${type}-doc-${docIndex}`;
+                        return (
+                          <div key={docId} className={classes.documentItem}>
+                            <DocumentsView doc={doc} />
+                            <span>{doc.fileName?.slice(-14) || doc.name?.slice(-14) || 'Document'}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 );
@@ -213,3 +205,7 @@ export default function SecurityKey({ slug }) {
     </LayoutWrapper>
   );
 }
+
+SecurityKey.propTypes = {
+  slug: PropTypes.string.isRequired,
+};
