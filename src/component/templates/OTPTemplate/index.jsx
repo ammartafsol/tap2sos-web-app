@@ -6,22 +6,25 @@ import RenderToast from "@/component/atoms/RenderToast";
 import useAxios from "@/interceptor/axiosInterceptor";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import classes from "./OTPTemplate.module.css";
 
 const OTPTemplate = () => {
   const { Post } = useAxios();
   const router = useRouter();
-  const dispatch = useDispatch();
   const userEmail = useSelector((state) => state.authReducer?.user?.email);
+  const otpInputs = useMemo(() => 
+    Array.from({ length: 6 }, (_, i) => ({ id: `otp-input-${i}`, index: i })),
+    []
+  );
   const [otpValues, setOtpValues] = useState(new Array(6).fill(""));
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState("");
   const [timer, setTimer] = useState(60);
   const [canResend, setCanResend] = useState(false);
-  const fromForgotPassword = Cookies.get("_xpdx_ver") ? false : true;
+  const fromForgotPassword = !Cookies.get("_xpdx_ver");
 
   console.log("fromForgotPassword", fromForgotPassword);
 
@@ -51,7 +54,7 @@ const OTPTemplate = () => {
   // handle submit
   const handleSubmit = async () => {
     setLoading("loading");
-    if (otpValues.some((value) => value === "")) {
+    if (otpValues.includes("")) {
       setLoading("");
       return setErrorMessage("Please fill in all OTP fields.");
     }
@@ -64,33 +67,13 @@ const OTPTemplate = () => {
     const { response } = await Post({ route: "users/verify-otp", data: obj });
     console.log("reponse",response);
     if (response.status === "success") {
-      if (!fromForgotPassword) {
+      if (fromForgotPassword) {
+        router.push("/reset-password");
+      } else {
         Cookies.remove("_xpdx_ver");
         Cookies.remove("email");
         Cookies.remove("code");
         router.push("/auth/sign-in");
-        // const user = response?.data?.data;
-        // const userForCookie = {
-        //   role,
-        //   _id: user?._id,
-        //   email: user?.email,
-        //   isVerified: user?.isVerified,
-        // };
-
-        // Cookies.set("_xpdx_u", JSON.stringify(userForCookie), { expires: 90 });
-        // dispatch(UpdateUser(user));
-
-        // if (role === "customer") {
-        //   router.push("/customer");
-        // }
-        // if (role === "freelancer") {
-        //   router.push("/service-provider");
-
-        //   let profileCompletion = calculateProfileCompletion(user);
-        //   dispatch(setPortfolioProgress(profileCompletion));
-        // }
-      } else {
-        router.push("/reset-password");
       }
       RenderToast({ type: "success", message: "Success" });
       setCanResend(false);
@@ -128,20 +111,6 @@ const OTPTemplate = () => {
     return () => clearInterval(interval);
   }, [timer]);
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = () => {
-  //     Cookies.remove("_xpdx_ver");
-  //     Cookies.remove("email");
-  //     Cookies.remove("code");
-  //   };
-
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
-
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleBeforeUnload);
-  //   };
-  // }, []);
-
   return (
     <LayoutWrapper>
       <Container>
@@ -154,18 +123,21 @@ const OTPTemplate = () => {
           </div>
           <div className={classes.formContainer}>
             <div className={classes.otpContainer}>
-              {otpValues.map((value, idx) => (
-                <Input
-                  key={idx}
-                  type="text"
-                  className={classes.otpInput}
-                  value={value}
-                  onChange={(e) => handleInputChange(e.target.value, idx)}
-                  maxLength={1}
-                  onKeyDown={(e) => handleKeyDown(e, idx)}
-                  id={`otp-input-${idx}`}
-                />
-              ))}
+              {otpInputs.map((input) => {
+                const idx = input.index;
+                return (
+                  <Input
+                    key={input.id}
+                    type="text"
+                    className={classes.otpInput}
+                    value={otpValues[idx]}
+                    onChange={(e) => handleInputChange(e.target.value, idx)}
+                    maxLength={1}
+                    onKeyDown={(e) => handleKeyDown(e, idx)}
+                    id={input.id}
+                  />
+                );
+              })}
             </div>
             <div className={classes.timerMain}>
               <p className={classes.timer}>
@@ -175,6 +147,15 @@ const OTPTemplate = () => {
                   <span
                     className={classes.resendText}
                     onClick={canResend ? handleResendOTP : undefined}
+                    onKeyDown={(e) => {
+                      if (canResend && (e.key === "Enter" || e.key === " ")) {
+                        e.preventDefault();
+                        handleResendOTP();
+                      }
+                    }}
+                    role={canResend ? "button" : undefined}
+                    tabIndex={canResend ? 0 : undefined}
+                    aria-label={canResend ? "Resend OTP code" : undefined}
                     style={{ cursor: canResend ? "pointer" : "default" }}
                   >
                     Didn't get the code?{" "}
