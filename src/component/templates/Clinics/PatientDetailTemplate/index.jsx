@@ -1,12 +1,10 @@
 "use client";
 import { Input } from "@/component/atoms/Input";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
-import ShowDocuments from "@/component/atoms/ShowDocuments";
 import TopHeader from "@/component/atoms/TopHeader";
 import LoadingComponent from "@/component/molecules/LoadingComponent";
 import useAxios from "@/interceptor/axiosInterceptor";
 import {
-  BaseURL,
   capitalizeFirstLetter,
   flattenObject,
   formatLabel,
@@ -16,14 +14,14 @@ import { Col, Container, Row } from "react-bootstrap";
 import classes from "./PatientDetailTemplate.module.css";
 import DocumentsView from "@/component/atoms/DocumentsView/DocumentsView";
 import UploadProfile from "@/component/molecules/UploadProfile";
+import PropTypes from "prop-types";
 
 export default function PatientDetailTemplate({ slug }) {
   const { Get } = useAxios();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState("load");
   const [attachments, setAttachments] = useState({});
-  const [selectedKey, setSelectedKey] = useState("");
-  const [photo,setPhoto] = useState(null);
+  const [photo, setPhoto] = useState(null);
 
   const getData = async () => {
     setLoading("loading");
@@ -31,7 +29,7 @@ export default function PatientDetailTemplate({ slug }) {
     const obj = response?.data;
     if (response) {
       setAttachments(obj?.attachments ? obj?.attachments : {});
-      setPhoto(obj?.photo? obj?.photo:null)
+      setPhoto(obj?.photo ? obj?.photo : null);
       const flattenedData = flattenObject(obj || {});
       flattenedData.phoneNumber = `+${flattenedData?.callingCode} ${flattenedData.phoneNumber}`;
       flattenedData.emergencyContact = `+${flattenedData?.emergencyCallingCode} ${flattenedData.emergencyContact}`;
@@ -42,13 +40,11 @@ export default function PatientDetailTemplate({ slug }) {
     setLoading("");
   };
 
-  const downloadDocumens = async (key) => {
-    setLoading("load");
-    setSelectedKey(key);
-    const url = BaseURL(`users/media/fetch/${key}`);
-    window.open(url);
-    setLoading("");
-    setSelectedKey("");
+  const getDisplayValue = (key, value) => {
+    if (key === "organDonor") {
+      return value ? "Yes" : "No";
+    }
+    return capitalizeFirstLetter(String(value)) || "No Data";
   };
 
   useEffect(() => {
@@ -70,44 +66,21 @@ export default function PatientDetailTemplate({ slug }) {
           <TopHeader data="Patient Details" />
           <UploadProfile uploadImage={photo} readOnly={true} />
           <Row>
-            {Object.entries(data || {}).map(([key, value], index) => {
+            {Object.entries(data || {}).map(([key, value]) => {
               return (
-                <Col md={6} key={index}>
+                <Col md={6} key={key}>
                   <Input
                     type="text"
                     disabled={true}
                     label={formatLabel(key)}
-                    value={
-                      key === "organDonor"
-                        ? value
-                          ? "Yes"
-                          : "No"
-                        : capitalizeFirstLetter(String(value)) || "No Data"
-                    }
+                    value={getDisplayValue(key, value)}
                   />
                 </Col>
               );
             })}
 
-            {/* {attachments?.length > 0 && (
-              <>
-                <h5 className={classes?.attachmentsHeading}>Attachments</h5>
-                <div className={classes?.attachments}>
-                  {attachments.map((item) => (
-                    <ShowDocuments
-                      key={item?.key}
-                      item={item}
-                      downloadDocumens={downloadDocumens}
-                      loading={loading}
-                      selectedKey={selectedKey}
-                    />
-                  ))}
-                </div>
-              </>
-            )} */}
-
             {Object.keys(attachments).map((type) => {
-              const docs = attachments[type] || []; 
+              const docs = attachments[type] || [];
               return (
                 <div key={type} className={classes.tagGroup}>
                   <div className={classes.tagWrapper}>
@@ -117,13 +90,14 @@ export default function PatientDetailTemplate({ slug }) {
                   </div>
 
                   <div className={classes.documentsList}>
-                    {docs.map((doc, index) => {
-                      return(
-                        <div key={index} className={classes.documentItem}>
+                    {docs.map((doc) => {
+                      const docKey = doc.key || doc.fileName || `${type}-${doc.id || Math.random()}`;
+                      return (
+                        <div key={docKey} className={classes.documentItem}>
                           <DocumentsView doc={doc} />
                           <span>{doc.fileName.slice(-14)}</span>{" "}
                         </div>
-                      )
+                      );
                     })}
                   </div>
                 </div>
@@ -135,3 +109,7 @@ export default function PatientDetailTemplate({ slug }) {
     </LayoutWrapper>
   );
 }
+
+PatientDetailTemplate.propTypes = {
+  slug: PropTypes.string.isRequired,
+};
