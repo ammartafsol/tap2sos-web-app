@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import classes from "./StatesCard.module.css";
 
 const StatesCard = ({ item }) => {
@@ -13,6 +14,14 @@ const StatesCard = ({ item }) => {
       </div>
     </div>
   );
+};
+
+StatesCard.propTypes = {
+  item: PropTypes.shape({
+    icon: PropTypes.elementType.isRequired,
+    title: PropTypes.string.isRequired,
+    count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  }).isRequired,
 };
 
 export default StatesCard;
