@@ -61,7 +61,7 @@ export const Input = ({
           ].join(" ")}`}
           style={typeof labelStyle === "object" ? labelStyle : {}}
         >
-          {label} {label2 && label2}
+          {label} {label2}
         </label>
       )}
       <div
@@ -81,7 +81,7 @@ export const Input = ({
               e.preventDefault();
             }
             if (e.key === "Enter") {
-              onClickEnter && onClickEnter();
+              onClickEnter?.();
             }
           }}
           onChange={(e) => {
@@ -113,13 +113,25 @@ export const Input = ({
 
         {/* Password Toggle Icons - Removed "setter" Prop */}
         {type === "password" && (
-          <span onClick={() => setPassToggle(!passToggle)} className={classes.passwordIcon}>
+          <button
+            type="button"
+            onClick={() => setPassToggle(!passToggle)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setPassToggle(!passToggle);
+              }
+            }}
+            className={classes.passwordIcon}
+            aria-label={passToggle ? "Hide password" : "Show password"}
+            style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+          >
             {passToggle ? (
               <AiOutlineEye fontSize={25} />
             ) : (
               <AiOutlineEyeInvisible fontSize={25} />
             )}
-          </span>
+          </button>
         )}
       </div>
       {errorText && <p className={`${classes.mt2} ${classes.errorText}`}>{errorText}</p>}
@@ -131,11 +143,15 @@ Input.propTypes = {
   type: PropTypes.oneOf(["text", "password", "email", "number"]),
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   setter: PropTypes.func, // ✅ Ensures setter is a function
   noBorder: PropTypes.bool,
   disabled: PropTypes.bool,
+  error: PropTypes.bool,
+  parentCustomStyle: PropTypes.object,
   customStyle: PropTypes.object,
+  inputStyle: PropTypes.object,
+  labelStyle: PropTypes.object,
   errorText: PropTypes.string,
   label2: PropTypes.string,
   leftIcon: PropTypes.node,
