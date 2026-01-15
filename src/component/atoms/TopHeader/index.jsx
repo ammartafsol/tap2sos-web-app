@@ -1,13 +1,14 @@
 "use client";
 
 import React from "react";
+import PropTypes from "prop-types";
 import classes from "./TopHeader.module.css";
 import { usePathname } from "next/navigation";
 import { formatPathname } from "@/resources/utils/helper";
 
 const TopHeader = ({ data, showBreadcrumb = true }) => {
   const pathname = usePathname();
-  const formattedName = formatPathname(data ? data : pathname);
+  const formattedName = formatPathname(data || pathname);
 
   return (
     <div className={classes?.TopHeader}>
@@ -20,6 +21,16 @@ const TopHeader = ({ data, showBreadcrumb = true }) => {
       )}
     </div>
   );
+};
+
+TopHeader.propTypes = {
+  data: PropTypes.string,
+  showBreadcrumb: PropTypes.bool,
+};
+
+TopHeader.defaultProps = {
+  data: undefined,
+  showBreadcrumb: true,
 };
 
 export default TopHeader;
