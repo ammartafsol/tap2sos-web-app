@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import moment from "moment";
 import classes from "./CommonCells.module.css";
 import { capitalizeFirstLetter, mergeClass } from "@/resources/utils/helper";
@@ -27,9 +28,42 @@ export const RenderDateCell = ({ cellValue: item }) => {
 };
 
 export const IconButton = ({ icon, onClick }) => {
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onClick?.();
+    }
+  };
+
   return (
-    <div className={classes?.iconButton} onClick={onClick}>
+    <button
+      type="button"
+      className={classes?.iconButton}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      aria-label="Action button"
+      style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+    >
       {icon}
-    </div>
+    </button>
   );
+};
+
+RenderTextCell.propTypes = {
+  cellValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
+RenderCategoryCell.propTypes = {
+  cellValue: PropTypes.shape({
+    item: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  }).isRequired,
+};
+
+RenderDateCell.propTypes = {
+  cellValue: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+};
+
+IconButton.propTypes = {
+  icon: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
