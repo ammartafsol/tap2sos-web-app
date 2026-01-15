@@ -1,18 +1,12 @@
 "use client";
-import React from "react";
 import classes from "./PrivacyPolicyTemplate.module.css";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
 import TopHeader from "@/component/atoms/TopHeader";
-import Quill from "@/component/atoms/Quill";
 import { Container } from "react-bootstrap";
-import { useState } from "react";
 import Parser from "html-react-parser";
 
 const PrivacyPolicyTemplate = () => {
-
-  // const [data, setData] = useState(_data)
-
-  const data ={
+  const data = {
     htmlDescription: `
       <p><strong>Last updated: October 2025</strong></p>
       
@@ -163,19 +157,16 @@ const PrivacyPolicyTemplate = () => {
     `,
   }
   return (
-    <>
-      <LayoutWrapper>
-        <TopHeader />
-        <Container>
-          <div className={classes.privacyContainer}>
-            {/* <Parser htmlContent={data?.htmlDescription} /> */}
-            <div className={classes.quillContent}> 
+    <LayoutWrapper>
+      <TopHeader />
+      <Container>
+        <div className={classes.privacyContainer}>
+          <div className={classes.quillContent}> 
             {data?.htmlDescription && Parser(data?.htmlDescription)}
-            </div>
           </div>
-        </Container>
-      </LayoutWrapper>
-    </>
+        </div>
+      </Container>
+    </LayoutWrapper>
   );
 };
 
