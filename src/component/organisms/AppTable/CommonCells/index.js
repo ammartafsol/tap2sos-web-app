@@ -42,7 +42,7 @@ export const IconButton = ({ icon, onClick }) => {
       onClick={onClick}
       onKeyDown={handleKeyDown}
       aria-label="Action button"
-      style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+      style={{  border: "none", padding: 0, cursor: "pointer" }}
     >
       {icon}
     </button>
