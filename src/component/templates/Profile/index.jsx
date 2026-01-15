@@ -4,7 +4,7 @@ import Button from "@/component/atoms/Button";
 import { Input } from "@/component/atoms/Input";
 import RenderToast from "@/component/atoms/RenderToast";
 import { Patch } from "@/interceptor/axios-functions";
-import { CreateFormData, mediaUrl, mergeClass } from "@/resources/utils/helper";
+import { mergeClass } from "@/resources/utils/helper";
 import { UpdateUser } from "@/store/auth/authSlice";
 import { useFormik } from "formik";
 import Image from "next/image";
@@ -12,32 +12,15 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { IoMdAdd } from "react-icons/io";
 import classes from "./Profile.module.css";
-import { TextArea } from "@/component/atoms/TextArea/TextArea";
 import { profileSchema } from "@/developmentContent/formik/formikSchema/formik-schemas";
 import BorderWrapper from "@/component/atoms/BorderWrapper";
 
 const ProfileTemplate = () => {
-  const [image, setImage] = useState(null);
-  const [profileImage, setProfileImage] = useState(null);
   const router = useRouter();
-  const [file, setFile] = useState(null);
   const [loading, setLoading] = useState("");
   const { user } = useSelector((state) => state.authReducer);
   const dispatch = useDispatch();
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setFile(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const profileFormik = useFormik({
     initialValues: {
@@ -54,7 +37,6 @@ const ProfileTemplate = () => {
     const obj = {
       firstName: values.firstName,
       lastName: values.lastName,
-      // photo: file ?? user?.photo,
     };
     setLoading("loading");
     const response = await Patch({
@@ -78,9 +60,6 @@ const ProfileTemplate = () => {
         lastName: user?.lastName || "",
         email: user?.email || "",
       });
-      const userImage = mediaUrl(user?.photo);
-      setProfileImage(userImage);
-      setImage(userImage);
     }
   }, [user]);
 
@@ -89,8 +68,6 @@ const ProfileTemplate = () => {
       <BorderWrapper>
         <div className={classes.wrapper}>
           <div className={classes.profile}>
-            {/* // image ||
-        // profileImage || */}
             <Image
               src={"/Images/app-images/web-image/avatar.png"}
               alt="profile"
@@ -98,20 +75,6 @@ const ProfileTemplate = () => {
               objectFit="cover"
               className={classes?.profileImage}
             />
-            {/* <div className={classes.CTA}>
-            <input
-              type="file"
-              accept="image/*"
-              style={{ display: "none" }}
-              id="fileInput"
-              onChange={handleImageChange}
-            />
-            <label htmlFor="fileInput">
-              <div className={classes?.addIcon}>
-                <IoMdAdd color="var(--white-color)" size={25} />
-              </div>
-            </label>
-          </div> */}
           </div>
           <Row>
             <Col xs="12">
@@ -154,14 +117,17 @@ const ProfileTemplate = () => {
               />
             </Col>
           </Row>
-          <div
+          <button
+            type="button"
             onClick={() => {
               router.push("/updatePassword");
             }}
+            aria-label="Update Password"
             className={mergeClass("mt-3", "textBlodLeft")}
+            style={{ background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "left" }}
           >
             Update Password?
-          </div>
+          </button>
           <div className="btnRight">
             <Button
               onClick={profileFormik.handleSubmit}
