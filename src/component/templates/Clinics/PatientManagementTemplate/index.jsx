@@ -43,7 +43,7 @@ const PatientManagementTemplate = () => {
     };
     const queryString = new URLSearchParams(query)
       .toString()
-      .replace(/\+/g, "%20");
+      .replaceAll("+", "%20");
     const { response } = await Get({
       route: `users/patient/all?${queryString}`,
     });
@@ -60,7 +60,7 @@ const PatientManagementTemplate = () => {
 
   const handleDelete = async () => {
     setLoading("deletePatient");
-    const { response, error } = await Delete({
+    const { error } = await Delete({
       route: `users/clinic/delete-patient/${selectedPatient?.slug}`,
     });
     if (error == null) {
