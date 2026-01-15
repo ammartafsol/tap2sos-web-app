@@ -1,6 +1,19 @@
+import PropTypes from "prop-types";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import ReactSelect, { components } from "react-select";
 import classes from "./DropDown.module.css";
+
+const DropdownIndicator = ({ isFocused, indicatorColor }) => {
+  return (
+    <components.DropdownIndicator>
+      {isFocused ? (
+        <MdKeyboardArrowUp size={16} color={indicatorColor} />
+      ) : (
+        <MdKeyboardArrowDown size={16} color={indicatorColor} />
+      )}
+    </components.DropdownIndicator>
+  );
+};
 
 const DropDown = ({
   options,
@@ -31,17 +44,6 @@ const DropDown = ({
   errorText,
   ...props
 }) => {
-  const DropdownIndicator = (props) => {
-    return (
-      <components.DropdownIndicator {...props}>
-        {props.isFocused ? (
-          <MdKeyboardArrowUp size={16} color={indicatorColor} />
-        ) : (
-          <MdKeyboardArrowDown size={16} color={indicatorColor} />
-        )}
-      </components.DropdownIndicator>
-    );
-  };
 
   const dropDownStyle = {
     control: (styles, { isDisabled }) => ({
@@ -175,7 +177,7 @@ const DropDown = ({
           htmlFor={`dropdown${label}`}
           className={`${[
             classes.label,
-            labelClassName && labelClassName,
+            labelClassName || "",
             disabled && classes.disabled,
           ].join(" ")}`}
         >
@@ -202,12 +204,10 @@ const DropDown = ({
           styles={{ ...dropDownStyle, ...style ,}}
           isClearable={false}
           isSearchable={isSearchable}
-          classNamePrefix={`DropdownOptionContainer ${
-            classNamePrefix && classNamePrefix
-          }`}
+          classNamePrefix={`DropdownOptionContainer ${classNamePrefix || ""}`}
           components={{
             IndicatorSeparator: () => null,
-            DropdownIndicator: (e) => DropdownIndicator(e),
+            DropdownIndicator: (e) => <DropdownIndicator isFocused={e.isFocused} indicatorColor={indicatorColor} />,
             ...Components,
           }}
           getOptionLabel={(option) => {
@@ -226,6 +226,75 @@ const DropDown = ({
       )}
     </div>
   );
+};
+
+DropdownIndicator.propTypes = {
+  isFocused: PropTypes.bool,
+  indicatorColor: PropTypes.string,
+};
+
+DropdownIndicator.defaultProps = {
+  isFocused: false,
+  indicatorColor: "#3F78A3",
+};
+
+DropDown.propTypes = {
+  options: PropTypes.array.isRequired,
+  label: PropTypes.string,
+  customStyle: PropTypes.object,
+  disabled: PropTypes.bool,
+  value: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  setValue: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  isMulti: PropTypes.bool,
+  style: PropTypes.object,
+  leftIcon: PropTypes.node,
+  Components: PropTypes.object,
+  labelClassName: PropTypes.string,
+  indicatorColor: PropTypes.string,
+  optionLabel: PropTypes.string,
+  optionValue: PropTypes.string,
+  selectRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
+  isSearchable: PropTypes.bool,
+  borderRadius: PropTypes.string,
+  classNamePrefix: PropTypes.string,
+  customContainerClass: PropTypes.string,
+  className: PropTypes.string,
+  variant: PropTypes.string,
+  customContainerStyle: PropTypes.object,
+  inputClass: PropTypes.string,
+  iconClass: PropTypes.string,
+  errorText: PropTypes.string,
+};
+
+DropDown.defaultProps = {
+  label: "",
+  customStyle: {},
+  disabled: false,
+  value: null,
+  placeholder: "Select...",
+  isMulti: false,
+  style: {},
+  leftIcon: null,
+  Components: {},
+  labelClassName: "",
+  indicatorColor: "#3F78A3",
+  optionLabel: "",
+  optionValue: "",
+  selectRef: null,
+  isSearchable: true,
+  borderRadius: "5px",
+  classNamePrefix: "",
+  customContainerClass: "",
+  className: "",
+  variant: "",
+  customContainerStyle: {},
+  inputClass: "",
+  iconClass: "",
+  errorText: "",
 };
 
 export default DropDown;
