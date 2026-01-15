@@ -1,10 +1,11 @@
+import PropTypes from "prop-types";
 import { Skeleton } from "@mui/material";
-import React from "react";
+import React, { useMemo } from "react";
 import classes from "./TableSkeleton.module.css";
 
 function TableSkeleton({ rowsCount = 10, colsCount = 5, height }) {
-  const rows = Array(rowsCount).fill(0);
-  const cols = Array(colsCount).fill(0);
+  const rows = useMemo(() => new Array(rowsCount).fill(0).map((_, i) => ({ id: `row-${rowsCount}-${i}`, index: i })), [rowsCount]);
+  const cols = useMemo(() => new Array(colsCount).fill(0).map((_, i) => ({ id: `col-${colsCount}-${i}`, index: i })), [colsCount]);
 
   return (
     <>
@@ -26,15 +27,15 @@ function TableSkeleton({ rowsCount = 10, colsCount = 5, height }) {
         <div className=" js-pscroll ps ps--active-y">
           <table>
             <tbody>
-              {rows.map((item, index) => (
-                <tr className="row100 body tr" key={`row-${index}`}>
-                  {cols?.map((item) => (
+              {rows.map((row) => (
+                <tr className="row100 body tr" key={row.id}>
+                  {cols.map((col) => (
                     <td
                       style={{
                         width: `${100 / colsCount}%`,
                         paddingBlock: "5px",
                       }}
-                      key={`col-${item}`}
+                      key={col.id}
                     >
                       <Skeleton height={height ?? 50} />
                     </td>
@@ -48,5 +49,17 @@ function TableSkeleton({ rowsCount = 10, colsCount = 5, height }) {
     </>
   );
 }
+
+TableSkeleton.propTypes = {
+  rowsCount: PropTypes.number,
+  colsCount: PropTypes.number,
+  height: PropTypes.number,
+};
+
+TableSkeleton.defaultProps = {
+  rowsCount: 10,
+  colsCount: 5,
+  height: 50,
+};
 
 export default TableSkeleton;
