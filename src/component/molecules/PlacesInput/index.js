@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   Combobox,
   ComboboxInput,
@@ -40,7 +41,7 @@ export default function PlacesInput({
   });
 
   useEffect(() => {
-    if (address == "") {
+    if (address === "") {
       setValue("", false);
       clearSuggestions();
     }
@@ -59,16 +60,16 @@ export default function PlacesInput({
     let city = "";
     let state = "";
 
-    let addrComp = results[0].address_components;
-    for (let i = 0; i < addrComp.length; ++i) {
-      if (addrComp[i].types.includes("administrative_area_level_1"))
-        state = addrComp[i].long_name;
-      else if (addrComp[i].types.includes("locality"))
-        city = addrComp[i].long_name;
-      else if (addrComp[i].types.includes("country"))
-        country = addrComp[i].long_name;
+    const addrComp = results[0].address_components;
+    for (const component of addrComp) {
+      if (component.types.includes("administrative_area_level_1"))
+        state = component.long_name;
+      else if (component.types.includes("locality"))
+        city = component.long_name;
+      else if (component.types.includes("country"))
+        country = component.long_name;
       //we can break early if we find all three data
-      if (state != "" && city != "" && country != "") break;
+      if (state !== "" && city !== "" && country !== "") break;
     }
     setLocationData({
       address: val,
@@ -88,7 +89,7 @@ export default function PlacesInput({
     <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
       <Combobox
         onSelect={handleSelect}
-        className={`${className ? className : ""}`}
+        className={`${className || ""}`}
       >
         {label && (
           <label
@@ -104,8 +105,8 @@ export default function PlacesInput({
             value={value}
             onChange={(e) => {
               setValue(e.target.value);
-              if (e.target.value == "") {
-                setLocationData && setLocationData(null);
+              if (e.target.value === "") {
+                setLocationData?.(null);
                 setValue("", false);
                 clearSuggestions();
               }
@@ -136,3 +137,28 @@ export default function PlacesInput({
     </form>
   );
 }
+
+PlacesInput.propTypes = {
+  setLocationData: PropTypes.func.isRequired,
+  address: PropTypes.string,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+  className: PropTypes.string,
+  leftIcon: PropTypes.node,
+  types: PropTypes.arrayOf(PropTypes.string),
+  rightIcon: PropTypes.node,
+  errorText: PropTypes.string,
+  labelTextStl: PropTypes.string,
+};
+
+PlacesInput.defaultProps = {
+  address: "",
+  label: "",
+  placeholder: "Search address",
+  className: "",
+  leftIcon: null,
+  types: null,
+  rightIcon: null,
+  errorText: "",
+  labelTextStl: "",
+};
