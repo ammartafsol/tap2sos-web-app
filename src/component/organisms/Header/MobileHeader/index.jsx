@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Image from "next/image";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -8,11 +9,8 @@ import Link from "next/link";
 import { NAV_DATA } from "@/developmentContent/appData";
 import { mergeClass } from "@/resources/utils/helper";
 import { usePathname, useRouter } from "next/navigation";
-import Button from "@/component/atoms/Button";
 
 export default function MobileHeader({ logout }) {
-  // const { accessToken } = useSelector((state) => state?.authReducer);
-  const accessToken = false;
   const pathName = usePathname();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -29,21 +27,45 @@ export default function MobileHeader({ logout }) {
             <div className={classes.header}>
               <Row>
                 <Col xs={8}>
-                  <div onClick={()=>{router.push('/')}} className={classes.logoDiv}>
+                  <button
+                    type="button"
+                    onClick={() => { router.push('/'); }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        router.push('/');
+                      }
+                    }}
+                    className={classes.logoDiv}
+                    aria-label="Go to homepage"
+                    style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+                  >
                     <Image
                       src={"/Images/app-images/logo.svg"}
                       alt="logo"
                       fill
                     />
-                  </div>
+                  </button>
                 </Col>
                 <Col xs={4}>
-                  <div className={classes.navHamIcon} onClick={toggleDrawer}>
+                  <button
+                    type="button"
+                    className={classes.navHamIcon}
+                    onClick={toggleDrawer}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        toggleDrawer();
+                      }
+                    }}
+                    aria-label="Toggle navigation menu"
+                    style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+                  >
                     <HiOutlineBars3BottomLeft
                       size={32}
                       color="var(--primary-color)"
                     />
-                  </div>
+                  </button>
                 </Col>
               </Row>
             </div>
@@ -57,46 +79,28 @@ export default function MobileHeader({ logout }) {
           </div>
         </div>
         <div className={classes.navigationDiv}>
-          {NAV_DATA?.map((item, index) => (
-            <Link
-              key={index}
-              href={item?.route}
-              className={mergeClass(
-                classes.link,
-                "fs-16-inter",
-                item?.route === pathName && classes.activeLink
-              )}
-            >
-              {item?.title}
-            </Link>
-          ))}
+          {NAV_DATA?.map((item) => {
+            const navKey = item?.route || item?.title || `nav-${Math.random()}`;
+            return (
+              <Link
+                key={navKey}
+                href={item?.route}
+                className={mergeClass(
+                  classes.link,
+                  "fs-16-inter",
+                  item?.route === pathName && classes.activeLink
+                )}
+              >
+                {item?.title}
+              </Link>
+            );
+          })}
         </div>
-        {/* <div className={classes.buttonSection}>
-          {accessToken ? (
-            <div className={classes.buttonDiv}>
-              <Button
-                variant="primary"
-                label={"Dashboard"}
-                className={classes.dashboardButton}
-              />
-              <Button label={"Log Out"} variant="outlined" />
-            </div>
-          ) : (
-            <div className={classes.buttonDiv}>
-              <Button
-                label={"Sign Up"}
-                variant="primary"
-                onClick={() => router?.push("/signup")}
-              />
-              <Button
-                label={"Log In"}
-                variant="outlined"
-                onClick={() => router?.push("/signin")}
-              />
-            </div>
-          )}
-        </div> */}
       </Drawer>
     </>
   );
 }
+
+MobileHeader.propTypes = {
+  logout: PropTypes.func.isRequired,
+};
