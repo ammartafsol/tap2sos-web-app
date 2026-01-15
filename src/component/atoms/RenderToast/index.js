@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Flip, toast } from "react-toastify";
 
 const RenderToast = ({
@@ -7,8 +8,7 @@ const RenderToast = ({
   ...props
 }) => {
   let toastId =
-    typeof window !== "undefined" &&
-    localStorage.getItem("RT_ERROR_IDENTIFIER");
+    globalThis.window?.localStorage?.getItem("RT_ERROR_IDENTIFIER");
   let toastDetailObject = {
     position: "top-right",
     autoClose: 2000,
@@ -21,8 +21,7 @@ const RenderToast = ({
     ...props,
   };
   const HandleSetErrorOnLocalStorage = () => {
-    typeof window !== "undefined" &&
-      localStorage.setItem("RT_ERROR_IDENTIFIER", "Error Render");
+    globalThis.window?.localStorage?.setItem("RT_ERROR_IDENTIFIER", "Error Render");
     return toast[type](message, {
       ...toastDetailObject,
       toastId: "Error Render",
@@ -39,6 +38,16 @@ const RenderToast = ({
         : HandleSetErrorOnLocalStorage()}
     </div>
   );
+};
+
+RenderToast.propTypes = {
+  type: PropTypes.oneOf(["success", "error", "info", "warning"]),
+  message: PropTypes.string,
+};
+
+RenderToast.defaultProps = {
+  type: "error",
+  message: "Internal Server Error",
 };
 
 export default RenderToast;
