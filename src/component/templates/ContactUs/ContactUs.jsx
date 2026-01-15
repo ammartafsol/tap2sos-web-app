@@ -9,7 +9,6 @@ import { Input } from "@/component/atoms/Input";
 import { TextArea } from "@/component/atoms/TextArea/TextArea";
 import Button from "@/component/atoms/Button";
 import { useState } from "react";
-import { MediaUrl } from "@/resources/utils/helper";
 import { CONTACT_US_FORM_VALUES } from "@/formik/formikInitialValues/form-initial-values";
 import { contactUsSchema } from "@/formik/formikSchema/formik-schemas";
 import { useFormik } from "formik";
@@ -17,11 +16,11 @@ import useAxios from "@/interceptor/axiosInterceptor";
 import RenderToast from "@/component/atoms/RenderToast";
 import ReCAPTCHA from "react-google-recaptcha";
 import { recaptchaSitekey } from "@/const";
+import PropTypes from "prop-types";
 
 export default function ContactUs({ _data }) {
     const { Post } = useAxios();
 
-    const [data, setData] = useState(_data)
     const [loading, setLoading] = useState("");
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const recaptchaRef = useRef(null);
@@ -57,7 +56,6 @@ export default function ContactUs({ _data }) {
             route: "contact-us",
             data: payload,
         });
-        console.log("response",response);
         if (response) {
             RenderToast({
                 type: "success",
@@ -86,40 +84,17 @@ export default function ContactUs({ _data }) {
                   <Row>
                     <Col lg={6}>
                         <div className={classes.headingDiv}>
-                            {/* <h2>{data?.text}</h2> */}
                             <h2>Stay Tuned</h2>
-                            <p>{data?.description}</p>
+                            <p>{_data?.description}</p>
                         </div>
-                        {/* <div className={classes.contactUsDetails}> */}
-                        {/* {data?.details?.map((item, index) => (
-                                <div className={classes.contactInfoDiv} key={index}>
-                                    <div className={classes.imageDiv}>
-                                        <Image src={MediaUrl(item?.icon)} width={32} height={32} alt="" />
-                                    </div>
-                                    <p>{item?.value}</p>
-                                </div>
-                            ))} */}
                         <div className={classes.contactUsDetails}>
-                            {/* <div className={classes.contactInfoDiv}>
-                                    <div className={classes.imageDiv}>
-                                        <Image src={"/Images/app-images/phone.png"} width={32} height={32} alt="" />
-                                    </div>
-                                    <p>+1 890 473 5102</p>
-                                </div> */}
-                            <div className={classes.contactInfoDiv}  >
+                            <div className={classes.contactInfoDiv}>
                                 <div className={classes.imageDiv}>
                                     <Image src={"/Images/app-images/email.png"} width={32} height={32} alt="" />
                                 </div>
                                 <a className={classes?.emailLink} href="mailto:info@newcotech.io">info@newcotech.io</a>
                             </div>
-                            {/* <div className={classes.contactInfoDiv}>
-                                    <div className={classes.imageDiv}>
-                                        <Image src={"/Images/app-images/location.png"} width={32} height={32} alt="" />
-                                    </div>
-                                    <p>912 Park Ave, Ketchikan, Alaska 99901, USA</p>
-                                </div> */}
                         </div>
-                        {/* </div> */}
                     </Col>
                     <Col lg={6} className={classes.contactUsFormDiv}>
                         <Input placeholder={"Name"} 
@@ -150,8 +125,8 @@ export default function ContactUs({ _data }) {
                         <p className={classes.responseTimeText}>
                             We respond within 24 hours on business days
                         </p>
-<div>
-                        <div className={classes.gdprConsentDiv}>
+                        <div>
+                            <div className={classes.gdprConsentDiv}>
                             <input
                                 type="checkbox"
                                 id="gdprConsent"
@@ -163,10 +138,10 @@ export default function ContactUs({ _data }) {
                                 I agree to the processing of my personal data according to our Privacy Policy
                             </label>
                         </div>
-                        {ContactUsFormik.touched.gdprConsent && ContactUsFormik.errors.gdprConsent && (
-                            <p className={classes.errorText}>{ContactUsFormik.errors.gdprConsent}</p>
-                        )}
-</div>
+                            {ContactUsFormik.touched.gdprConsent && ContactUsFormik.errors.gdprConsent && (
+                                <p className={classes.errorText}>{ContactUsFormik.errors.gdprConsent}</p>
+                            )}
+                        </div>
 
                         <div className={classes.recaptchaContainer}>
                             <ReCAPTCHA
@@ -176,11 +151,11 @@ export default function ContactUs({ _data }) {
                             />
                         </div>
 
-                        <Button label={loading == "loading" ? "Please Wait..." : "Submit Message"}
+                        <Button label={loading === "loading" ? "Please Wait..." : "Submit Message"}
                          variant={"gradient"} 
                          onClick={ContactUsFormik.handleSubmit} 
-                         disabled={loading == "loading"} 
-                         loading={loading == "loading"} 
+                         disabled={loading === "loading"} 
+                         loading={loading === "loading"} 
                          type="submit"/>
                         
                         {showSuccessMessage && (
@@ -195,3 +170,7 @@ export default function ContactUs({ _data }) {
         </LayoutWrapper>
     );
 }
+
+ContactUs.propTypes = {
+    _data: PropTypes.object,
+};
