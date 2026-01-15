@@ -55,7 +55,8 @@ const PatientManagementTemplate = () => {
   };
 
   useEffect(() => {
-    getData();
+    getData(1);
+    setPage(1);
   }, [debouceSearch, selectedFilter]);
 
   const handleDelete = async () => {
