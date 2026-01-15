@@ -23,6 +23,7 @@
 .btn[data-color-variant="gradient"] {
   color: white;
   background: linear-gradient(225deg, #e04018 0%, #f8d11d 100%), #0a2147;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 .btn[data-color-variant="primary"] {
   background: var(--royal-navy-blue);
