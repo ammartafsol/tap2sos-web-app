@@ -5,9 +5,5 @@ import React from 'react'
 export default async function AboutUsPage() {
   // const data = await getApi('cms/page/aboutUsPage')
 
-  return (
-    <>
-      <AboutUs />
-    </>
-  )
+  return  <AboutUs />
 }
