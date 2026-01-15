@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useLoadScript } from "@react-google-maps/api";
 import { config } from "@/config";
 import PlacesInput from "@/component/molecules/PlacesInput";
@@ -31,7 +32,7 @@ const MapAndPlaces = ({
     libraries: ["places", "visualization"],
   });
   if (!isLoaded) {
-    return loader ? loader : <div>Loading</div>;
+    return loader || <div>Loading</div>;
   }
 
   if (loadError) {
@@ -43,7 +44,7 @@ const MapAndPlaces = ({
   }
 
   return (
-    <div className={`${className ? className : ""}`}>
+    <div className={`${className || ""}`}>
       {type === "map" ? (
         <MapView
           data={data}
@@ -68,6 +69,51 @@ const MapAndPlaces = ({
       )}
     </div>
   );
+};
+
+MapAndPlaces.propTypes = {
+  type: PropTypes.oneOf(["map", "places"]),
+  className: PropTypes.string,
+  mapClass: PropTypes.string,
+  placeClass: PropTypes.string,
+  setLocationData: PropTypes.func,
+  address: PropTypes.string,
+  location: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
+  }),
+  placeholder: PropTypes.string,
+  label: PropTypes.string,
+  leftIcon: PropTypes.node,
+  data: PropTypes.arrayOf(PropTypes.object),
+  loader: PropTypes.node,
+  types: PropTypes.arrayOf(PropTypes.string),
+  rightIcon: PropTypes.node,
+  errorText: PropTypes.string,
+  customIcon: PropTypes.node,
+  zoomLevel: PropTypes.number,
+  labelTextStl: PropTypes.string,
+};
+
+MapAndPlaces.defaultProps = {
+  type: "map",
+  className: "",
+  mapClass: "",
+  placeClass: "",
+  setLocationData: null,
+  address: "",
+  location: defaultLocation,
+  placeholder: "",
+  label: "",
+  leftIcon: null,
+  data: null,
+  loader: null,
+  types: null,
+  rightIcon: null,
+  errorText: "",
+  customIcon: null,
+  zoomLevel: undefined,
+  labelTextStl: "",
 };
 
 export default MapAndPlaces;
