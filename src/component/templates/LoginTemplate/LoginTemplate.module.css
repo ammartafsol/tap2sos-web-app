@@ -50,6 +50,18 @@
   cursor: pointer;
   width: max-content;
   align-self: flex-end;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  text-align: inherit;
+}
+
+.forgetPassword:focus {
+  outline: 2px solid var(--deep-ocean-blue);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .signupContainer {
@@ -70,10 +82,22 @@
   cursor: pointer;
   text-decoration: underline;
   transition: color 0.2s ease;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  text-align: inherit;
 }
 
 .signupLink:hover {
   color: var(--deep-ocean-blue);
+}
+
+.signupLink:focus {
+  outline: 2px solid var(--reddish-orange);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 

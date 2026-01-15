@@ -55,7 +55,6 @@ export default function LoginTemplate() {
         message: "Login Successfully",
       });
       router.push("/clinic/patient");
-      // router.push("/clinic/dashboard");
     }
     setLoading("");
   };
@@ -91,14 +90,16 @@ export default function LoginTemplate() {
               }
               mainContClassName={"mb-0"}
             />
-            <p
+            <button
+              type="button"
               onClick={() => {
                 router.push("/forget-password");
               }}
               className={classes.forgetPassword}
+              aria-label="Forgot Password"
             >
               Forgot Password?
-            </p>
+            </button>
             <Button
               label={loading == "submitLogin" ? "Please Wait..." : "Login"}
               variant={"gradient"}
@@ -107,12 +108,14 @@ export default function LoginTemplate() {
             />
             <div className={classes.signupContainer}>
               Don't have an account?{" "}
-              <span 
+              <button
+                type="button"
                 onClick={() => router.push("/sign-up")}
                 className={classes.signupLink}
+                aria-label="Sign up"
               >
                 Sign up
-              </span>
+              </button>
             </div>
           </Col>
         </div>
