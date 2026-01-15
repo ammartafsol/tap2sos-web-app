@@ -2,6 +2,7 @@ import {
   isValidPhoneNumber,
   parsePhoneNumberFromString,
 } from "libphonenumber-js";
+import PropTypes from "prop-types";
 import { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import classes from "./CustomPhoneInput.module.css"; // Import the CSS Module
@@ -18,7 +19,7 @@ const CustomPhoneInput = ({
   const showError = errorText || error;
   const handlePhoneChange = (phone) => {
     const phoneNumberObj = parsePhoneNumberFromString(`+${phone}`);
-    if (phoneNumberObj !== undefined && phoneNumberObj?.country) {
+    if (phoneNumberObj?.country) {
       const isValid = isValidPhoneNumber(
         phoneNumberObj.nationalNumber,
         phoneNumberObj?.country
@@ -27,10 +28,10 @@ const CustomPhoneInput = ({
         callingCode: phoneNumberObj.countryCallingCode,
         phoneNumber: phoneNumberObj.nationalNumber,
       });
-      if (!isValid) {
-        setError("Invalid phone number");
-      } else {
+      if (isValid) {
         setError("");
+      } else {
+        setError("Invalid phone number");
       }
     } else {
       setError("");
@@ -58,6 +59,23 @@ const CustomPhoneInput = ({
       {showError && <p className={`${classes.errorText}`}>{showError}</p>}
     </div>
   );
+};
+
+CustomPhoneInput.propTypes = {
+  value: PropTypes.string,
+  setValue: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  errorText: PropTypes.string,
+  labelStyle: PropTypes.object,
+  disabled: PropTypes.bool,
+};
+
+CustomPhoneInput.defaultProps = {
+  value: "",
+  label: "",
+  errorText: "",
+  labelStyle: {},
+  disabled: false,
 };
 
 export default CustomPhoneInput;
