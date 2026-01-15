@@ -17,7 +17,6 @@ import {
 import { ADD_EDIT_PATIENT_FORM_VALUES } from "@/formik/formikInitialValues/form-initial-values";
 import { getAddPatientValidationSchema } from "@/formik/formikSchema/formik-schemas";
 import useAxios from "@/interceptor/axiosInterceptor";
-import { BaseURL } from "@/resources/utils/helper";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -35,10 +34,7 @@ import UploadProfile from "@/component/molecules/UploadProfile";
 export default function AddOrEditPatientTemplate({ slug }) {
   const { Get, Post, Patch, Delete } = useAxios();
   const router = useRouter();
-  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(""); // getPatientDetails, addOrEditPatientRequest
-  const [attachments, setAttachments] = useState([]);
-  const [selectedKey, setSelectedKey] = useState("");
   const [docs, setDocs] = useState({});
   const [uploaders, setUploaders] = useState({});
   const [isLoadingWithType, setIsLoadingWithTypes] = useState("");
@@ -74,7 +70,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
       useOfElectronicDevice: yesNoToBool(value.useOfElectronicDevice),
       dateOfBirth: new Date(value.dateOfBirth),
       attachments: docs,
-      photo: uploadImage ? uploadImage : "",
+      photo: uploadImage || "",
       // ...(docs?.length > 0 && { attachments: docs }),
     };
 
@@ -155,15 +151,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
     }
   }, []);
 
-  const downloadDocumens = async (key) => {
-    setLoading("load");
-    setSelectedKey(key);
-    const url = BaseURL(`users/media/fetch/${key}`);
-    window.open(url);
-    setLoading("");
-    setSelectedKey("");
-  };
-
   const handleMediaSelect = (selectedOptions) => {
     const updatedAttachments = {};
     selectedOptions.forEach(({ label }) => {
@@ -176,25 +163,13 @@ export default function AddOrEditPatientTemplate({ slug }) {
     setDocs(updatedAttachments);
   };
 
-  const handleAddUploader = (type) => {
-    const current = uploaders[type] || [];
-    const totalUploaded = docs[type]?.length || 0;
-
-    if (current.length + totalUploaded < 2) {
-      setUploaders((prev) => ({
-        ...prev,
-        [type]: [...current, {}],
-      }));
-    }
-  };
-
   // handleUploadMedia
   const handleUploadMedia = (
     files,
     type, // this corresponds to each media type like "MRI", "CT Scan", etc.
-    maxCount = 2,
     setDocs,
-    docs
+    docs,
+    maxCount = 2,
   ) => {
     const existingFiles = docs[type] || [];
     let uploadedFiles = files.filter((file) => file instanceof File);
@@ -1010,11 +985,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
                     // disable={isDisabled} // Disable if files already exist in the uploader
                     Delete={Delete}
                     setFiles={(f) => {
-                      // const updatedFiles = [...uploaderFiles, ...f];
-                      // const updatedUploaders = { ...uploaders };
-                      // updatedUploaders[type][idx] = { files: updatedFiles };
-                      // setUploaders(updatedUploaders);
-
                       // Ensure docs are updated with the new files for this specific type
                       handleUploadMedia(f, type, 2, setDocs, docs);
                     }}
@@ -1026,54 +996,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
                       setDocs(updatedDocs);
                     }}
                   />
-
-                  {/* Uploaders */}
-                  {/* {uploaderSlots.map((uploader, idx) => {
-                    const uploaderFiles = uploader.files || [];
-                    const isDisabled = uploaderFiles.length > 0; // Disable if files are uploaded
-
-                    console.log("docs[type]",docs[type])
-
-                    return (
-                      <MultiFileUpload
-                        key={idx}
-                        files={docs[type]} // Use uploaderFiles specific to each uploader
-                        acceptedFiles={getSupportedImageTypes("pdf")}
-                        maxFileCount={2}
-                        disable={isDisabled} // Disable if files already exist in the uploader
-                        Delete={Delete}
-                        setFiles={(f) => {
-                          const updatedFiles = [...uploaderFiles, ...f];
-                          const updatedUploaders = { ...uploaders };
-                          updatedUploaders[type][idx] = { files: updatedFiles };
-                          setUploaders(updatedUploaders);
-
-                          // Ensure docs are updated with the new files for this specific type
-                          handleUploadMedia(f, type, 2, setDocs, docs);
-                        }}
-                        removeFileCb={(key) => {
-                          // Filter out the file from the uploader's files
-                          const updatedUploaderFiles = uploaderFiles.filter(
-                            (f) => f.key !== key
-                          );
-                          const updatedUploaders = { ...uploaders };
-                          updatedUploaders[type][idx] = {
-                            files: updatedUploaderFiles,
-                          };
-                          setUploaders(updatedUploaders);
-
-                          // Remove the file from the docs[type] as well
-                          const updatedDocs = {
-                            ...docs,
-                            [type]: (docs[type] || []).filter(
-                              (file) => file.key !== key
-                            ),
-                          };
-                          setDocs(updatedDocs);
-                        }}
-                      />
-                    );
-                  })} */}
                 </div>
               );
             })}
@@ -1092,23 +1014,6 @@ export default function AddOrEditPatientTemplate({ slug }) {
                 disabled={loading == "addOrEditPatientRequest"}
               />
             </Col>
-
-            {/* {attachments?.length > 0 && (
-              <>
-                <h5 className={classes?.attachmentsHeading}>Attachments</h5>
-                <div className={classes?.attachments}>
-                  {attachments.map((item) => (
-                    <ShowDocuments
-                      key={item?.key}
-                      item={item}
-                      downloadDocumens={downloadDocumens}
-                      loading={loading}
-                      selectedKey={selectedKey}
-                    />
-                  ))}
-                </div>
-              </>
-            )} */}
           </Row>
         </div>
       </Container>
