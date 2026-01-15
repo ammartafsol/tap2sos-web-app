@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import classes from "./AboutUs.module.css";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
 import TopHeader from "@/component/atoms/TopHeader";
@@ -11,20 +10,16 @@ import Button from "@/component/atoms/Button";
 import { imagesSection } from "@/developmentContent/appData";
 import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 import GuideSection from "@/component/atoms/GuideSection";
-import { useState } from "react";
-import { MediaUrl } from "@/resources/utils/helper";
 import Parser from "html-react-parser";
 
 const AboutUs = () => {
  
-  // const [aboutUsData, setAboutUsData] = useState(data)
   const aboutUsData = aboutUsPageData;
   return (
     <>
       <LayoutWrapper>
         <TopHeader />
         <Container>
-          {/* <div className={classes.header} style={{ backgroundImage: `url(${MediaUrl(aboutUsData?.heroSection?.image)})` }}> */}
           <div className={classes.header}>
             <div className={classes?.headerChild}>
               <h4>{aboutUsData?.heroSection?.subTitle}</h4>
@@ -56,8 +51,8 @@ const AboutUs = () => {
           </Col>
         </Row>
         <Row className={classes?.imagesTop}>
-          {aboutUsData?.partnersSection?.map((item, index) => (
-            <Col className={classes?.imagesSection} key={index}>
+          {aboutUsData?.partnersSection?.map((item) => (
+            <Col className={classes?.imagesSection} key={item}>
               <Image src={item} fill alt="logo" />
             </Col>
           ))}
