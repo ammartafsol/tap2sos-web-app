@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { AFTER_LOGIN_NAV_DATA, NAV_DATA } from "@/developmentContent/appData";
 import { MediaUrl, mergeClass } from "@/resources/utils/helper";
 import Image from "next/image";
@@ -26,22 +27,37 @@ export default function DesktopHeader({ isScroll, logout }) {
         <Row className="g-0 w-100">
           <Col md={12} className="p-0">
             <div className={classes.mainHeader}>
-              <div onClick={()=>{router.push('/')}} className={classes.logoDiv}>
+              <button
+                type="button"
+                onClick={() => { router.push('/'); }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    router.push('/');
+                  }
+                }}
+                className={classes.logoDiv}
+                aria-label="Go to homepage"
+                style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+              >
                 <Image src={"/Images/app-images/logo.svg"} alt="logo" fill />
-              </div>
+              </button>
 
               {/* navigation */}
               <div className={classes.headerRight}>
                 <div className={classes.navigationDiv}>
-                  {NAV_DATA?.map((item, index) => (
-                    <Link
-                      key={index}
-                      href={item?.route}
-                      className={mergeClass(classes.link, "fs-16-inter")}
-                    >
-                      {item?.title}
-                    </Link>
-                  ))}
+                  {NAV_DATA?.map((item) => {
+                    const navKey = item?.route || item?.title || `nav-${Math.random()}`;
+                    return (
+                      <Link
+                        key={navKey}
+                        href={item?.route}
+                        className={mergeClass(classes.link, "fs-16-inter")}
+                      >
+                        {item?.title}
+                      </Link>
+                    );
+                  })}
                 </div>
                 {isLogin ? (
                   <OverlayTrigger
@@ -51,19 +67,35 @@ export default function DesktopHeader({ isScroll, logout }) {
                     overlay={
                       <div className={classes.overlayContainer}>
                         <p className={classes.userName}>{user?.clinicName}</p>
-                        {AFTER_LOGIN_NAV_DATA?.map((item, index) => (
-                          <Link
-                            key={index}
-                            href={item?.route}
-                            className={mergeClass(classes.overLayLinks)}
-                            onClick={()=>{setShow(false);}}
-                          >
-                            {item?.title}
-                          </Link>
-                        ))}
-                        <p  className={classes.overLayLinks} onClick={()=>{logout();setShow(false);}}>
+                        {AFTER_LOGIN_NAV_DATA?.map((item) => {
+                          const overlayKey = item?.route || item?.title || `overlay-nav-${Math.random()}`;
+                          return (
+                            <Link
+                              key={overlayKey}
+                              href={item?.route}
+                              className={mergeClass(classes.overLayLinks)}
+                              onClick={() => { setShow(false); }}
+                            >
+                              {item?.title}
+                            </Link>
+                          );
+                        })}
+                        <button
+                          type="button"
+                          className={classes.overLayLinks}
+                          onClick={() => { logout(); setShow(false); }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              logout();
+                              setShow(false);
+                            }
+                          }}
+                          aria-label="Logout"
+                          style={{ background: "none", border: "none", padding: 0, cursor: "pointer", width: "100%", textAlign: "left" }}
+                        >
                           Logout
-                        </p>
+                        </button>
                       </div>
                     }
                     show={show}
@@ -110,3 +142,12 @@ export default function DesktopHeader({ isScroll, logout }) {
     </Navbar>
   );
 }
+
+DesktopHeader.propTypes = {
+  isScroll: PropTypes.bool,
+  logout: PropTypes.func.isRequired,
+};
+
+DesktopHeader.defaultProps = {
+  isScroll: false,
+};
