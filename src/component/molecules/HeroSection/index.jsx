@@ -1,9 +1,9 @@
 import NavigateButton from "@/component/atoms/NavigateButton";
 import Image from "next/image";
 import React from "react";
+import PropTypes from "prop-types";
 import { Col, Container, Row } from "react-bootstrap";
 import classes from "./HeroSection.module.css";
-import {  MediaUrl } from "@/resources/utils/helper";
 
 const HeroSection = ({ data }) => {
   return (
@@ -53,6 +53,14 @@ const HeroSection = ({ data }) => {
       </Row>
     </Container>
   );
+};
+
+HeroSection.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    spanText: PropTypes.string,
+    description: PropTypes.string,
+  }).isRequired,
 };
 
 export default HeroSection;
