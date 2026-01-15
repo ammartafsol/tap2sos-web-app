@@ -37,7 +37,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
   const router = useRouter();
   const [loading, setLoading] = useState(""); // getPatientDetails, addOrEditPatientRequest
   const [docs, setDocs] = useState({});
-  const [isLoadingWithType, setIsLoadingWithTypes] = useState("");
+  const [isLoadingWithType, setIsLoadingWithType] = useState("");
   const [uploadImage, setUploadImage] = useState(null);
 
   const formikAddPatient = useFormik({
@@ -190,7 +190,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
 
     uploadImagesHelper({
       images: uploadedFiles,
-      setIsLoading: setIsLoadingWithTypes,
+      setIsLoading: setIsLoadingWithType,
       loadingType: "uploadingImages",
       Post,
       setMedia: (media) => {
