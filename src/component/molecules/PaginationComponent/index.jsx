@@ -1,4 +1,5 @@
 "use client";
+import PropTypes from "prop-types";
 import {
   MdKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
@@ -33,18 +34,52 @@ export default function PaginationComponent({
         className={classes.text}
       >{`Showing ${currentPage} of ${totalPages}`}</div>
       <div className="d-flex gap-2">
-        <div onClick={goToPrevPage}>
-          <div className={classes.iconBox}>
-            <MdKeyboardArrowLeft size={20} />
-          </div>
-        </div>
+        <button
+          type="button"
+          onClick={goToPrevPage}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              goToPrevPage();
+            }
+          }}
+          className={classes.iconBox}
+          aria-label="Go to previous page"
+          disabled={currentPage <= 1}
+          style={{ background: "none", border: "none", padding: 0, cursor: currentPage <= 1 ? "not-allowed" : "pointer" }}
+        >
+          <MdKeyboardArrowLeft size={20} />
+        </button>
 
-        <div onClick={goToNextPage}>
-          <div className={classes.iconBox}>
-            <MdOutlineKeyboardArrowRight size={20} />
-          </div>
-        </div>
+        <button
+          type="button"
+          onClick={goToNextPage}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              goToNextPage();
+            }
+          }}
+          className={classes.iconBox}
+          aria-label="Go to next page"
+          disabled={currentPage >= totalPages}
+          style={{ background: "none", border: "none", padding: 0, cursor: currentPage >= totalPages ? "not-allowed" : "pointer" }}
+        >
+          <MdOutlineKeyboardArrowRight size={20} />
+        </button>
       </div>
     </div>
   );
 }
+
+PaginationComponent.propTypes = {
+  totalRecords: PropTypes.number,
+  currentPage: PropTypes.number,
+  setCurrentPage: PropTypes.func,
+};
+
+PaginationComponent.defaultProps = {
+  totalRecords: 50,
+  currentPage: 1,
+  setCurrentPage: () => {},
+};
