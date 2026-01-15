@@ -1,11 +1,11 @@
 "use client";
+import PropTypes from "prop-types";
 import LottieLoader from "@/component/atoms/LottieLoader/LottieLoader";
 import RenderToast from "@/component/atoms/RenderToast";
 import {
   getMediaType,
   getSupportedImageTypes,
 } from "@/resources/utils/mediaUpload";
-import Image from "next/image";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { BsFillPlusSquareFill } from "react-icons/bs";
@@ -39,7 +39,6 @@ const MultiFileUpload = ({
     ...extraStyles,
   };
 
-  console.log("files", files);
   // onDrop
   const onDrop = (_acceptedFiles) => {
     // validate
@@ -69,14 +68,11 @@ const MultiFileUpload = ({
   };
 
   const renderFileComponent = (file) => {
-    console.log("file", file);
     const isFileObject = typeof file === "object";
     const fileType = getMediaType(
       isFileObject ? file?.type : file?.split(".").pop()
     );
-    console.log("fileType", fileType);
     if (["images", "photos"].includes(fileType)) {
-      console.log("not enter");
       return (
         <div className={classes?.imageContainer}>
           <img
@@ -85,38 +81,30 @@ const MultiFileUpload = ({
           />
         </div>
       );
-    }
-    // else if (fileType === "video") {
-    //   console.log("else if ")
-    //   return (
-    //     <ReactPlayer url={URL.createObjectURL(file)} playing={false} controls />
-    //   );
-    // }
-    else {
+    } else {
       return (
         <div className={classes.filePreview}>
-          <span className={classes.previewIcon}>
+          <button
+            type="button"
+            className={classes.previewIcon}
+            onClick={() => window.open(MediaUrl(file), "_blank")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                window.open(MediaUrl(file), "_blank");
+              }
+            }}
+            aria-label="View file"
+            style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+          >
             <FaFileContract
               title="View File"
               size={35}
               color="var(--secondary-text)"
-              onClick={() =>
-                // window.open(
-                //   isFileObject ? URL.createObjectURL(file) : MediaUrl(file),
-                //   "_blank"
-                // )
-                window.open(MediaUrl(file), "_blank")
-              }
             />
-          </span>
+          </button>
         </div>
       );
-      // } else {
-      //   return (
-      //     <div className={classes.filePreview}>
-      //       <p className={classes?.previewIcon}>{file.name}</p>
-      //     </div>
-      //   );
     }
   };
 
@@ -143,19 +131,29 @@ const MultiFileUpload = ({
 
       {files && (
         <div className={classes.filePreviewList}>
-          {files?.map((file, index) => {
+          {files?.map((file) => {
+            const fileKey = file?.key || file?.id || file?.name || file?.fileName || `file-${Math.random()}`;
             return (
-              <div key={index}>
-                <div  className={classes.fileItem}>
-                  <span
+              <div key={fileKey}>
+                <div className={classes.fileItem}>
+                  <button
+                    type="button"
                     className={classes.removeFile}
                     onClick={() => removeFile(file?.key || "")}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        removeFile(file?.key || "");
+                      }
+                    }}
+                    aria-label="Remove file"
+                    style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
                   >
                     <IoCloseOutline color="var(--white)" size={22} />
-                  </span>
+                  </button>
                   {renderFileComponent(file)}
                 </div>
-                <div>{file.fileName.slice(-14)}</div>
+                <div>{file.fileName?.slice(-14) || file.name?.slice(-14) || "File"}</div>
               </div>
             );
           })}
@@ -170,18 +168,16 @@ const MultiFileUpload = ({
             <div {...getRootProps({ className: "dropzone" })}>
               <input disabled={disable} {...getInputProps()} />
               <div className={classes.fileDesc}>
-                {uploadIcon ? uploadIcon : <MdOutlineCloudDone size={25} />}
-                <p className={`${customTextClass} ${classes.text}`}>
+                {uploadIcon || <MdOutlineCloudDone size={25} />}
+                <p className={`${customTextClass || ""} ${classes.text}`}>
                   {uploadText}
                 </p>
                 <BsFillPlusSquareFill color="var(--primary-bg)" size={20} />
-                {fileSize ||
-                  (supportedFiles && (
-                    <div>
-                      <p className={classes.desc}>{fileSize}</p>
-                      {/* <p className={classes.desc}>{supportedFiles}</p> */}
-                    </div>
-                  ))}
+                {(fileSize || supportedFiles) && (
+                  <div>
+                    {fileSize && <p className={classes.desc}>{fileSize}</p>}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -192,6 +188,47 @@ const MultiFileUpload = ({
       {isDeleteApiCalling && <LottieLoader />}
     </>
   );
+};
+
+MultiFileUpload.propTypes = {
+  label: PropTypes.string,
+  uploadText: PropTypes.string,
+  customTextClass: PropTypes.string,
+  fileSize: PropTypes.string,
+  supportedFiles: PropTypes.string,
+  uploadImage: PropTypes.string,
+  files: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string,
+    ])
+  ).isRequired,
+  uploadIcon: PropTypes.node,
+  setFiles: PropTypes.func.isRequired,
+  errorText: PropTypes.string,
+  disable: PropTypes.bool,
+  extraStyles: PropTypes.object,
+  acceptedFiles: PropTypes.object,
+  removeFileCb: PropTypes.func,
+  maxFileCount: PropTypes.number,
+  Delete: PropTypes.func,
+};
+
+MultiFileUpload.defaultProps = {
+  label: "",
+  uploadText: "Upload File",
+  customTextClass: "",
+  fileSize: "",
+  supportedFiles: "File formats pdf and Word Doc",
+  uploadImage: "",
+  uploadIcon: null,
+  errorText: "",
+  disable: false,
+  extraStyles: {},
+  acceptedFiles: getSupportedImageTypes("all"),
+  removeFileCb: null,
+  maxFileCount: 5,
+  Delete: null,
 };
 
 export default MultiFileUpload;
