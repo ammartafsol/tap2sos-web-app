@@ -74,7 +74,7 @@ const DashboardTemplate = () => {
             <Row className="g-2" >
               {statsData?.map((item, index) => {
                 return (
-                  <Col key={index}   md="6" xl={4} >
+                  <Col key={item.title}   md="6" xl={4} >
                     <StatesCard item={item} />
                   </Col>
                 );
