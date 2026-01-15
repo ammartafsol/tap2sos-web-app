@@ -1,10 +1,8 @@
 "use client";
 
-import GuideCard from "@/component/atoms/GuideCard";
 import LayoutWrapper from "@/component/atoms/LayoutWrapper";
 import HeroSection from "@/component/molecules/HeroSection";
 import { LANDING_PAGE_DATA } from "@/developmentContent/landingPage";
-import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import classes from "./LandingView.module.css";
 import Newsletter from "@/component/molecules/Newsletter";
@@ -12,10 +10,8 @@ import GuideSection from "@/component/atoms/GuideSection";
 import TextImage from "@/component/atoms/TextImage";
 import FeaturesSection from "@/component/atoms/FeaturesSection";
 import FaqSection from "@/component/molecules/FaqSection/FaqSection";
-import { aboutUsPageData } from "@/developmentContent/aboutUsPageData";
 
 export default function LandingView() {
-  // const [data, setData] = useState(landingPageData);
   const data = LANDING_PAGE_DATA;
   return (
     <>
