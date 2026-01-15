@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import classes from "./FaqSection.module.css";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import CustomAccordion from "@/component/organisms/CustomAccordion/CustomAccordion";
 import { mergeClass } from "@/resources/utils/helper";
 
@@ -18,3 +19,16 @@ export default function FaqSection({ data, title, faqDiv, faqMainClass }) {
     </div>
   );
 }
+
+FaqSection.propTypes = {
+  data: PropTypes.array.isRequired,
+  title: PropTypes.string,
+  faqDiv: PropTypes.string,
+  faqMainClass: PropTypes.string,
+};
+
+FaqSection.defaultProps = {
+  title: "",
+  faqDiv: "",
+  faqMainClass: "",
+};
