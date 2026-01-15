@@ -20,37 +20,37 @@
   opacity: 0.8;
   cursor: not-allowed;
 }
-.btn[color-variant="gradient"] {
+.btn[data-color-variant="gradient"] {
   color: white;
   background: linear-gradient(225deg, #e04018 0%, #f8d11d 100%), #0a2147;
 }
-.btn[color-variant="primary"] {
+.btn[data-color-variant="primary"] {
   background: var(--royal-navy-blue);
   color: var(--white-color);
 }
-.btn[color-variant="secondary"] {
+.btn[data-color-variant="secondary"] {
   background: transparent;
   color: var(--black-color);
 }
-.btn[color-variant="danger"] {
+.btn[data-color-variant="danger"] {
   background: var(--reddish-orange);
   color: var(--white-color);
 }
-.btn[color-variant="dark"] {
+.btn[data-color-variant="dark"] {
   background: var(--black);
   color: var(--white);
 }
-.btn[color-variant="black-outlined"] {
+.btn[data-color-variant="black-outlined"] {
   background: var(--white-color);
   color: var(--black-color);
   border: 1px solid var(--black-color) !important;
 }
 
-.btn[color-variant="tertiary"] {
+.btn[data-color-variant="tertiary"] {
   background: var(--tertiary);
   color: var(--white);
 }
-.btn[color-variant="blue"] {
+.btn[data-color-variant="blue"] {
   background: var(--blue-v1);
   color: var(--white);
 }

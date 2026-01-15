@@ -23,15 +23,15 @@ const Button = ({
       style={{ ...customStyle, border: "none" }}
       onClick={onClick}
       disabled={disabled}
-      color-variant={variant}
+      data-color-variant={variant}
       className={` ${classes.btn} ${className} `}
       {...props}
     >
-      {leftIcon && leftIcon}
+      {leftIcon}
       {label && <label>{label}</label>}
 
       {children}
-      {rightIcon && rightIcon}
+      {rightIcon}
     </button>
   );
 };
