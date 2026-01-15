@@ -15,6 +15,18 @@ const DropdownIndicator = ({ isFocused, indicatorColor }) => {
   );
 };
 
+const createDropdownIndicator = (indicatorColor) => {
+  const DropdownIndicatorWrapper = (props) => (
+    <DropdownIndicator isFocused={props.isFocused} indicatorColor={indicatorColor} />
+  );
+  
+  DropdownIndicatorWrapper.propTypes = {
+    isFocused: PropTypes.bool,
+  };
+  
+  return DropdownIndicatorWrapper;
+};
+
 const DropDown = ({
   options,
   label,
@@ -43,7 +55,8 @@ const DropDown = ({
   iconClass,
   errorText,
   ...props
-}) => {
+  }) => {
+  const dropdownIndicatorComponent = createDropdownIndicator(indicatorColor);
 
   const dropDownStyle = {
     control: (styles, { isDisabled }) => ({
@@ -207,7 +220,7 @@ const DropDown = ({
           classNamePrefix={`DropdownOptionContainer ${classNamePrefix || ""}`}
           components={{
             IndicatorSeparator: () => null,
-            DropdownIndicator: (e) => <DropdownIndicator isFocused={e.isFocused} indicatorColor={indicatorColor} />,
+            DropdownIndicator: dropdownIndicatorComponent,
             ...Components,
           }}
           getOptionLabel={(option) => {
