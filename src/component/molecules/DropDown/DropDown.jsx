@@ -3,22 +3,18 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import ReactSelect, { components } from "react-select";
 import classes from "./DropDown.module.css";
 
-const DropdownIndicator = ({ isFocused, indicatorColor }) => {
-  return (
-    <components.DropdownIndicator>
-      {isFocused ? (
-        <MdKeyboardArrowUp size={16} color={indicatorColor} />
-      ) : (
-        <MdKeyboardArrowDown size={16} color={indicatorColor} />
-      )}
-    </components.DropdownIndicator>
-  );
-};
-
 const createDropdownIndicator = (indicatorColor) => {
-  const DropdownIndicatorWrapper = (props) => (
-    <DropdownIndicator isFocused={props.isFocused} indicatorColor={indicatorColor} />
-  );
+  const DropdownIndicatorWrapper = (props) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        {props.isFocused ? (
+          <MdKeyboardArrowUp size={16} color={indicatorColor} />
+        ) : (
+          <MdKeyboardArrowDown size={16} color={indicatorColor} />
+        )}
+      </components.DropdownIndicator>
+    );
+  };
   
   DropdownIndicatorWrapper.propTypes = {
     isFocused: PropTypes.bool,
@@ -239,16 +235,6 @@ const DropDown = ({
       )}
     </div>
   );
-};
-
-DropdownIndicator.propTypes = {
-  isFocused: PropTypes.bool,
-  indicatorColor: PropTypes.string,
-};
-
-DropdownIndicator.defaultProps = {
-  isFocused: false,
-  indicatorColor: "#3F78A3",
 };
 
 DropDown.propTypes = {
