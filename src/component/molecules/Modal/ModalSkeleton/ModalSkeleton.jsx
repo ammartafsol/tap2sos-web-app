@@ -1,4 +1,5 @@
 "use client";
+import PropTypes from "prop-types";
 import { Modal } from "react-bootstrap";
 import classes from "./ModalSkeleton.module.css";
 
@@ -88,7 +89,7 @@ export default function ModalSkeleton({
       >
         {header && (
           <Modal.Header
-            className={`${[classes.header, headerClass && headerClass].join(
+            className={`${[classes.header, headerClass || ""].join(
               " "
             )}`}
             style={{ ...headerStyles }}
@@ -97,7 +98,7 @@ export default function ModalSkeleton({
           </Modal.Header>
         )}
         <Modal.Body
-          className={`${[classes.body, modalClass && modalClass].join(" ")}`}
+          className={`${[classes.body, modalClass || ""].join(" ")}`}
           style={{ height: height || "auto" }}
         >
           {children}
@@ -106,3 +107,24 @@ export default function ModalSkeleton({
     </>
   );
 }
+
+ModalSkeleton.propTypes = {
+  show: PropTypes.bool.isRequired,
+  setShow: PropTypes.func.isRequired,
+  header: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  modalClass: PropTypes.string,
+  headerStyles: PropTypes.object,
+  width: PropTypes.string,
+  headerClass: PropTypes.string,
+  height: PropTypes.string,
+};
+
+ModalSkeleton.defaultProps = {
+  header: "",
+  modalClass: "",
+  headerStyles: {},
+  width: "500px",
+  headerClass: "",
+  height: "auto",
+};
