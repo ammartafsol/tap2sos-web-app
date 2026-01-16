@@ -1,5 +1,4 @@
 "use client";
-import PropTypes from "prop-types";
 import LottieLoader from "@/component/atoms/LottieLoader/LottieLoader";
 import RenderToast from "@/component/atoms/RenderToast";
 import {
@@ -14,6 +13,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import classes from "./MultiFileUpload.module.css";
 import { MdOutlineCloudDone } from "react-icons/md";
 import { MediaUrl } from "@/resources/utils/helper";
+import PropTypes from "prop-types";
 
 const MultiFileUpload = ({
   label,
@@ -81,30 +81,38 @@ const MultiFileUpload = ({
           />
         </div>
       );
-    } else {
+    }
+    // else if (fileType === "video") {
+    //   console.log("else if ")
+    //   return (
+    //     <ReactPlayer url={URL.createObjectURL(file)} playing={false} controls />
+    //   );
+    // }
+    else {
       return (
         <div className={classes.filePreview}>
-          <button
-            type="button"
-            className={classes.previewIcon}
-            onClick={() => window.open(MediaUrl(file), "_blank")}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                window.open(MediaUrl(file), "_blank");
-              }
-            }}
-            aria-label="View file"
-            style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
-          >
+          <span className={classes.previewIcon}>
             <FaFileContract
               title="View File"
               size={35}
               color="var(--secondary-text)"
+              onClick={() =>
+                // window.open(
+                //   isFileObject ? URL.createObjectURL(file) : MediaUrl(file),
+                //   "_blank"
+                // )
+                window.open(MediaUrl(file), "_blank")
+              }
             />
-          </button>
+          </span>
         </div>
       );
+      // } else {
+      //   return (
+      //     <div className={classes.filePreview}>
+      //       <p className={classes?.previewIcon}>{file.name}</p>
+      //     </div>
+      //   );
     }
   };
 
@@ -131,29 +139,19 @@ const MultiFileUpload = ({
 
       {files && (
         <div className={classes.filePreviewList}>
-          {files?.map((file) => {
-            const fileKey = file?.key || file?.id || file?.name || file?.fileName || `file-${Math.random()}`;
+          {files?.map((file, index) => {
             return (
-              <div key={fileKey}>
-                <div className={classes.fileItem}>
-                  <button
-                    type="button"
+              <div key={index}>
+                <div  className={classes.fileItem}>
+                  <span
                     className={classes.removeFile}
                     onClick={() => removeFile(file?.key || "")}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        removeFile(file?.key || "");
-                      }
-                    }}
-                    aria-label="Remove file"
-                    style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
                   >
                     <IoCloseOutline color="var(--white)" size={22} />
-                  </button>
+                  </span>
                   {renderFileComponent(file)}
                 </div>
-                <div>{file.fileName?.slice(-14) || file.name?.slice(-14) || "File"}</div>
+                <div>{file.fileName.slice(-14)}</div>
               </div>
             );
           })}
@@ -168,16 +166,18 @@ const MultiFileUpload = ({
             <div {...getRootProps({ className: "dropzone" })}>
               <input disabled={disable} {...getInputProps()} />
               <div className={classes.fileDesc}>
-                {uploadIcon || <MdOutlineCloudDone size={25} />}
-                <p className={`${customTextClass || ""} ${classes.text}`}>
+                {uploadIcon ? uploadIcon : <MdOutlineCloudDone size={25} />}
+                <p className={`${customTextClass} ${classes.text}`}>
                   {uploadText}
                 </p>
                 <BsFillPlusSquareFill color="var(--primary-bg)" size={20} />
-                {(fileSize || supportedFiles) && (
-                  <div>
-                    {fileSize && <p className={classes.desc}>{fileSize}</p>}
-                  </div>
-                )}
+                {fileSize ||
+                  (supportedFiles && (
+                    <div>
+                      <p className={classes.desc}>{fileSize}</p>
+                      {/* <p className={classes.desc}>{supportedFiles}</p> */}
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
@@ -190,45 +190,24 @@ const MultiFileUpload = ({
   );
 };
 
+export default MultiFileUpload;
+
+
 MultiFileUpload.propTypes = {
   label: PropTypes.string,
   uploadText: PropTypes.string,
   customTextClass: PropTypes.string,
   fileSize: PropTypes.string,
   supportedFiles: PropTypes.string,
-  uploadImage: PropTypes.string,
-  files: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.string,
-    ])
-  ).isRequired,
-  uploadIcon: PropTypes.node,
-  setFiles: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func,
+  files: PropTypes.array,
+  uploadIcon: PropTypes.element,
+  setFiles: PropTypes.func,
   errorText: PropTypes.string,
   disable: PropTypes.bool,
   extraStyles: PropTypes.object,
-  acceptedFiles: PropTypes.object,
+  acceptedFiles: PropTypes.array,
   removeFileCb: PropTypes.func,
   maxFileCount: PropTypes.number,
   Delete: PropTypes.func,
 };
-
-MultiFileUpload.defaultProps = {
-  label: "",
-  uploadText: "Upload File",
-  customTextClass: "",
-  fileSize: "",
-  supportedFiles: "File formats pdf and Word Doc",
-  uploadImage: "",
-  uploadIcon: null,
-  errorText: "",
-  disable: false,
-  extraStyles: {},
-  acceptedFiles: getSupportedImageTypes("all"),
-  removeFileCb: null,
-  maxFileCount: 5,
-  Delete: null,
-};
-
-export default MultiFileUpload;

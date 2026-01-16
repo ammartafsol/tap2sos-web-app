@@ -41,11 +41,10 @@
 .fileItem {
   display: flex;
   align-items: center;
-  /* margin: 10px 0; */
   border: 1px solid var(--primary-color) !important;
   color: var(--heading-gray);
   border-radius: 6px;
-  width: 250px;
+  width: 250px !important;
   height: 160px;
   overflow: hidden;
   position: relative;

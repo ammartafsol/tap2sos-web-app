@@ -194,10 +194,12 @@ export default function AddOrEditPatientTemplate({ slug }) {
       loadingType: "uploadingImages",
       Post,
       setMedia: (media) => {
+        // Handle nested response structure: { status: "success", data: { images: [...] } }
+        const responseData = media?.data || media;
         const uploaded = [
-          ...(media?.docs || []),
-          ...(media?.images || []),
-          ...(media?.photo || []),
+          ...(responseData?.docs || []),
+          ...(responseData?.images || []),
+          ...(responseData?.photo || []),
         ];
         const updatedDocs = {
           ...docs,
@@ -987,7 +989,7 @@ export default function AddOrEditPatientTemplate({ slug }) {
                     Delete={Delete}
                     setFiles={(f) => {
                       // Ensure docs are updated with the new files for this specific type
-                      handleUploadMedia(f, type, 2, setDocs, docs);
+                      handleUploadMedia(f, type, setDocs, docs, 2);
                     }}
                     removeFileCb={(key) => {
                       let updatedDocs = { ...docs };

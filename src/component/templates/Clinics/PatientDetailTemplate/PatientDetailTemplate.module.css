@@ -122,6 +122,10 @@
   margin: 20px 0px;
 }
 
+.documentItem{
+  width: 250px !important;
+}
+
 .documentItem span{
   color:var(--royal-navy-blue);
 }

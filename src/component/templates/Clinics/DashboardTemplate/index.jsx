@@ -15,6 +15,7 @@ import { TbNfc } from "react-icons/tb";
 import classes from "./DashboardTemplate.module.css";
 import StatesCard from "@/component/molecules/StatesCard/StatesCard";
 import { Loader } from "@/component/atoms/Loader";
+import Button from "@/component/atoms/Button";
 
 const DashboardTemplate = () => {
   const router = useRouter();
@@ -64,17 +65,17 @@ const DashboardTemplate = () => {
 
   return (
     <LayoutWrapper>
-      <Container >
+      <Container>
         {loading === "loading" ? (
           <div className={classes?.loaderContainer}>
             <Loader />
           </div>
         ) : (
           <>
-            <Row className="g-2" >
+            <Row className="g-2">
               {statsData?.map((item, index) => {
                 return (
-                  <Col key={item.title}   md="6" xl={4} >
+                  <Col key={item.title} md="6" xl={4}>
                     <StatesCard item={item} />
                   </Col>
                 );
@@ -116,6 +117,17 @@ const DashboardTemplate = () => {
                 }}
               />
             </div>
+            {data?.length > 10 && (
+              <div className={classes?.viewAllPatientsButtonContainer}>
+                <Button
+                  label={"View All Patients"}
+                  onClick={() => {
+                    router.push("/clinic/patient");
+                  }}
+                  className={classes?.viewAllPatientsButton}
+                />
+              </div>
+            )}
           </>
         )}
       </Container>
