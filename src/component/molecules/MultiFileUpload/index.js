@@ -166,7 +166,7 @@ const MultiFileUpload = ({
             <div {...getRootProps({ className: "dropzone" })}>
               <input disabled={disable} {...getInputProps()} />
               <div className={classes.fileDesc}>
-                {uploadIcon ? uploadIcon : <MdOutlineCloudDone size={25} />}
+                {uploadIcon ? uploadIcon : <MdOutlineCloudDone size={25} /> }
                 <p className={`${customTextClass} ${classes.text}`}>
                   {uploadText}
                 </p>
