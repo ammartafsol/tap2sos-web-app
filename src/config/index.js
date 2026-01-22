@@ -4,7 +4,8 @@ export const config = {
   // apiBaseURL: "https://tap2sos-backend-dd-8bd70d25feb3.herokuapp.com", // LIVE
   // apiBaseURL: "https://wb6bv6gg-3026.inc1.devtunnels.ms", // faisal tunnel
   // apiBaseURL: "https://tap2sos-backend-dg-302f66829072.herokuapp.com", // live
-  apiBaseURL: "https://tap2sos-backend-b11-01b2e85e565c.herokuapp.com", // live
+  // apiBaseURL: "https://tap2sos-backend-b11-01b2e85e565c.herokuapp.com", // live
+  apiBaseURL: "https://api.tap2sos.com", // live
 
   // apiBaseURL: "https://tap2sos-backend-b11-01b2e85e565c.herokuapp.com", // LIVE
   s3BucketURL: "https://tap2sos-backend-dd-8bd70d25feb3.herokuapp.com", // LIVE
